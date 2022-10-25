@@ -52,6 +52,7 @@ class SalesList extends React.Component {
     async componentDidMount() {
 
         let data = await getInstances(8090, 'sales');
+        console.log(data);
         this.setState({sales:data});
 
     }
