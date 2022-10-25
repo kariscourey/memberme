@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AppointmentForm extends React.Component {
+class ServiceAppointmentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,10 +38,10 @@ class AppointmentForm extends React.Component {
     render() {
         return (
           <div>
-            Appointment form here
+            Service appointment form here
           </div>
     );
 }
 }
 
-export default AppointmentForm;
+export default ServiceAppointmentForm;

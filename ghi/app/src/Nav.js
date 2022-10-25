@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 function Nav() {
   return (
@@ -9,6 +9,7 @@ function Nav() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
             </li>
@@ -27,7 +28,7 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/technicians/new">Create technician</NavLink>
             </li> */}
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <Outlet />
           </ul>
         </div>
       </div>

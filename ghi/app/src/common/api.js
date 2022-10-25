@@ -40,6 +40,6 @@ export async function createInstance(port, app, data) {
 
     const response = await fetch(url, fetchConfig);
 
-    return response.ok;
+    return response;
 
     }

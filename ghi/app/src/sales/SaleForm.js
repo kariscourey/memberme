@@ -1,5 +1,6 @@
 import React from 'react';
 import { createInstance } from '../common/api';
+import { handleChange } from '../common/synthetic';
 
 class SaleForm extends React.Component {
     constructor(props) {
@@ -11,10 +12,7 @@ class SaleForm extends React.Component {
             customers: [],
         };
 
-        this.handlePriceChange = this.handlePriceChange.bind(this);
-        this.handleAutomobileChange = this.handleAutomobileChange.bind(this);
-        this.handleSalesPersonChange = this.handleSalesPersonChange.bind(this);
-        this.handleCustomerChange = this.handleCustomerChange.bind(this);
+        this.handleChange = handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -37,7 +35,7 @@ class SaleForm extends React.Component {
         const responses = await Promise.all(requests);
 
         responses.map(async response => {
-          data = await response.json();
+          let data = await response.json();
           return (
             this.setState({locations: data.locations})
           );
@@ -54,28 +52,6 @@ class SaleForm extends React.Component {
 
       }
 
-
-
-    handlePriceChange (event) {
-        const value = event.target.value;
-        this.setState({price: value});
-    }
-
-    handleAutomobileChange (event) {
-        const value = event.target.value;
-        this.setState({automobile: value});
-    }
-
-    handleSalesPersonChange (event) {
-        const value = event.target.value;
-        this.setState({salesPerson: value});
-    }
-
-    handleCustomerChange (event) {
-      const value = event.target.value;
-      this.setState({customer: value});
-    }
-
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
@@ -84,9 +60,9 @@ class SaleForm extends React.Component {
 
         console.log(data);
 
-        ok = await createInstance(8090, 'sales', data);
+        const response = await createInstance(8090, 'sales', data);
 
-        if (ok) {
+        if (response.ok) {
             const newInstance = await response.json();
             console.log(newInstance);
 
@@ -110,18 +86,18 @@ class SaleForm extends React.Component {
               </div>
               <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                  <h1>Create a new conference</h1>
+                  <h1>Create a sale record</h1>
                   <form onSubmit={this.handleSubmit} id="create-conference-form">
                     <div className="form-floating mb-3">
-                      <input onChange={this.handleNameChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
+                      <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
                       <label htmlFor="name">Name</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input onChange={this.handleAddressChange} placeholder="Address" value={this.state.starts} required type="date" id="address" name="address" className="form-control"/>
+                      <input onChange={this.handleChange} placeholder="Address" value={this.state.starts} required type="date" id="address" name="address" className="form-control"/>
                       <label htmlFor="address">Address</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input onChange={this.handlePhoneNumberChange} placeholder="Phone number" value={this.state.ends} required type="phoneNumber" id="phoneNumber" name="phoneNumber" className="form-control"/>
+                      <input onChange={this.handleChange} placeholder="Phone number" value={this.state.ends} required type="phoneNumber" id="phoneNumber" name="phoneNumber" className="form-control"/>
                       <label htmlFor="phoneNumber">Phone Number</label>
                     </div>
                     <button className="btn btn-primary">Create</button>

@@ -5,11 +5,13 @@ import { getInstances } from '../common/api';
 function DataTable(props) {
 
     let sales = props.sales;
+    console.log(sales);
 
     return (
         <>
             <div>
-                <table className="table table-striped">
+                hello
+                {/* <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Sales person</th>
@@ -26,12 +28,11 @@ function DataTable(props) {
                                     <td>{sale.customer.name}</td>
                                     <td>{sale.automobile.vin}</td>
                                     <td>{sale.price}</td>
-                                    <td><img style={{ width: 100 }} src={shoe.picture_url} /></td>
                                 </tr>
                             )
                         })}
                     </tbody>
-                </table>
+                </table> */}
             </div>
         </>
 
