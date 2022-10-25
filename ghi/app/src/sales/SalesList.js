@@ -2,6 +2,7 @@ import React from 'react';
 import { getInstances } from '../common/api';
 
 
+
 function DataTable(props) {
 
     let sales = props.sales;
@@ -10,8 +11,7 @@ function DataTable(props) {
     return (
         <>
             <div>
-                hello
-                {/* <table className="table table-striped">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Sales person</th>
@@ -32,7 +32,7 @@ function DataTable(props) {
                             )
                         })}
                     </tbody>
-                </table> */}
+                </table>
             </div>
         </>
 
