@@ -99,27 +99,45 @@ def api_sales(request):
             safe=False,
         )
 
-@require_http_methods(["POST"])
+@require_http_methods(["GET", "POST"])
 def api_sales_person(request):
-    content = json.loads(request.body)
-    sales_person = SalesPerson.objects.create(**content)
 
-    return JsonResponse(
-        sales_person,
-        encoder=SalesPersonEncoder,
-        safe=False,
-    )
+    if request.method == "GET":
+        sales_people = SalesPerson.objects.all()
+        return JsonResponse(
+            {'sales_people': sales_people},
+            encoder=SalesPersonEncoder,
+        )
 
-@require_http_methods(["POST"])
+    else:
+        content = json.loads(request.body)
+        sales_person = SalesPerson.objects.create(**content)
+
+        return JsonResponse(
+            sales_person,
+            encoder=SalesPersonEncoder,
+            safe=False,
+        )
+
+@require_http_methods(["GET", "POST"])
 def api_customer(request):
-    content = json.loads(request.body)
-    customer = Customer.objects.create(**content)
 
-    return JsonResponse(
-        customer,
-        encoder=Customer,
-        safe=False,
-    )
+    if request.method == "GET":
+        customers = Customer.objects.all()
+        return JsonResponse(
+            {'customers': customers},
+            encoder=CustomerEncoder,
+        )
+
+    else:
+        content = json.loads(request.body)
+        customer = Customer.objects.create(**content)
+
+        return JsonResponse(
+            customer,
+            encoder=CustomerEncoder,
+            safe=False,
+        )
 
 # @require_http_methods(["GET", "PUT", "DELETE"])
 # def api_sale(request, pk):
