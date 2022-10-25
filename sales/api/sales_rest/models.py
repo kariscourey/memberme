@@ -18,7 +18,6 @@ class Customer(models.Model):
         return self.name
 
 
-# TODO inform Angel of import_href!
 class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     color = models.CharField(max_length=50)
