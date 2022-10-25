@@ -49,6 +49,7 @@ MIDDLEWARE = [
 ]
 
 ALLOWED_HOSTS = [
+    "service-api",
     "localhost",
 ]
 

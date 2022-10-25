@@ -15,20 +15,20 @@ class AutomobileVO(models.Model):
 
 class Technician(models.Model):
     tech_name = models.CharField(max_length=100)
-    employee_number = models.PositiveSmallIntegerField()
+    employee_number = models.PositiveSmallIntegerField(unique=True)
 
     def __str__(self):
         return self.tech_name
 
 class ServiceAppointment(models.Model):
-    vin = models.ForeignKey(
+    automobile = models.ForeignKey(
         AutomobileVO,
         related_name="service_appointments",
         on_delete=models.PROTECT,
     )
     owner_name = models.CharField(max_length=100)
     appointment_date = models.DateTimeField(auto_now=False)
-    tech_name = models.ForeignKey(
+    technician = models.ForeignKey(
         Technician,
         related_name="service_appointments",
         on_delete=models.PROTECT,

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from common.json import ModelEncoder
 import json
-from models import ServiceAppointment, Technician, AutomobileVO
+from .models import ServiceAppointment, Technician, AutomobileVO
 
 class ServiceAppointmentEncoder(ModelEncoder):
     model = ServiceAppointment
@@ -31,20 +31,19 @@ def api_appointments(request):
         content = json.loads(request.body)
 
         try:
-            automobile_id = content["automobile"]
-            automobile_href = f"/api/sales/{automobile_id}/"
+            automobile_vin = content["automobile"]
+            automobile_href = f"/api/automobiles/{automobile_vin}/"
             automobile = AutomobileVO.objects.get(import_href=automobile_href)
             content["automobile"] = automobile
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
-                {"message": "Invalid Automobile"},
+                {"message": "Invalid Automobile bro"},
                 status=400,
             )
         try:
-            techname_id = content["automobile"]
-            automobile_href = f"/api/sales/{automobile_id}/"
-            automobile = Technician.objects.get(import_href=automobile_href)
-            content["automobile"] = automobile
+            technician_employee_number = content["technician"]
+            technician = Technician.objects.get(employee_number=technician_employee_number)
+            content["technician"] = technician
         except Technician.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid technician no such thing"},
