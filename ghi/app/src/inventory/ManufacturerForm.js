@@ -2,37 +2,34 @@ import React from 'react';
 import { createInstance } from '../common/api';
 import { handleChange } from '../common/synthetic';
 
-class CustomerForm extends React.Component {
+
+class ManufacturerForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            address: '',
-            phoneNumber: '',
         };
 
         this.handleChange = handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
+
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        data.phone_number = data.phoneNumber;
-        delete data.phoneNumber;
 
         console.log(data);
 
-        const response = await createInstance(8090, 'customers', data);
+        const response = await createInstance(8100, 'manufacturers', data);
 
         if (response.ok) {
             const newInstance = await response.json();
             console.log(newInstance);
 
             const cleared = {
-                name: '',
-                address: '',
-                phoneNumber: '',
+              name: '',
             };
             this.setState(cleared);
         }
@@ -48,19 +45,11 @@ class CustomerForm extends React.Component {
               </div>
               <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                  <h1>Create a customer</h1>
+                  <h1>Create a manufacturer</h1>
                   <form onSubmit={this.handleSubmit} id="create-conference-form">
                     <div className="form-floating mb-3">
                       <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
                       <label htmlFor="name">Name</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Address" value={this.state.address} required type="text" id="address" name="address" className="form-control"/>
-                      <label htmlFor="address">Address</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Phone number" value={this.state.phoneNumber} required type="text" id="phoneNumber" name="phoneNumber" className="form-control"/>
-                      <label htmlFor="phoneNumber">Phone number</label>
                     </div>
                     <button className="btn btn-primary">Create</button>
                   </form>
@@ -72,4 +61,4 @@ class CustomerForm extends React.Component {
 }
 }
 
-export default CustomerForm;
+export default ManufacturerForm;
