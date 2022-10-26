@@ -16,6 +16,14 @@ class ServiceAppointmentEncoder(ModelEncoder):
         "status",
         ]
 
+class TechnicianEncoder(ModelEncoder):
+    model = Technician
+    properties = [
+        "tech_name",
+        "employee_number",
+
+
+    ]
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def api_appointments(request):
@@ -54,5 +62,25 @@ def api_appointments(request):
         return JsonResponse(
             service_appointment,
             encoder=ServiceAppointmentEncoder,
+            safe=False,
+        )
+
+@require_http_methods(["GET", "POST"])
+def api_technicians(request):
+
+    if request.method == "GET":
+        technicians = Technician.objects.all()
+        return JsonResponse(
+            {"technicians": technicians},
+            encoder=TechnicianEncoder,
+            safe=False
+        )
+    else:
+        content = json.loads(request.body)
+
+        technician = Technician.objects.create(**content)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianEncoder,
             safe=False,
         )
