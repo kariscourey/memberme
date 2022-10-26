@@ -1,9 +1,11 @@
 from django.db import models
 
+# TODO add status for autovo?
+# TODO minimize autovo
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=50)
-    employee_number = models.PositiveSmallIntegerField(unique=True)
+    employee_number = models.PositiveIntegerField(unique=True)
 
     def __str__(self):
         return self.name

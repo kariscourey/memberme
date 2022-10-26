@@ -2,6 +2,7 @@ import React from 'react';
 import { createInstance, getInstancesFromManyRequests } from '../common/api';
 import { handleChange } from '../common/synthetic';
 
+// TODO change status to sold
 
 class SaleForm extends React.Component {
     constructor(props) {
@@ -65,7 +66,6 @@ class SaleForm extends React.Component {
             };
             this.setState(cleared);
         }
-
     }
 
     render() {

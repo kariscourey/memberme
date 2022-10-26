@@ -2,6 +2,7 @@ import React from 'react';
 import { getInstances } from '../common/api';
 import { handleChange } from '../common/synthetic';
 
+// TODO filter
 
 function DataTable(props) {
 

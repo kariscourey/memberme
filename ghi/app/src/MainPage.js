@@ -9,6 +9,7 @@ function MainPage() {
         </p>
       </div>
     </div>
+
   );
 }
 

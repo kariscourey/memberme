@@ -20,6 +20,8 @@ import SalesPersonForm from './sales/SalesPersonForm';
 // import TechnicianForm from './service/TechnicianForm';
 // import ServiceAppointmentsList from './service/ServiceAppointmentsList';
 
+// TODO form validation
+
 function App() {
   return (
     <BrowserRouter>

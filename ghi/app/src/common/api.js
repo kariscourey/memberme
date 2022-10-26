@@ -43,6 +43,8 @@ export async function createInstance(port, app, data) {
     };
 
     const response = await fetch(url, fetchConfig);
+    // console.log(response);
+    // console.log(response.ok);
 
     return response;
 

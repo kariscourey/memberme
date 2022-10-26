@@ -7,7 +7,6 @@ from .api_views import (
     api_sales_person,
 )
 
-# TODO verify urls in insomnia
 urlpatterns = [
     path("sales/", api_sales, name="api_sales"),
     # path("sales/<int:pk>/", api_sale, name="api_sale"),
