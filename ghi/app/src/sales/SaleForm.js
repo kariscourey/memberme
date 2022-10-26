@@ -1,8 +1,8 @@
 import React from 'react';
-import { createInstance, getInstancesFromManyRequests } from '../common/api';
+import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
 import { handleChange } from '../common/synthetic';
+import { refreshPage } from '../common/window';
 
-// TODO change status to sold
 
 class SaleForm extends React.Component {
     constructor(props) {
@@ -23,13 +23,16 @@ class SaleForm extends React.Component {
       try {
 
         const urls = [
-          'http://localhost:8100/api/automobiles/',
           'http://localhost:8090/api/sales_people',
           'http://localhost:8090/api/customers',
         ]
 
         const obj = await getInstancesFromManyRequests(urls);
         // console.log(obj);
+
+        const app = 'automobiles'
+        const data = await getFilteredInstances(8100, app, 'sold', false)
+        obj[app] = data;
 
         return (
             this.setState(obj)
@@ -49,12 +52,18 @@ class SaleForm extends React.Component {
         delete data.automobiles;
         delete data.salesPeople;
         delete data.customers;
+        delete data.sold;
 
         console.log(data);
 
-        const response = await createInstance(8090, 'sales', data);
+        let response = await createInstance(8090, 'sales', data);
 
         if (response.ok) {
+
+            const vin = data.automobile;
+            response = await updateInstance(8100, 'automobiles', vin, {sold: true});
+
+            if (response.ok) {
             const newInstance = await response.json();
             console.log(newInstance);
 
@@ -66,6 +75,8 @@ class SaleForm extends React.Component {
             };
             this.setState(cleared);
         }
+      }
+      refreshPage();  // how to change the timing?
     }
 
     render() {
@@ -78,7 +89,7 @@ class SaleForm extends React.Component {
               <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                   <h1>Create a sale record</h1>
-                  <form onSubmit={this.handleSubmit} id="create-conference-form">
+                  <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                       <input onChange={this.handleChange} placeholder="Price" value={this.state.price} required type="number" id="price" name="price" className="form-control"/>
                       <label htmlFor="price">Price</label>

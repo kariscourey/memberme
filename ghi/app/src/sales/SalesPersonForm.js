@@ -48,13 +48,13 @@ class SalesPersonForm extends React.Component {
               <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                   <h1>Create a sales person</h1>
-                  <form onSubmit={this.handleSubmit} id="create-conference-form">
-                    <div className="form-floating mb-3">
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="form-floating mb-3">ß
                       <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
                       <label htmlFor="name">Name</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Employee number" value={this.state.ends} required type="employeeNumber" id="employeeNumber" name="employeeNumber" className="form-control"/>
+                      <input onChange={this.handleChange} placeholder="Employee number" value={this.state.employeeNumber} required type="employeeNumber" id="employeeNumber" name="employeeNumber" className="form-control"/>
                       <label htmlFor="employeeNumber">Employee number</label>
                     </div>
                     <button className="btn btn-primary">Create</button>

@@ -1,5 +1,26 @@
 import { toCamel } from '../common/format';
 
+export async function updateInstance(port, app, url_field, data) {
+    const body = JSON.stringify(data);
+    console.log(body);
+
+    const url = `http://localhost:${port}/api/${app}/${url_field}/`;
+    console.log(url);
+
+    const fetchConfig = {
+        method: 'put',
+        body: body,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    const response = await fetch(url, fetchConfig);
+    console.log(response);
+
+    return response;
+}
+
 export async function getInstance(port, app, id) {
     const url = `http://localhost:${port}/api/${app}/${id}/`;
     const response = await fetch(url);
@@ -22,6 +43,22 @@ export async function getInstance(port, app, id) {
           const data = await response.json();
           // console.log(data);
           // console.log(data[app]);
+          return data[app];
+        } else {
+          console.error(response);
+        }
+
+      }
+
+  export async function getFilteredInstances(port, app, parameter, value) {
+        const response = await fetch(`http://localhost:${port}/api/${app}/`);
+
+        if (response.ok) {
+          let data = await response.json();
+          // console.log(data);
+          // console.log(data[app]);
+          // console.log(data[app][0][parameter]);
+          data[app] = data[app].filter(item => item[parameter] == value)
           return data[app];
         } else {
           console.error(response);

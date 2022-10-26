@@ -1,7 +1,5 @@
 from django.db import models
 
-# TODO add status for autovo?
-# TODO minimize autovo
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=50)
@@ -22,10 +20,11 @@ class Customer(models.Model):
 
 class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
-    color = models.CharField(max_length=50)
-    year = models.PositiveSmallIntegerField()
+    # color = models.CharField(max_length=50)
+    # year = models.PositiveSmallIntegerField()
     vin = models.CharField(max_length=17, unique=True)
-    model_id = models.PositiveSmallIntegerField()
+    # model_id = models.PositiveSmallIntegerField()
+    sold = models.BooleanField()
 
     def __str__(self):
         return self.vin

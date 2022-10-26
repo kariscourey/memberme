@@ -27,10 +27,11 @@ def get_automobiles():
         AutomobileVO.objects.update_or_create(
             import_href=automobile["href"],
             defaults={
-                'color': automobile['color'],
-                'year': automobile['year'],
+                # 'color': automobile['color'],
+                # 'year': automobile['year'],
                 'vin': automobile['vin'],
-                'model_id': automobile['model']['id'],
+                # 'model_id': automobile['model']['id'],
+                'sold': automobile['sold'],
             },
         )
         # print("automobilevo count: ", AutomobileVO.objects.all().count())

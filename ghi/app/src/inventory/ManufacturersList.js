@@ -5,49 +5,27 @@ import { handleChange } from '../common/synthetic';
 
 function DataTable(props) {
 
-    let sales = props.sales;
-    let salesPeople = props.salesPeople;
-    // console.log(sales);
-    let salesPerson = '';
+    let manufacturers = props.manufacturers;
+    // console.log(manufacturers);
 
     return (
         <>
             <div>
-                <h1 className="mt-3">Sales</h1>
-            </div>
-
-            <div className="mb-3">
-                <select onChange={handleChange} value={salesPerson} required id="salesPerson" name="salesPerson" className="form-select">
-                <option value="">Choose a sales person</option>
-                {salesPeople.map(salesPerson => {
-                    return (
-                        <option key={salesPerson.employee_number} value={salesPerson.employee_number}>
-                            {salesPerson.name} ({salesPerson.employee_number})
-                        </option>
-                    )
-                })}
-                </select>
-                <button className="btn btn-primary">Filter</button>
+                <h1 className="mt-3">Manufacturers</h1>
             </div>
 
             <div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>Sales person</th>
-                            <th>Customer</th>
-                            <th>VIN</th>
-                            <th>Sales price</th>
+                            <th>Name</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {sales.map((sale) => {
+                        {manufacturers.map((manufacturer) => {
                             return (
-                                <tr key={sale.id}>
-                                    <td>{sale.sales_person.name}</td>
-                                    <td>{sale.customer.name}</td>
-                                    <td>{sale.automobile.vin}</td>
-                                    <td>${sale.price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+                                <tr key={manufacturer.id}>
+                                    <td>{manufacturer.name}</td>
                                 </tr>
                             )
                         })}
@@ -60,22 +38,19 @@ function DataTable(props) {
   }
 
 
-class SalesList extends React.Component {
+class ModelsList extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            sales: [],
-            salesPeople: [],
+            manufacturers: [],
         };
     }
 
     async componentDidMount() {
 
-        let data = await getInstances(8090, 'sales');
-        this.setState({sales:data});
-        data = await getInstances(8090, 'sales_people');
-        this.setState({salesPeople:data});
+        let data = await getInstances(8100, 'manufacturers');
+        this.setState({manufacturers:data});
 
     }
 
@@ -83,10 +58,10 @@ class SalesList extends React.Component {
     render() {
         return (
             <div className="row">
-                <DataTable sales={this.state.sales} salesPeople={this.state.salesPeople} />
+                <DataTable manufacturers={this.state.manufacturers} />
             </div>
     )
 }
 }
 
-export default SalesList;
+export default ModelsList;

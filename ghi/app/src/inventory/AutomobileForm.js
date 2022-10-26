@@ -67,7 +67,7 @@ class AutomobileForm extends React.Component {
               <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                   <h1>Create an automobile</h1>
-                  <form onSubmit={this.handleSubmit} id="create-conference-form">
+                  <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
                       <input onChange={this.handleChange} placeholder="Color" value={this.state.color} required type="text" id="color" name="color" className="form-control"/>
                       <label htmlFor="color">Color</label>
