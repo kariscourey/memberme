@@ -1,6 +1,7 @@
 import React from 'react';
-import { createInstance } from '../common/api';
+import { createInstance, getInstancesFromManyRequests } from '../common/api';
 import { handleChange } from '../common/synthetic';
+
 
 class SaleForm extends React.Component {
     constructor(props) {
@@ -20,31 +21,18 @@ class SaleForm extends React.Component {
 
       try {
 
-        const requests = [];
         const urls = [
           'http://localhost:8100/api/automobiles/',
           'http://localhost:8090/api/sales_people',
           'http://localhost:8090/api/customers',
-      ]
+        ]
 
-        // for (let url of urls) {
-        //   requests.push(fetch(url));
-        // }
+        const obj = await getInstancesFromManyRequests(urls);
+        // console.log(obj);
 
-        requests.map(url => fetch(url));
-        const responses = await Promise.all(requests);
-
-        responses.map(async response => {
-          let data = await response.json();
-          return (
-            this.setState({locations: data.locations})
+        return (
+            this.setState(obj)
           );
-        })
-
-        // if (response.ok) {
-        //     const data = await response.json();
-        //     this.setState({locations: data.locations});
-        //     }
 
         } catch (e) {
             console.error(e);
@@ -57,6 +45,9 @@ class SaleForm extends React.Component {
         const data = {...this.state};
         data.sales_person = data.salesPerson;
         delete data.salesPerson;
+        delete data.automobiles;
+        delete data.salesPeople;
+        delete data.customers;
 
         console.log(data);
 
@@ -89,16 +80,44 @@ class SaleForm extends React.Component {
                   <h1>Create a sale record</h1>
                   <form onSubmit={this.handleSubmit} id="create-conference-form">
                     <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
-                      <label htmlFor="name">Name</label>
+                      <input onChange={this.handleChange} placeholder="Price" value={this.state.price} required type="number" id="price" name="price" className="form-control"/>
+                      <label htmlFor="price">Price</label>
                     </div>
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Address" value={this.state.starts} required type="date" id="address" name="address" className="form-control"/>
-                      <label htmlFor="address">Address</label>
+                    <div className="mb-3">
+                      <select onChange={this.handleChange} value={this.state.automobile} required id="automobile" name="automobile" className="form-select">
+                        <option value="">Choose an automobile</option>
+                        {this.state.automobiles.map(automobile => {
+                            return (
+                                <option key={automobile.vin} value={automobile.vin}>
+                                    {automobile.model.manufacturer.name} {automobile.model.name} ({automobile.vin})
+                                </option>
+                            )
+                        })}
+                      </select>
                     </div>
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Phone number" value={this.state.ends} required type="phoneNumber" id="phoneNumber" name="phoneNumber" className="form-control"/>
-                      <label htmlFor="phoneNumber">Phone Number</label>
+                    <div className="mb-3">
+                      <select onChange={this.handleChange} value={this.state.salesPerson} required id="salesPerson" name="salesPerson" className="form-select">
+                        <option value="">Choose a sales person</option>
+                        {this.state.salesPeople.map(salesPerson => {
+                            return (
+                                <option key={salesPerson.employee_number} value={salesPerson.employee_number}>
+                                    {salesPerson.name} ({salesPerson.employee_number})
+                                </option>
+                            )
+                        })}
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <select onChange={this.handleChange} value={this.state.customer} required id="customer" name="customer" className="form-select">
+                        <option value="">Choose a customer</option>
+                        {this.state.customers.map(customer => {
+                            return (
+                                <option key={customer.phone_number} value={customer.phone_number}>
+                                    {customer.name} ({customer.phone_number})
+                                </option>
+                            )
+                        })}
+                      </select>
                     </div>
                     <button className="btn btn-primary">Create</button>
                   </form>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { handleChange } from '../common/synthetic';
 
 class ServiceAppointmentForm extends React.Component {
     constructor(props) {

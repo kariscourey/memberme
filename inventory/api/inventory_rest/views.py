@@ -13,9 +13,9 @@ from .models import Automobile, Manufacturer, VehicleModel
 @require_http_methods(["GET", "POST"])
 def api_automobiles(request):
     if request.method == "GET":
-        autos = Automobile.objects.all()
+        automobiles = Automobile.objects.all()
         return JsonResponse(
-            {"autos": autos},
+            {"automobiles": automobiles},
             encoder=AutomobileEncoder,
         )
     else:
@@ -24,9 +24,9 @@ def api_automobiles(request):
             model_id = content["model_id"]
             model = VehicleModel.objects.get(pk=model_id)
             content["model"] = model
-            auto = Automobile.objects.create(**content)
+            automobile = Automobile.objects.create(**content)
             return JsonResponse(
-                auto,
+                automobile,
                 encoder=AutomobileEncoder,
                 safe=False,
             )
@@ -42,9 +42,9 @@ def api_automobiles(request):
 def api_automobile(request, vin):
     if request.method == "GET":
         try:
-            auto = Automobile.objects.get(vin=vin)
+            automobile = Automobile.objects.get(vin=vin)
             return JsonResponse(
-                auto,
+                automobile,
                 encoder=AutomobileEncoder,
                 safe=False
             )
@@ -54,10 +54,10 @@ def api_automobile(request, vin):
             return response
     elif request.method == "DELETE":
         try:
-            auto = Automobile.objects.get(vin=vin)
-            auto.delete()
+            automobile = Automobile.objects.get(vin=vin)
+            automobile.delete()
             return JsonResponse(
-                auto,
+                automobile,
                 encoder=AutomobileEncoder,
                 safe=False,
             )
@@ -66,15 +66,15 @@ def api_automobile(request, vin):
     else: # PUT
         try:
             content = json.loads(request.body)
-            auto = Automobile.objects.get(vin=vin)
+            automobile = Automobile.objects.get(vin=vin)
 
             props = ["color", "year"]
             for prop in props:
                 if prop in content:
-                    setattr(auto, prop, content[prop])
-            auto.save()
+                    setattr(automobile, prop, content[prop])
+            automobile.save()
             return JsonResponse(
-                auto,
+                automobile,
                 encoder=AutomobileEncoder,
                 safe=False,
             )

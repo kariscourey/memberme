@@ -1,4 +1,5 @@
 import React from 'react';
+import { handleChange } from '../common/synthetic';
 
 class TechnicianForm extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class TechnicianForm extends React.Component {
             example: '',
         };
 
-        this.handleExampleChange = this.handleExampleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

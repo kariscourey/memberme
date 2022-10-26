@@ -1,3 +1,5 @@
+import { toCamel } from '../common/format';
+
 export async function getInstance(port, app, id) {
     const url = `http://localhost:${port}/api/${app}/${id}/`;
     const response = await fetch(url);
@@ -18,6 +20,8 @@ export async function getInstance(port, app, id) {
 
         if (response.ok) {
           const data = await response.json();
+          // console.log(data);
+          // console.log(data[app]);
           return data[app];
         } else {
           console.error(response);
@@ -43,3 +47,33 @@ export async function createInstance(port, app, data) {
     return response;
 
     }
+
+
+export async function getInstancesFromManyRequests(urls) {
+    const requests = urls.map(url => fetch(url));
+    // console.log(requests);
+    const responses = await Promise.all(requests);
+    // console.log(responses);
+
+    const obj = {};
+
+    responses.map(async response => {
+      let data = await response.json();
+      // console.log(data);
+      // console.log(Object.keys(data)[0]);
+      // console.log(Object.values(data));
+      let obj_key = Object.keys(data)[0];
+
+      if (obj_key.includes("_")) {
+        obj_key = toCamel(obj_key);
+      }
+
+      let obj_value = Object.values(data)[0];
+      // console.log(obj_value);
+      obj[obj_key] = obj_value;
+      // console.log(obj);
+    })
+
+    return obj;
+
+}

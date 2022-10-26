@@ -15,14 +15,14 @@ from service_rest.models import AutomobileVO
 def get_automobile():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
-    for auto in content["autos"]:
+    for automobile in content["automobiles"]:
         AutomobileVO.objects.update_or_create(
-            import_href=auto["href"],
+            import_href=automobile["href"],
             defaults={
-            "color": auto["color"],
-            "year": auto["year"],
-            "vin": auto["vin"],
-            "model_id": auto["model"]["id"],
+            "color": automobile["color"],
+            "year": automobile["year"],
+            "vin": automobile["vin"],
+            "model_id": automobile["model"]["id"],
             },
         )
 

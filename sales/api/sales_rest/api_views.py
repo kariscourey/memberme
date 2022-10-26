@@ -35,6 +35,7 @@ class CustomerEncoder(ModelEncoder):
 class SaleEncoder(ModelEncoder):
     model = Sale
     properties = [
+        "id",
         "price",
         "automobile",
         "sales_person",
