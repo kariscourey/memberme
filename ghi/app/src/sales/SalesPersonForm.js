@@ -49,7 +49,7 @@ class SalesPersonForm extends React.Component {
                 <div className="shadow p-4 mt-4">
                   <h1>Create a sales person</h1>
                   <form onSubmit={this.handleSubmit}>
-                    <div className="form-floating mb-3">ß
+                    <div className="form-floating mb-3">
                       <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
                       <label htmlFor="name">Name</label>
                     </div>

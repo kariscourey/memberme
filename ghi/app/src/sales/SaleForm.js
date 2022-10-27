@@ -91,7 +91,7 @@ class SaleForm extends React.Component {
                   <h1>Create a sale record</h1>
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Price" value={this.state.price} required type="number" id="price" name="price" className="form-control"/>
+                      <input onChange={this.handleChange} placeholder="Price" value={this.state.price} required type="number" min="0" id="price" name="price" className="form-control"/>
                       <label htmlFor="price">Price</label>
                     </div>
                     <div className="mb-3">

@@ -68,6 +68,7 @@ class SalesList extends React.Component {
         this.state = {
             sales: [],
             salesPeople: [],
+            salesPerson: '',
         };
     }
 
@@ -84,7 +85,7 @@ class SalesList extends React.Component {
     render() {
         return (
             <div className="row">
-                <DataTable sales={this.state.sales} salesPeople={this.state.salesPeople} />
+                <DataTable sales={this.state.sales} salesPeople={this.state.salesPeople} salesPerson={this.state.salesPerson} />
             </div>
     )
 }

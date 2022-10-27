@@ -6,7 +6,7 @@ class SalesPerson(models.Model):
     employee_number = models.PositiveIntegerField(unique=True)
 
     def __str__(self):
-        return self.name
+        f"{self.name}"
 
 
 class Customer(models.Model):
@@ -15,7 +15,7 @@ class Customer(models.Model):
     phone_number = models.PositiveBigIntegerField(unique=True)
 
     def __str__(self):
-        return self.name
+        f"{self.name}"
 
 
 class AutomobileVO(models.Model):
@@ -27,7 +27,7 @@ class AutomobileVO(models.Model):
     sold = models.BooleanField()
 
     def __str__(self):
-        return self.vin
+        return f"{self.vin}"
 
 
 class Sale(models.Model):
@@ -49,4 +49,4 @@ class Sale(models.Model):
     )
 
     def __str__(self):
-        return self.automobile
+        return f"{self.automobile}"
