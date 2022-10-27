@@ -11,11 +11,10 @@ class SalesPersonForm extends React.Component {
         };
 
         this.handleChange = handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-    async handleSubmit(event) {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const data = {...this.state};
         data.employee_number = data.employeeNumber;

@@ -41,12 +41,6 @@ class AppointmentsList extends React.Component {
         };
     }
 
-    async componentDidMount() {
-
-        let data = await getInstances(0000, 'examples');
-        this.setState({examples:data});
-
-    }
 
 
     render() {

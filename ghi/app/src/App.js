@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import MainPage from './MainPage';
-import Nav from './Nav';
+import CarCarNav from './Nav';
 
 import AutomobileForm from './inventory/AutomobileForm';
 import AutomobilesList from './inventory/AutomobilesList';
@@ -25,7 +26,7 @@ import SalesPersonForm from './sales/SalesPersonForm';
 function App() {
   return (
     <BrowserRouter>
-      <Nav />
+      <CarCarNav />
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -61,9 +62,20 @@ function App() {
           <Route
                 path="*"
                 element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>There's nothing here!</p>
-                  </main>
+                  <div className="container">
+                  <div className="row">
+                    <div id="alert">
+                      <div></div>
+                    </div>
+                    <div className="offset-3 col-6">
+                      <div className="shadow p-4 mt-4">
+                        <h1>Uh oh...</h1>
+                        <p>This page doesn't exist.</p>
+                        <p>Why don't you return <Link to={`/`}>home</Link>, friend?</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 }
               />
         </Routes>

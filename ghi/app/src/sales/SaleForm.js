@@ -2,21 +2,23 @@ import React from 'react';
 import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
 import { handleChange } from '../common/synthetic';
 import { refreshPage } from '../common/window';
+import { Link } from "react-router-dom";
 
 
 class SaleForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            price: '',
-            automobiles: [],
-            salesPeople: [],
-            customers: [],
-        };
 
-        this.handleChange = handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      price: '',
+      automobiles: [],
+      salesPeople: [],
+      customers: [],
+      noData: [],
+    };
+
+    this.handleChange = handleChange.bind(this);
+  }
 
     async componentDidMount() {
 
@@ -28,11 +30,16 @@ class SaleForm extends React.Component {
         ]
 
         const obj = await getInstancesFromManyRequests(urls);
-        // console.log(obj);
 
         const app = 'automobiles'
         const data = await getFilteredInstances(8100, app, 'sold', false)
         obj[app] = data;
+
+        const checkData = Object.keys(obj).filter(i => obj[i].length == 0);
+
+        if (checkData.length > 0) {
+          this.setState({noData: checkData})
+        }
 
         return (
             this.setState(obj)
@@ -44,7 +51,7 @@ class SaleForm extends React.Component {
 
       }
 
-    async handleSubmit(event) {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const data = {...this.state};
         data.sales_person = data.salesPerson;
@@ -53,6 +60,7 @@ class SaleForm extends React.Component {
         delete data.salesPeople;
         delete data.customers;
         delete data.sold;
+        delete data.noData;
 
         console.log(data);
 
@@ -72,15 +80,40 @@ class SaleForm extends React.Component {
               automobile: '',
               salesPerson: '',
               customer: '',
+              noData: false,
             };
             this.setState(cleared);
         }
       }
-      refreshPage();  // how to change the timing?
+      // refreshPage();  // how to change the timing?
     }
 
     render() {
-        return (
+        if (this.state.noData.length > 0) {
+          return (
+            <div className="container">
+            <div className="row">
+              <div id="alert">
+                <div></div>
+              </div>
+              <div className="offset-3 col-6">
+                <div className="shadow p-4 mt-4">
+                  <h1>Uh oh...</h1>
+                  <p>You're missing{' '}
+                    {this.state.noData.map(i => {
+                      return (
+                        <Link key={i} to={`/${i}/new`}>{i}</Link>
+                       )
+                    }
+                    )}
+                    {' '}data!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          )
+        } else {
+          return (
             <div className="container">
             <div className="row">
               <div id="alert">
@@ -137,6 +170,9 @@ class SaleForm extends React.Component {
             </div>
           </div>
     );
+        }
+
+
 }
 }
 
