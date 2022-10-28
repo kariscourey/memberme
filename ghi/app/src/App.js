@@ -14,11 +14,9 @@ import SaleForm from './sales/SaleForm';
 import CustomerForm from './sales/CustomerForm';
 import SalesPersonForm from './sales/SalesPersonForm';
 
-// import ServicesList from './service/ServicesList';
-// import ServiceForm from './service/ServiceForm';
-// import ServiceAppointmentForm from './service/ServiceAppointmentForm';
-// import TechnicianForm from './service/TechnicianForm';
-// import ServiceAppointmentsList from './service/ServiceAppointmentsList';
+import ServiceAppointmentForm from './service/ServiceAppointmentForm';
+import TechnicianForm from './service/TechnicianForm';
+import ServiceAppointmentsList from './service/ServiceAppointmentsList';
 
 // TODO form validation
 
@@ -51,13 +49,13 @@ function App() {
             <Route path="" element={<ManufacturersList />}></Route>
             <Route path="new" element={<ManufacturerForm />}></Route>
           </Route>
-          {/* <Route path="services">
+          <Route path="services">
             <Route path="" element={<ServiceAppointmentsList />}></Route>
             <Route path="new" element={<ServiceAppointmentForm />}></Route>
           </Route>
           <Route path="technicians">
             <Route path="new" element={<TechnicianForm />}></Route>
-          </Route> */}
+          </Route>
           <Route
                 path="*"
                 element={

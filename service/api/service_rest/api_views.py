@@ -5,17 +5,6 @@ from common.json import ModelEncoder
 import json
 from .models import ServiceAppointment, Technician, AutomobileVO
 
-class ServiceAppointmentEncoder(ModelEncoder):
-    model = ServiceAppointment
-    properties = [
-        "vin",
-        "owner_name",
-        "appointment_date",
-        "tech_name",
-        "reason",
-        "status",
-        ]
-
 class TechnicianEncoder(ModelEncoder):
     model = Technician
     properties = [
@@ -24,6 +13,31 @@ class TechnicianEncoder(ModelEncoder):
 
 
     ]
+
+class AutomobileVOEncoder(ModelEncoder):
+    model= AutomobileVO
+    properties = [
+        "import_href",
+        "color",
+        "year",
+        "vin",
+        "model_id"
+    ]
+class ServiceAppointmentEncoder(ModelEncoder):
+    model = ServiceAppointment
+    properties = [
+        "automobile",
+        "owner_name",
+        "appointment_date",
+        "technician",
+        "reason",
+        "status",
+        ]
+    encoders = {
+        "automobile": AutomobileVOEncoder(),
+        "technician": TechnicianEncoder(),
+    }
+
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def api_appointments(request):

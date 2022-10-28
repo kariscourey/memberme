@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+#todo clean up automobilevo keep vin only
 class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     color = models.CharField(max_length=50)
@@ -11,14 +11,14 @@ class AutomobileVO(models.Model):
     model_id = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.vin
+        return f"{self.vin}"
 
 class Technician(models.Model):
     tech_name = models.CharField(max_length=100)
     employee_number = models.PositiveIntegerField(unique=True)
 
     def __str__(self):
-        return self.tech_name
+        return f"{self.tech_name}"
 
 class ServiceAppointment(models.Model):
     automobile = models.ForeignKey(
@@ -37,4 +37,4 @@ class ServiceAppointment(models.Model):
     status = models.CharField(max_length=25,default="scheduled")
 
     def __str__(self):
-        return self.appointment_date
+        return f"{self.appointment_date}"
