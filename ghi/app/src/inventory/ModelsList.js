@@ -1,92 +1,93 @@
 import React from 'react';
 import { getInstances } from '../common/api';
-import { handleChange } from '../common/synthetic';
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
 function DataTable(props) {
 
-    let sales = props.sales;
-    let salesPeople = props.salesPeople;
-    // console.log(sales);
-    let salesPerson = '';
+    let models = props.models;
 
     return (
-        <>
-            <div>
-                <h1 className="mt-3">Sales</h1>
-            </div>
-
-            <div className="mb-3">
-                <select onChange={handleChange} value={salesPerson} required id="salesPerson" name="salesPerson" className="form-select">
-                <option value="">Choose a sales person</option>
-                {salesPeople.map(salesPerson => {
-                    return (
-                        <option key={salesPerson.employee_number} value={salesPerson.employee_number}>
-                            {salesPerson.name} ({salesPerson.employee_number})
-                        </option>
-                    )
-                })}
-                </select>
-                <button className="btn btn-primary">Filter</button>
-            </div>
-
-            <div>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Sales person</th>
-                            <th>Customer</th>
-                            <th>VIN</th>
-                            <th>Sales price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sales.map((sale) => {
-                            return (
-                                <tr key={sale.id}>
-                                    <td>{sale.sales_person.name}</td>
-                                    <td>{sale.customer.name}</td>
-                                    <td>{sale.automobile.vin}</td>
-                                    <td>${sale.price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </>
-
+        <div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Manufacturer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {models.map((model) => {
+                        return (
+                            <tr key={model.id}>
+                                <td><img style={{ width: 100 }} src={model.picture_url} /></td>
+                                <td>{model.name}</td>
+                                <td>{model.manufacturer.name}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
-  }
+}
 
 
-class SalesList extends React.Component {
+export default function ModelsList() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            sales: [],
-            salesPeople: [],
-        };
-    }
+    const [loadData, setLoadData] = useState(
+        {
+            models: [],
+        }
+    );
 
-    async componentDidMount() {
+    useEffect(() => {
+        const fetchInstances = async () => {
 
-        let data = await getInstances(8090, 'sales');
-        this.setState({sales:data});
-        data = await getInstances(8090, 'sales_people');
-        this.setState({salesPeople:data});
+            try {
 
-    }
+                const data = await getInstances(8100, 'models');
+
+                setLoadData({
+                    ...loadData, models:data
+                });
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        fetchInstances();
+    }, []);
 
 
-    render() {
+    if (loadData.models.length === 0) {
         return (
-            <div className="row">
-                <DataTable sales={this.state.sales} salesPeople={this.state.salesPeople} />
+            <div className="container">
+                <div className="row">
+                    <div className="offset-3 col-6">
+                        <div className="shadow p-4 mt-4">
+                            <h1>Uh oh...</h1>
+                            <p>
+                                No data to show. Care to create a{' '}
+                                <Link to={`/models/new`}>model</Link>?
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-    )
+        )
+    } else {
+        return (
+            <>
+                <div>
+                    <h1 className="mt-3">Models</h1>
+                </div>
+                <div className="row">
+                    <DataTable models={loadData.models} />
+                </div>
+            </>
+        )
+    }
 }
-}
-
-export default SalesList;

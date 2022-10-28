@@ -1,64 +1,54 @@
 import React from 'react';
 import { createInstance } from '../common/api';
-import { handleChange } from '../common/synthetic';
+import { useState } from "react";
 
+export default function ManufacturerForm() {
+  const [userInput, setUserInput] = useState(
+      {
+          name: '',
+      }
+  );
 
-class ManufacturerForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-        };
+  const handleChange = (event) => {
+      const value = event.target.value;
+      const name = event.target.name;
+      setUserInput({
+          ...userInput, [name]:value
+      });
+  }
 
-        this.handleChange = handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  const handleSubmit = async (event) => {
+      event.preventDefault();
+      const data = {...userInput};
 
+      const response = await createInstance(8100, 'manufacturers', data);
 
+      if (response.ok) {
 
-    async handleSubmit(event) {
-        event.preventDefault();
-        const data = {...this.state};
-
-        console.log(data);
-
-        const response = await createInstance(8100, 'manufacturers', data);
-
-        if (response.ok) {
-            const newInstance = await response.json();
-            console.log(newInstance);
-
-            const cleared = {
+          const cleared = {
               name: '',
-            };
-            this.setState(cleared);
-        }
+          };
+          setUserInput(cleared);
+      }
 
-    }
+  }
 
-    render() {
-        return (
-            <div className="container">
-            <div className="row">
-              <div id="alert">
-                <div></div>
-              </div>
+  return (
+      <div className="container">
+          <div className="row">
               <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
-                  <h1>Create a manufacturer</h1>
-                  <form onSubmit={this.handleSubmit} id="create-conference-form">
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Name" value={this.state.name} required type="text" id="name" name="name" className="form-control"/>
-                      <label htmlFor="name">Name</label>
-                    </div>
-                    <button className="btn btn-primary">Create</button>
-                  </form>
-                </div>
+                  <div className="shadow p-4 mt-4">
+                      <h1>Create a manufacturer</h1>
+                      <form onSubmit={handleSubmit}>
+                      <div className="form-floating mb-3">
+                          <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
+                          <label htmlFor="name">Name</label>
+                      </div>
+                      <button className="btn btn-primary">Create</button>
+                      </form>
+                  </div>
               </div>
-            </div>
           </div>
-    );
+      </div>
+  );
 }
-}
-
-export default ManufacturerForm;

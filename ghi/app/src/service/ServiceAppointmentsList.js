@@ -9,6 +9,7 @@ class ServiceAppointmentsList extends React.Component {
         };
 
     }
+<<<<<<< HEAD
     async componentDidMount() {
       let url = 'http://localhost:8080/api/services/';
       let response = await fetch(url);
@@ -46,6 +47,9 @@ class ServiceAppointmentsList extends React.Component {
 
         }
     }
+=======
+
+>>>>>>> main
 
 
     render() {
