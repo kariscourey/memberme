@@ -1,73 +1,95 @@
 import React from 'react';
 import { getInstances } from '../common/api';
-import { handleChange } from '../common/synthetic';
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
 function DataTable(props) {
 
     let automobiles = props.automobiles;
-    // console.log(automobiles);
 
     return (
-        <>
-            <div>
-                <h1 className="mt-3">Automobiles</h1>
-            </div>
-
-            <div>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Color</th>
-                            <th>Year</th>
-                            <th>VIN</th>
-                            <th>Model</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {automobiles.map((automobile) => {
-                            return (
-                                <tr key={automobile.id}>
-                                    <td>{automobile.color}</td>
-                                    <td>{automobile.year}</td>
-                                    <td>{automobile.vin}</td>
-                                    <td>{automobile.model.name}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </>
-
+        <div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Year</th>
+                        <th>VIN</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {automobiles.map((automobile) => {
+                        return (
+                            <tr key={automobile.id}>
+                                <td>{automobile.color}</td>
+                                <td>{automobile.year}</td>
+                                <td>{automobile.vin}</td>
+                                <td>{automobile.model.name}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
   }
 
 
-class AutomobilesList extends React.Component {
+export default function AutomobilesList() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
+    const [loadData, setLoadData] = useState(
+        {
             automobiles: [],
-        };
-    }
+        }
+    );
 
-    async componentDidMount() {
+    useEffect(() => {
+        const fetchInstances = async () => {
 
-        let data = await getInstances(8100, 'automobiles');
-        this.setState({automobiles:data});
+            try {
 
-    }
+                const data = await getInstances(8100, 'automobiles');
+
+                setLoadData({
+                    ...loadData, automobiles:data
+                });
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        fetchInstances();
+    }, []);
 
 
-    render() {
+    if (loadData.automobiles.length === 0) {
         return (
-            <div className="row">
-                <DataTable automobiles={this.state.automobiles} />
+            <div className="container">
+                <div className="row">
+                    <div className="offset-3 col-6">
+                        <div className="shadow p-4 mt-4">
+                            <h1>Uh oh...</h1>
+                            <p>
+                                No data to show. Care to create a{' '}
+                                <Link to={`/automobiles/new`}>automobile</Link>?
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-    )
+        )
+    } else {
+        return (
+            <>
+                <div>
+                    <h1 className="mt-3">Automobiles</h1>
+                </div>
+                <div className="row">
+                    <DataTable automobiles={loadData.automobiles} />
+                </div>
+            </>
+        )
+    }
 }
-}
-
-export default AutomobilesList;

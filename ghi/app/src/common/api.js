@@ -41,8 +41,6 @@ export async function getInstance(port, app, id) {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
-          // console.log(data[app]);
           return data[app];
         } else {
           console.error(response);
@@ -55,9 +53,6 @@ export async function getInstance(port, app, id) {
 
         if (response.ok) {
           let data = await response.json();
-          // console.log(data);
-          // console.log(data[app]);
-          // console.log(data[app][0][parameter]);
           data[app] = data[app].filter(item => item[parameter] == value)
           return data[app];
         } else {
@@ -80,8 +75,6 @@ export async function createInstance(port, app, data) {
     };
 
     const response = await fetch(url, fetchConfig);
-    // console.log(response);
-    // console.log(response.ok);
 
     return response;
 
@@ -90,17 +83,12 @@ export async function createInstance(port, app, data) {
 
 export async function getInstancesFromManyRequests(urls) {
     const requests = urls.map(url => fetch(url));
-    // console.log(requests);
     const responses = await Promise.all(requests);
-    // console.log(responses);
 
     const obj = {};
 
     responses.map(async response => {
       let data = await response.json();
-      // console.log(data);
-      // console.log(Object.keys(data)[0]);
-      // console.log(Object.values(data));
       let obj_key = Object.keys(data)[0];
 
       if (obj_key.includes("_")) {
@@ -108,9 +96,7 @@ export async function getInstancesFromManyRequests(urls) {
       }
 
       let obj_value = Object.values(data)[0];
-      // console.log(obj_value);
       obj[obj_key] = obj_value;
-      // console.log(obj);
     })
 
     return obj;

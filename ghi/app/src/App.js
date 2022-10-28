@@ -22,6 +22,11 @@ import SalesPersonForm from './sales/SalesPersonForm';
 // import ServiceAppointmentsList from './service/ServiceAppointmentsList';
 
 // TODO form validation
+// TODO redirects
+// TODO cards
+// TODO refresh
+// TODO simplelist (?)
+
 
 function App() {
   return (
