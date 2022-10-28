@@ -26,6 +26,7 @@ class AutomobileVOEncoder(ModelEncoder):
 class ServiceAppointmentEncoder(ModelEncoder):
     model = ServiceAppointment
     properties = [
+        "id",
         "automobile",
         "owner_name",
         "appointment_date",
@@ -49,6 +50,7 @@ def api_appointments(request):
             encoder=ServiceAppointmentEncoder,
             safe=False
         )
+
     else:
         content = json.loads(request.body)
 
@@ -98,3 +100,25 @@ def api_technicians(request):
             encoder=TechnicianEncoder,
             safe=False,
         )
+
+@require_http_methods(["PUT"])
+def api_service_appointment(request, pk):
+
+    try:
+        content = json.loads(request.body)
+        service_appointment = ServiceAppointment.objects.get(id=pk)
+
+        props = ["status"]
+        for prop in props:
+            if prop in content:
+                setattr(service_appointment, prop, content[prop])
+        service_appointment.save()
+        return JsonResponse(
+            service_appointment,
+            encoder=ServiceAppointmentEncoder,
+            safe=False,
+        )
+    except ServiceAppointment.DoesNotExist:
+        response = JsonResponse({"message": "Does not exist"})
+        response.status_code = 404
+        return response

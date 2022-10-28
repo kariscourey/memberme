@@ -15,10 +15,38 @@ class ServiceAppointmentsList extends React.Component {
       console.log(response)
       if (response.ok) {
           const data = await response.json();
+          data.service_appointments = data.service_appointments.filter(service_appointment => service_appointment.status == "scheduled");
           this.setState({serviceAppointments: data.service_appointments});
           }
 
       }
+
+      async handleClick(event) {
+        event.preventDefault();
+        const statusInput = event.target.value;
+        const serviceId = event.target.name;
+        const data = {status:statusInput};
+        const body = JSON.stringify(data);
+
+        const url = `http://localhost:8080/api/services/${serviceId}/`;
+        const fetchConfig = {
+            method: 'put',
+            body: body,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const response = await fetch(url, fetchConfig);
+
+        if (response.ok) {
+            const updatedService = await response.json();
+            console.log(updatedService);
+            window.location.reload(false);
+
+        }
+    }
+
 
     render() {
         return (
@@ -39,7 +67,7 @@ class ServiceAppointmentsList extends React.Component {
                             <th>Date</th>
                             <th>Technician</th>
                             <th>Reason</th>
-                            <th></th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +79,10 @@ class ServiceAppointmentsList extends React.Component {
                                     <td>{serviceAppointment.appointment_date}</td>
                                     <td>{serviceAppointment.technician.tech_name}</td>
                                     <td>{serviceAppointment.reason}</td>
-                                    <td></td>
+                                    <td>
+                                        <button onClick={this.handleClick} name={serviceAppointment.id} value="CANCELED" type="button" className="btn btn-danger">Cancel</button>
+                                        <button onClick={this.handleClick} name={serviceAppointment.id} value="FINISHED" type="button" className="btn btn-success">Finished</button>
+                                    </td>
                                 </tr>
                             )
                         })}
