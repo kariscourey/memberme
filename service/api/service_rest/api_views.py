@@ -5,17 +5,6 @@ from common.json import ModelEncoder
 import json
 from .models import ServiceAppointment, Technician, AutomobileVO
 
-class ServiceAppointmentEncoder(ModelEncoder):
-    model = ServiceAppointment
-    properties = [
-        "vin",
-        "owner_name",
-        "appointment_date",
-        "tech_name",
-        "reason",
-        "status",
-        ]
-
 class TechnicianEncoder(ModelEncoder):
     model = Technician
     properties = [
@@ -24,6 +13,32 @@ class TechnicianEncoder(ModelEncoder):
 
 
     ]
+
+class AutomobileVOEncoder(ModelEncoder):
+    model= AutomobileVO
+    properties = [
+        "import_href",
+        "color",
+        "year",
+        "vin",
+        "model_id"
+    ]
+class ServiceAppointmentEncoder(ModelEncoder):
+    model = ServiceAppointment
+    properties = [
+        "id",
+        "automobile",
+        "owner_name",
+        "appointment_date",
+        "technician",
+        "reason",
+        "status",
+        ]
+    encoders = {
+        "automobile": AutomobileVOEncoder(),
+        "technician": TechnicianEncoder(),
+    }
+
 # Create your views here.
 @require_http_methods(["GET", "POST"])
 def api_appointments(request):
@@ -35,6 +50,7 @@ def api_appointments(request):
             encoder=ServiceAppointmentEncoder,
             safe=False
         )
+
     else:
         content = json.loads(request.body)
 
@@ -84,3 +100,25 @@ def api_technicians(request):
             encoder=TechnicianEncoder,
             safe=False,
         )
+
+@require_http_methods(["PUT"])
+def api_service_appointment(request, pk):
+
+    try:
+        content = json.loads(request.body)
+        service_appointment = ServiceAppointment.objects.get(id=pk)
+
+        props = ["status"]
+        for prop in props:
+            if prop in content:
+                setattr(service_appointment, prop, content[prop])
+        service_appointment.save()
+        return JsonResponse(
+            service_appointment,
+            encoder=ServiceAppointmentEncoder,
+            safe=False,
+        )
+    except ServiceAppointment.DoesNotExist:
+        response = JsonResponse({"message": "Does not exist"})
+        response.status_code = 404
+        return response
