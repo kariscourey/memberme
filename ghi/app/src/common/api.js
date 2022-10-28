@@ -2,10 +2,8 @@ import { toCamel } from '../common/format';
 
 export async function updateInstance(port, app, url_field, data) {
     const body = JSON.stringify(data);
-    console.log(body);
 
     const url = `http://localhost:${port}/api/${app}/${url_field}/`;
-    console.log(url);
 
     const fetchConfig = {
         method: 'put',
@@ -16,7 +14,6 @@ export async function updateInstance(port, app, url_field, data) {
     };
 
     const response = await fetch(url, fetchConfig);
-    console.log(response);
 
     return response;
 }
@@ -27,9 +24,7 @@ export async function getInstance(port, app, id) {
 
     if (response.ok) {
         const data = await response.json();
-
         return data[app];
-
         } else {
             console.error(response);
           }

@@ -22,6 +22,7 @@ export default function AutomobileForm () {
     );
 
     const [noData, setNoData] = useState([]);
+    const [alert, setAlert] = useState(<></>);
 
     useEffect(() => {
         const fetchInstances = async () => {
@@ -64,6 +65,9 @@ export default function AutomobileForm () {
             };
             setUserInput(cleared);
             setNoData(false);
+            setAlert(false);
+        } else {
+            setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }
     }
       // refreshPage();  // how to change the timing?
@@ -91,6 +95,7 @@ export default function AutomobileForm () {
     } else {
         return (
             <div className="container">
+                {alert}
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">

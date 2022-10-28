@@ -21,8 +21,8 @@ import SalesPersonForm from './sales/SalesPersonForm';
 // import TechnicianForm from './service/TechnicianForm';
 // import ServiceAppointmentsList from './service/ServiceAppointmentsList';
 
-// TODO form validation
 // TODO redirects
+// TODO phone number
 // TODO cards
 // TODO refresh
 // TODO simplelist (?)

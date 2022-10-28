@@ -21,6 +21,7 @@ export default function ModelForm () {
     );
 
     const [noData, setNoData] = useState([]);
+    const [alert, setAlert] = useState(<></>);
 
     useEffect(() => {
         const fetchInstances = async () => {
@@ -64,6 +65,10 @@ export default function ModelForm () {
             };
             setUserInput(cleared);
             setNoData(false);
+            setAlert(false);
+
+        } else {
+          setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }
     }
       // refreshPage();  // how to change the timing?
@@ -71,6 +76,7 @@ export default function ModelForm () {
     if (noData.length > 0) {
         return (
         <div className="container">
+            {alert}
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
@@ -101,7 +107,7 @@ export default function ModelForm () {
                                 <label htmlFor="name">Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={handleChange} placeholder="Picture URL" value={userInput.pictureUrl} required type="text" id="pictureUrl" name="pictureUrl" className="form-control"/>
+                                <input onChange={handleChange} placeholder="Picture URL" value={userInput.pictureUrl} required type="url" id="pictureUrl" name="pictureUrl" className="form-control"/>
                                 <label htmlFor="pictureUrl">Picture URL</label>
                             </div>
                             <div className="mb-3">

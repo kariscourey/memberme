@@ -4,60 +4,66 @@ import { useState } from "react";
 
 
 export default function SalesPersonForm() {
-  const [userInput, setUserInput] = useState(
-      {
-          name: '',
-          employeeNumber: '',
-      }
-  );
+    const [userInput, setUserInput] = useState(
+        {
+            name: '',
+            employeeNumber: '',
+        }
+    );
 
-  const handleChange = (event) => {
-      const value = event.target.value;
-      const name = event.target.name;
-      setUserInput({
-          ...userInput, [name]:value
-      });
-  }
+    const [alert, setAlert] = useState(<></>);
 
-  const handleSubmit = async (event) => {
-      event.preventDefault();
-      const data = {...userInput};
-      data.employee_number = data.employeeNumber;
-      delete data.employeeNumber;
+    const handleChange = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+        setUserInput({
+            ...userInput, [name]:value
+        });
+    }
 
-      const response = await createInstance(8090, 'sales_people', data);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = {...userInput};
+        data.employee_number = data.employeeNumber;
+        delete data.employeeNumber;
 
-      if (response.ok) {
+        const response = await createInstance(8090, 'sales_people', data);
 
-          const cleared = {
-              name: '',
-              employeeNumber: '',
-          };
-          setUserInput(cleared);
-      }
+        if (response.ok) {
 
-  }
+            let cleared = {
+                name: '',
+                employeeNumber: '',
+            };
+            setUserInput(cleared);
+            setAlert(false);
 
-  return (
-      <div className="container">
-          <div className="row">
-              <div className="offset-3 col-6">
-                  <div className="shadow p-4 mt-4">
-                      <h1>Create a sales person</h1>
-                      <form onSubmit={handleSubmit}>
-                      <div className="form-floating mb-3">
-                          <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
-                          <label htmlFor="name">Name</label>
-                      </div>
-                      <div className="form-floating mb-3">
-                          <input onChange={handleChange} placeholder="Employee number" value={userInput.employeeNumber} required type="text" id="employeeNumber" name="employeeNumber" className="form-control"/>
-                          <label htmlFor="employeeNumber">Employee number</label>
-                      </div>
-                      <button className="btn btn-primary">Create</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-  );
+        } else {
+            setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
+        }
+    }
+
+    return (
+        <div className="container">
+            {alert}
+            <div className="row">
+                <div className="offset-3 col-6">
+                    <div className="shadow p-4 mt-4">
+                        <h1>Create a sales person</h1>
+                        <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
+                            <label htmlFor="name">Name</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleChange} placeholder="Employee number" value={userInput.employeeNumber} required type="number" id="employeeNumber" name="employeeNumber" className="form-control"/>
+                            <label htmlFor="employeeNumber">Employee number</label>
+                        </div>
+                        <button className="btn btn-primary">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }

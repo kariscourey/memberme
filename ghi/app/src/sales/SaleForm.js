@@ -25,6 +25,7 @@ export default function SaleForm () {
     );
 
     const [noData, setNoData] = useState([]);
+    const [alert, setAlert] = useState(<></>);
 
     useEffect(() => {
         const fetchInstances = async () => {
@@ -84,8 +85,10 @@ export default function SaleForm () {
                 setUserInput(cleared);
                 setNoData(false);
             }
-        }
         // refreshPage();  // how to change the timing?
+        } else {
+            setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
+        }
     }
 
     if (noData.length > 0) {
@@ -111,6 +114,7 @@ export default function SaleForm () {
     } else {
         return (
             <div className="container">
+                {alert}
                 <div className="row">
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">

@@ -9,6 +9,8 @@ export default function ManufacturerForm() {
       }
   );
 
+  const [alert, setAlert] = useState(<></>);
+
   const handleChange = (event) => {
       const value = event.target.value;
       const name = event.target.name;
@@ -29,12 +31,17 @@ export default function ManufacturerForm() {
               name: '',
           };
           setUserInput(cleared);
+          setAlert(false);
+
+      } else {
+        setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
       }
 
   }
 
   return (
       <div className="container">
+        {alert}
           <div className="row">
               <div className="offset-3 col-6">
                   <div className="shadow p-4 mt-4">

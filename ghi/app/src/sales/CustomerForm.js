@@ -2,6 +2,7 @@ import React from 'react';
 import { createInstance } from '../common/api';
 import { useState } from "react";
 
+
 export default function CustomerForm() {
     const [userInput, setUserInput] = useState(
         {
@@ -10,6 +11,8 @@ export default function CustomerForm() {
             phoneNumber: '',
         }
     );
+
+    const [alert, setAlert] = useState(<></>);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -35,12 +38,17 @@ export default function CustomerForm() {
                 phoneNumber: '',
             };
             setUserInput(cleared);
+            setAlert(false);
+
+        } else {
+            setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }
 
     }
 
     return (
         <div className="container">
+            {alert}
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
@@ -55,7 +63,7 @@ export default function CustomerForm() {
                             <label htmlFor="address">Address</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required type="text" id="phoneNumber" name="phoneNumber" className="form-control"/>
+                            <input onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required type="number" id="phoneNumber" name="phoneNumber" className="form-control"/>
                             <label htmlFor="phoneNumber">Phone number</label>
                         </div>
                         <button className="btn btn-primary">Create</button>
