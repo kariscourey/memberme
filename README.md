@@ -11,6 +11,7 @@ Team:
 
 Explain your models and integration with the inventory
 microservice, here.
+Angel to do as part of stretch goals next week.
 
 ## Sales microservice
 

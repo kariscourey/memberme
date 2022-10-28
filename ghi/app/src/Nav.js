@@ -38,7 +38,6 @@ function AutoAutoNav() {
           </Navbar.Collapse>
       </Container>
     </Navbar>
->>>>>>> main
   )
 }
 
