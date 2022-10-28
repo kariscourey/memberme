@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import MainPage from './MainPage';
-import CarCarNav from './Nav';
+import AutoAutoNav from './Nav';
 
 import AutomobileForm from './inventory/AutomobileForm';
 import AutomobilesList from './inventory/AutomobilesList';
@@ -20,10 +20,10 @@ import SalesPersonForm from './sales/SalesPersonForm';
 // import ServiceAppointmentForm from './service/ServiceAppointmentForm';
 // import TechnicianForm from './service/TechnicianForm';
 // import ServiceAppointmentsList from './service/ServiceAppointmentsList';
+// import ServiceAppointmentsHistory from './service/ServiceAppointmentsHistory';
 
 // TODO redirects
 // TODO phone number
-// TODO cards
 // TODO refresh
 // TODO simplelist (?)
 
@@ -31,7 +31,7 @@ import SalesPersonForm from './sales/SalesPersonForm';
 function App() {
   return (
     <BrowserRouter>
-      <CarCarNav />
+      <AutoAutoNav />
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -59,6 +59,7 @@ function App() {
           </Route>
           {/* <Route path="services">
             <Route path="" element={<ServiceAppointmentsList />}></Route>
+            <Route path="history" element={<ServiceAppointmentsHistory />}></Route>
             <Route path="new" element={<ServiceAppointmentForm />}></Route>
           </Route>
           <Route path="technicians">

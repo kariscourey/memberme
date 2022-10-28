@@ -3,30 +3,29 @@ import { getInstances } from './common/api';
 
 function AutomobileColumn(props) {
 
-  return (
+    return (
     <div className="col">
-      {props.list.map(data => {
-        const automobile = data.automobile;
+        {props.list.map(automobile => {
+
         return (
-          <div key={automobile.vin} className="card mb-3 shadow">
-            <img src={automobile.model.picture_url} className="card-img-top" />
-            <div className="card-body">
-              <h5 className="card-title">{automobile.name}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">
-                {automobile.model.year} {automobile.model.manufacturer.name} {automobile.model.name}
-              </h6>
-              <p className="card-text">
-                Classy vehicle right here!
-              </p>
+            <div key={automobile.vin} className="card mb-4 shadow">
+                <img src={automobile.model.picture_url} className="card-img-top" />
+                <div className="card-body">
+                    <h5 className="card-title">{automobile.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                    {automobile.model.manufacturer.name} {automobile.model.name}
+                    </h6>
+                    <p className="card-text">
+                        Made in {automobile.year}, this {automobile.color.toLowerCase()} {' '}
+                        {automobile.model.manufacturer.name} {automobile.model.name} {' '}
+                        is one of our best in stock!
+                    </p>
+                </div>
             </div>
-            <div className="card-footer">
-              Best vehicle in all the land!
-            </div>
-          </div>
         );
-      })}
+        })}
     </div>
-  );
+    );
 }
 
 function MainPage() {
@@ -36,18 +35,18 @@ function MainPage() {
   useEffect(() => {
     const fetchAutomobiles = async () => {
         const automobilesData = await getInstances(8100, 'automobiles');
-        console.log(automobilesData);
 
         let i = 0;
+        let automobileCols = [[],[],[]]
 
         for (let auto of automobilesData) {
-          automobileColumns[i].push(auto);
-          i++;
-          if (i > 2) {
+            automobileCols[i].push(auto);
+            i++;
+            if (i > 2) {
             i = 0;
-          }
+            }
         }
-        console.log(automobileColumns);
+        setColumns(automobileCols);
     }
     fetchAutomobiles();
     }, []);
@@ -55,7 +54,7 @@ function MainPage() {
   return (
     <>
       <div className="px-4 py-5 my-5 text-center">
-        <h1 className="display-5 fw-bold">CarCar</h1>
+        <h1 className="display-5 fw-bold">AutoAuto</h1>
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">
             The premiere solution for automobile dealership
@@ -64,12 +63,11 @@ function MainPage() {
         </div>
       </div>
       <div className="container">
-        <h2>Automobiles</h2>
-        <p>Or car(cars)? Who's to say?</p>
+        <h2 className="mb-3">Automobiles</h2>
         <div className="row">
           {automobileColumns.map((automobileList, index) => {
             return (
-              <AutomobileColumn key={index} list={automobileList} />
+                <AutomobileColumn list={automobileList} key={index}  />
             );
           })}
         </div>

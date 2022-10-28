@@ -132,7 +132,7 @@ export default function SalesList() {
                         })}
                     </select>
                     <span className="input-group-btn ml-3">
-                        <button onClick={handleClick} className="btn btn-secondary">Filter</button>
+                        <button onClick={handleClick} className="btn btn-primary">Filter</button>
                     </span>
                 </div>
                 <div className="row">

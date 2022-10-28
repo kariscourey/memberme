@@ -1,9 +1,9 @@
-# CarCar
+# AutoAuto
 
 Team:
 
-* Person 1 - Which microservice?
-* Person 2 - Which microservice?
+* Karis - Sales
+* Angel - Services
 
 ## Design
 
@@ -16,3 +16,4 @@ microservice, here.
 
 Explain your models and integration with the inventory
 microservice, here.
+Karis to do as part of stretch goals next week.
