@@ -1,12 +1,14 @@
 import React from 'react';
 import { getInstances } from './api';
+import { toTitleCase } from './format';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { DataTable } from './DataTable';
 
-export function SimpleList(parentProps) {
+export function SimpleList(props) {
 
-    let app = parentProps.app;
-    let port = parentProps.port;
+    let app = props.app;
+    let port = props.port;
 
     const [loadData, setLoadData] = useState(
         {
@@ -41,7 +43,7 @@ export function SimpleList(parentProps) {
                         <div className="shadow p-4 mt-4">
                             <h1>Uh oh...</h1>
                             <p>
-                                No data to show. Care to create a{' '}
+                                No data to show. Care to create{' '}
                                 <Link to={`/${app}/new`}>{app}</Link>?
                             </p>
                         </div>
@@ -53,11 +55,11 @@ export function SimpleList(parentProps) {
         return (
             <>
                 <div>
-                    <h1 className="mt-3">{app}.toUpperCase()</h1>
+                    <h1 className="mt-3">{toTitleCase(app)}</h1>
                 </div>
-                {/* <div className="row">
-                    <DataTable automobiles={loadData.automobiles} />
-                </div> */}
+                <div className="row">
+                    <DataTable data={Object.values(loadData)[0]} />
+                </div>
             </>
         )
     }
