@@ -3,51 +3,22 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from common.json import ModelEncoder
 import json
-from .models import ServiceAppointment, Technician, AutomobileVO
 
-class TechnicianEncoder(ModelEncoder):
-    model = Technician
-    properties = [
-        "tech_name",
-        "employee_number",
+from .encoders import (
+    ServiceEncoder,
+    TechnicianEncoder,
+)
+from .models import Service, Technician, AutomobileVO
 
 
-    ]
-
-class AutomobileVOEncoder(ModelEncoder):
-    model= AutomobileVO
-    properties = [
-        "import_href",
-        "color",
-        "year",
-        "vin",
-        "model_id"
-    ]
-class ServiceAppointmentEncoder(ModelEncoder):
-    model = ServiceAppointment
-    properties = [
-        "id",
-        "automobile",
-        "owner_name",
-        "appointment_date",
-        "technician",
-        "reason",
-        "status",
-        ]
-    encoders = {
-        "automobile": AutomobileVOEncoder(),
-        "technician": TechnicianEncoder(),
-    }
-
-# Create your views here.
 @require_http_methods(["GET", "POST"])
-def api_appointments(request):
+def api_services(request):
 
     if request.method == "GET":
-        service_appointments = ServiceAppointment.objects.all()
+        services = Service.objects.all()
         return JsonResponse(
-            {"service_appointments": service_appointments},
-            encoder=ServiceAppointmentEncoder,
+            {"services": services},
+            encoder=ServiceEncoder,
             safe=False
         )
 
@@ -74,10 +45,10 @@ def api_appointments(request):
                 status=400,
             )
 
-        service_appointment = ServiceAppointment.objects.create(**content)
+        service = Service.objects.create(**content)
         return JsonResponse(
-            service_appointment,
-            encoder=ServiceAppointmentEncoder,
+            service,
+            encoder=ServiceEncoder,
             safe=False,
         )
 
@@ -102,23 +73,23 @@ def api_technicians(request):
         )
 
 @require_http_methods(["PUT"])
-def api_service_appointment(request, pk):
+def api_service(request, pk):
 
     try:
         content = json.loads(request.body)
-        service_appointment = ServiceAppointment.objects.get(id=pk)
+        service = Service.objects.get(id=pk)
 
         props = ["status"]
         for prop in props:
             if prop in content:
-                setattr(service_appointment, prop, content[prop])
-        service_appointment.save()
+                setattr(service, prop, content[prop])
+        service.save()
         return JsonResponse(
-            service_appointment,
-            encoder=ServiceAppointmentEncoder,
+            service,
+            encoder=ServiceEncoder,
             safe=False,
         )
-    except ServiceAppointment.DoesNotExist:
+    except Service.DoesNotExist:
         response = JsonResponse({"message": "Does not exist"})
         response.status_code = 404
         return response

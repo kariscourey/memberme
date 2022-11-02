@@ -1,81 +1,69 @@
-import React from 'react';
-import { handleChange } from '../common/synthetic';
+import { createInstance } from '../common/api';
+import { useState } from "react";
 
-class TechnicianForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            techName: '',
+
+export default function TechnicianForm() {
+    const [userInput, setUserInput] = useState(
+        {
+            name: '',
             employeeNumber: '',
-        };
+        }
+    );
 
-        this.handleChange = handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const [alert, setAlert] = useState(<></>);
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+        setUserInput({
+            ...userInput, [name]:value
+        });
     }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = {...userInput};
+        data.employee_number = data.employeeNumber;
+        delete data.employeeNumber;
 
-    async handleSubmit(event) {
-      event.preventDefault();
-      const data = {...this.state};
-      data.tech_name = data.techName;
-      delete data.techName;
-      data.employee_number = data.employeeNumber;
-      delete data.employeeNumber;
-      console.log(data);
+        const response = await createInstance(8080, 'technicians', data);
 
-      const body = JSON.stringify(data);
+        if (response.ok) {
 
-      const url = 'http://localhost:8080/api/technicians/';
-      const fetchConfig = {
-          method: 'post',
-          body: body,
-          headers: {
-              'Content-Type': 'application/json',
-          },
-      };
+            const cleared = {
+                name: '',
+                employeeNumber: '',
+            };
+            setUserInput(cleared);
+            setAlert(false);
 
-      const response = await fetch(url, fetchConfig);
+        } else {
+            setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
+        }
 
-      if (response.ok) {
-          const newTechnician = await response.json();
-          console.log(newTechnician);
+    }
 
-          const cleared = {
-            techName: '',
-            employeeNumber: '',
-          };
-          this.setState(cleared);
-      }
-  }
-
-
-    render() {
-        return (
-          <div className="container">
+    return (
+        <div className="container">
+            {alert}
             <div className="row">
-              <div id="alert">
-                <div></div>
-              </div>
-              <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
-                  <h1>Create a technician</h1>
-                  <form onSubmit={this.handleSubmit} id="create-conference-form">
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="techName" value={this.state.techName} required type="text" id="techName" name="techName" className="form-control"/>
-                      <label htmlFor="techName">techName</label>
+                <div className="offset-3 col-6">
+                    <div className="shadow p-4 mt-4">
+                        <h1>Create a technician</h1>
+                        <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
+                            <label htmlFor="name">Name</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleChange} placeholder="Employee number" value={userInput.employeeNumber} required type="number" id="employeeNumber" name="employeeNumber" className="form-control"/>
+                            <label htmlFor="employeeNumber">Employee number</label>
+                        </div>
+                        <button className="btn btn-primary">Create</button>
+                        </form>
                     </div>
-                    <div className="form-floating mb-3">
-                      <input onChange={this.handleChange} placeholder="Employee number" value={this.state.employeeNumber} required type="number" id="employeeNumber" name="employeeNumber" className="form-control"/>
-                      <label htmlFor="employeeNumber">Employee number</label>
-                    </div>
-                    <button className="btn btn-primary">Create</button>
-                  </form>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
     );
 }
-}
-
-export default TechnicianForm;

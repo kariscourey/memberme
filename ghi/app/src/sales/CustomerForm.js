@@ -1,4 +1,3 @@
-import React from 'react';
 import { createInstance } from '../common/api';
 import { useState } from "react";
 

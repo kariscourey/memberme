@@ -12,28 +12,24 @@ django.setup()
 # from service_rest.models import Something
 from service_rest.models import AutomobileVO
 
-def get_automobile():
-    response = requests.get("http://inventory-api:8000/api/automobiles/")
-    content = json.loads(response.content)
+def get_automobiles():
+    res = requests.get('http://inventory-api:8000/api/automobiles/')
+    content = json.loads(res.content)
+
+
     for automobile in content["automobiles"]:
         AutomobileVO.objects.update_or_create(
             import_href=automobile["href"],
             defaults={
-            "color": automobile["color"],
-            "year": automobile["year"],
-            "vin": automobile["vin"],
-            "model_id": automobile["model"]["id"],
+                'vin': automobile['vin'],
             },
         )
-
-        # print(AutomobileVO.objects.all())
 
 def poll():
     while True:
         print('Service poller polling for data')
         try:
-            get_automobile()
-            print("----------------------")
+            get_automobiles()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(5)

@@ -1,4 +1,3 @@
-import React from 'react';
 import { getInstances } from '../common/api';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";

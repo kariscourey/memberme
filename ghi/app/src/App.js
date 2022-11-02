@@ -15,15 +15,15 @@ import SaleForm from './sales/SaleForm';
 import CustomerForm from './sales/CustomerForm';
 import SalesPersonForm from './sales/SalesPersonForm';
 
-import ServiceAppointmentForm from './service/ServiceAppointmentForm';
+import ServiceForm from './service/ServiceForm';
 import TechnicianForm from './service/TechnicianForm';
-import ServiceAppointmentsList from './service/ServiceAppointmentsList';
-import ServiceAppointmentsHistory from './service/ServiceAppointmentsHistory';
-// TODO form validation
+import ServicesList from './service/ServicesList';
+import ServicesHistory from './service/ServicesHistory';
+
 // TODO redirects
 // TODO phone number
 // TODO refresh
-// TODO simplelist (?)
+
 
 
 function App() {
@@ -56,10 +56,9 @@ function App() {
             <Route path="new" element={<ManufacturerForm />}></Route>
           </Route>
           <Route path="services">
-            <Route path="" element={<ServiceAppointmentsList />}></Route>
-            <Route path="history" element={<ServiceAppointmentsHistory />}></Route>
-            <Route path="new" element={<ServiceAppointmentForm />}></Route>
-            <Route path="history" element={<ServiceAppointmentsHistory/>}></Route>
+            <Route path="" element={<ServicesList />}></Route>
+            <Route path="new" element={<ServiceForm />}></Route>
+            <Route path="history" element={<ServicesHistory/>}></Route>
 
           </Route>
           <Route path="technicians">

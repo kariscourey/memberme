@@ -1,4 +1,3 @@
-import React from 'react';
 import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -35,11 +34,11 @@ export default function SaleForm () {
                 const urls = [
                     'http://localhost:8090/api/sales_people',
                     'http://localhost:8090/api/customers',
-                ]
+                ];
                 const obj = await getInstancesFromManyRequests(urls);
 
-                const app = 'automobiles'
-                const data = await getFilteredInstances(8100, app, 'sold', false)
+                const app = 'automobiles';
+                const data = await getFilteredInstances(8100, app, 'sold', false);
                 obj[app] = data;
 
                 setNoData(Object.keys(obj).filter(i => obj[i].length == 0));
@@ -74,8 +73,6 @@ export default function SaleForm () {
             response = await updateInstance(8100, 'automobiles', vin, {sold: true});
 
             if (response.ok) {
-                const newInstance = await response.json();
-
                 const cleared = {
                     price: '',
                     automobile: '',
@@ -98,20 +95,23 @@ export default function SaleForm () {
                     <div className="offset-3 col-6">
                         <div className="shadow p-4 mt-4">
                             <h1>Uh oh...</h1>
-                            <p>You're missing{' '}
+                            <p>
+                                You're missing{' '}
                                 {noData.map(i => {
                                     return (
                                     <Link key={i} to={`/${i}/new`}>{i}</Link>
                                     )
                                 }
                                 )}
-                            {' '}data!</p>
+                                {' '}data!
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         )
     } else {
+        console.log(loadData);
         return (
             <div className="container">
                 {alert}
