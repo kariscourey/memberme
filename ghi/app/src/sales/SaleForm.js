@@ -1,10 +1,13 @@
 import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { refreshPage } from '../common/window';
 
 
+
 export default function SaleForm () {
+
+    const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState(
         {
@@ -81,6 +84,8 @@ export default function SaleForm () {
                 };
                 setUserInput(cleared);
                 setNoData(false);
+
+                navigate('/sales');
             }
         // refreshPage();  // how to change the timing?
         } else {
@@ -111,7 +116,6 @@ export default function SaleForm () {
             </div>
         )
     } else {
-        console.log(loadData);
         return (
             <div className="container">
                 {alert}

@@ -1,10 +1,11 @@
-import React from 'react';
 import { createInstance, getInstances } from '../common/api';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function AutomobileForm () {
+
+    const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState(
         {
@@ -66,6 +67,9 @@ export default function AutomobileForm () {
             setUserInput(cleared);
             setNoData(false);
             setAlert(false);
+
+            navigate('/automobiles');
+
         } else {
             setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }

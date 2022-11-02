@@ -1,8 +1,12 @@
 import { createInstance } from '../common/api';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SalesPersonForm() {
+
+    const navigate = useNavigate();
+
     const [userInput, setUserInput] = useState(
         {
             name: '',
@@ -36,6 +40,8 @@ export default function SalesPersonForm() {
             };
             setUserInput(cleared);
             setAlert(false);
+
+            navigate('/sales');
 
         } else {
             setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);

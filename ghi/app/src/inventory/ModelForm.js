@@ -1,16 +1,18 @@
 import React from 'react';
 import { createInstance, getInstances } from '../common/api';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function ModelForm () {
+
+    const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState(
         {
             name: '',
             pictureUrl: '',
-            manufacturer_id: '',
+            manufacturerId: '',
         }
     );
 
@@ -53,6 +55,8 @@ export default function ModelForm () {
         const data = {...userInput};
         data.picture_url = data.pictureUrl;
         delete data.pictureUrl;
+        data.manufacturer_id = data.manufacturerId;
+        delete data.manufacturerId;
 
         let response = await createInstance(8100, 'models', data);
 
@@ -61,11 +65,13 @@ export default function ModelForm () {
             const cleared = {
                 name: '',
                 pictureUrl: '',
-                manufacturer_id: '',
+                manufacturerId: '',
             };
             setUserInput(cleared);
             setNoData(false);
             setAlert(false);
+
+            navigate('/models');
 
         } else {
           setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
@@ -111,7 +117,7 @@ export default function ModelForm () {
                                 <label htmlFor="pictureUrl">Picture URL</label>
                             </div>
                             <div className="mb-3">
-                                <select onChange={handleChange} value={userInput.manufacturer_id} required id="manufacturer_id" name="manufacturer_id" className="form-select">
+                                <select onChange={handleChange} value={userInput.manufacturerId} required id="manufacturerId" name="manufacturerId" className="form-select">
                                     <option value="">Choose a manufacturer</option>
                                     {loadData.manufacturers.map(manufacturer => {
                                         return (

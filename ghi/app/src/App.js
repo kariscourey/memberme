@@ -20,9 +20,9 @@ import TechnicianForm from './service/TechnicianForm';
 import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
 
-// TODO redirects
 // TODO phone number
-// TODO refresh
+// Employee microservice
+// Customer microservice
 
 
 

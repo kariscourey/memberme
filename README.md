@@ -5,9 +5,7 @@ Team:
 * Karis - Sales
 * Angel - Services
 
-## TODO
-- Employee microservice
-- Customer microservice
+
 
 ## Design
 
