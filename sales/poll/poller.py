@@ -9,7 +9,7 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sales_project.settings")
 django.setup()
 
-from sales_rest.models import AutomobileVO
+from sales_rest.models import AutomobileVO, EmployeeVO
 
 def get_automobiles():
     res = requests.get('http://inventory-api:8000/api/automobiles/')
@@ -25,12 +25,27 @@ def get_automobiles():
             },
         )
 
+def get_employees():
+    res = requests.get('http://employees-api:8000/api/employees/')
+    content = json.loads(res.content)
+
+
+    for employee in content["employees"]:
+        EmployeeVO.objects.update_or_create(
+            import_href=employee["href"],
+            defaults={
+                'name': employee['name'],
+                'employee_number': employee['employee_number'],
+            },
+        )
+
 
 def poll():
     while True:
         try:
             print('Sales poller polling for data')
             get_automobiles()
+            get_employees()
         except Exception as e:
             print(e, file=sys.stderr)
             pass

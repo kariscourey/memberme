@@ -5,8 +5,12 @@ class SalesPerson(models.Model):
     name = models.CharField(max_length=50)
     employee_number = models.PositiveIntegerField(unique=True)
 
-    def __str__(self):
-        f"{self.name}"
+
+class EmployeeVO(models.Model):
+    import_href = models.CharField(max_length=200, unique=True, null=True)
+    name = models.CharField(max_length=50)
+    employee_number = models.PositiveIntegerField(unique=True)
+
 
 
 class Customer(models.Model):
@@ -14,8 +18,6 @@ class Customer(models.Model):
     address = models.CharField(max_length=2000)
     phone_number = models.PositiveBigIntegerField(unique=True)
 
-    def __str__(self):
-        f"{self.name}"
 
 
 class AutomobileVO(models.Model):
@@ -23,8 +25,6 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField()
 
-    def __str__(self):
-        return f"{self.vin}"
 
 
 class Sale(models.Model):
@@ -44,6 +44,3 @@ class Sale(models.Model):
         related_name="sales",
         on_delete=models.PROTECT,
     )
-
-    def __str__(self):
-        return f"{self.automobile}"
