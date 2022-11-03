@@ -4,7 +4,7 @@ export function DataTable(props) {
 
     let data = props.data;
     let headers = Object.keys(data[0]);
-    const remove = ['sold', 'id', 'href']
+    const remove = ['id', 'href']
     headers = headers.filter(function(e) { return !remove.includes(e) })
     const rows = Object.values(data);
 
@@ -48,6 +48,14 @@ export function DataTable(props) {
                                     } else if (typeof row[header] == 'string' && row[header].includes('http')) {
                                         return (
                                             <td key={index}><img style={{ width: 100 }} src={row[header]} /></td>
+                                        )
+                                    } else if (typeof row[header] == 'boolean' && row[header] == true) {
+                                        return (
+                                            <td key={index}>Yes</td>
+                                        )
+                                    } else if (typeof row[header] == 'boolean' && row[header] == false) {
+                                        return (
+                                            <td key={index}>No</td>
                                         )
                                     } else {
                                         return (

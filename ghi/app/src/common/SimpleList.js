@@ -1,4 +1,3 @@
-import React from 'react';
 import { getInstances } from './api';
 import { toTitleCase } from './format';
 import { Link } from "react-router-dom";

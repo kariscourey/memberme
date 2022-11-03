@@ -65,7 +65,6 @@ def api_automobile(request, vin):
             return JsonResponse({"message": "Does not exist"})
     else: # PUT
         try:
-            print(request.body)
             content = json.loads(request.body)
             automobile = Automobile.objects.get(vin=vin)
 

@@ -52,7 +52,7 @@ function MainPage() {
 
         if (automobileColumns[0].length !== 0)
         {
-            setTitle(<h2 className="mb-3">Automobiles</h2>);
+            setTitle(<h2 className="mb-3">Automobiles in inventory</h2>);
         }
     }
     fetchAutomobiles();

@@ -1,7 +1,10 @@
 import { createInstance } from '../common/api';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { refreshPage } from '../common/window';
+
+// TODO phone number
+// import 'react-phone-number-input/style.css'
+// import PhoneInput from 'react-phone-number-input'
 
 
 export default function CustomerForm() {
@@ -70,6 +73,7 @@ export default function CustomerForm() {
                             <input onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required type="number" id="phoneNumber" name="phoneNumber" className="form-control"/>
                             <label htmlFor="phoneNumber">Phone number</label>
                         </div>
+                        {/* <PhoneInput onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required id="phoneNumber" name="phoneNumber"/> */}
                         <button className="btn btn-primary">Create</button>
                         </form>
                     </div>

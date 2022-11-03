@@ -23,9 +23,6 @@ import ServiceForm from './service/ServiceForm';
 import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
 
-// TODO phone number
-
-
 
 function App() {
   return (
