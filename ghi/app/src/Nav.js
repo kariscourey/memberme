@@ -12,15 +12,6 @@ function AutoAutoNav() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <NavDropdown title="Sales">
-              <NavDropdown.Item href="/sales">See all sales</NavDropdown.Item>
-              <NavDropdown.Item href="/sales/new">Create sale</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Services">
-              <NavDropdown.Item href="/services">See all services</NavDropdown.Item>
-              <NavDropdown.Item href="/services/history">See service history</NavDropdown.Item>
-              <NavDropdown.Item href="/services/new">Create service</NavDropdown.Item>
-            </NavDropdown>
             <NavDropdown title="Inventory">
               <NavDropdown.Item href="/automobiles">Automobiles</NavDropdown.Item>
               <NavDropdown.Item href="/automobiles/new">Create automobile</NavDropdown.Item>
@@ -30,6 +21,15 @@ function AutoAutoNav() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/manufacturers">Manufacturers</NavDropdown.Item>
               <NavDropdown.Item href="/manufacturers/new">Create manufacturer</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Sales">
+              <NavDropdown.Item href="/sales">See all sales</NavDropdown.Item>
+              <NavDropdown.Item href="/sales/new">Create sale</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Services">
+              <NavDropdown.Item href="/services">See all services</NavDropdown.Item>
+              <NavDropdown.Item href="/services/history">See service history</NavDropdown.Item>
+              <NavDropdown.Item href="/services/new">Create service</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Employees">
               <NavDropdown.Item href="/employees">See all employees</NavDropdown.Item>

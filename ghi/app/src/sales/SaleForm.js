@@ -28,6 +28,7 @@ export default function SaleForm () {
     const [noData, setNoData] = useState([]);
     const [alert, setAlert] = useState(<></>);
 
+    // TODO decouple noData and fetchInstances
     useEffect(() => {
         const fetchInstances = async () => {
 
