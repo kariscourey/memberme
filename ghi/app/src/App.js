@@ -21,8 +21,8 @@ import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
 
 // TODO phone number
-// Employee microservice
-// Customer microservice
+// TODO Employee microservice
+// TODO Customer microservice
 
 
 

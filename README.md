@@ -2,18 +2,24 @@
 Automobile-dealership-management solution designed for managing automobile inventory, sales, services, and employees. Supports automobile, sale, and service creation and management. Features data interactions with RESTful APIs.
 
 
-## Tools, techniques, languages
+## Key highlights
 
 ### Tools
 Django <br/>
 Docker <br/>
 React <br/>
 
+
 ### Techniques
+#### Back-End
 RESTful API routes <br/>
 Templating <br/>
 Microservices <br/>
+IPC integration (polling) <br/>
+
+#### Front-End
 React Hooks <br/>
+
 
 ### Languages
 Python 3 <br/>
