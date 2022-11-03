@@ -15,14 +15,11 @@ function AutoAutoNav() {
             <NavDropdown title="Sales">
               <NavDropdown.Item href="/sales">See all sales</NavDropdown.Item>
               <NavDropdown.Item href="/sales/new">Create sale</NavDropdown.Item>
-              <NavDropdown.Item href="/customers/new">Create customer</NavDropdown.Item>
-              <NavDropdown.Item href="/sales_people/new">Create sales person</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Services">
               <NavDropdown.Item href="/services">See all services</NavDropdown.Item>
               <NavDropdown.Item href="/services/history">See service history</NavDropdown.Item>
               <NavDropdown.Item href="/services/new">Create service</NavDropdown.Item>
-              <NavDropdown.Item href="/technicians/new">Create technician</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Inventory">
               <NavDropdown.Item href="/automobiles">Automobiles</NavDropdown.Item>

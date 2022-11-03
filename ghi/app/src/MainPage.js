@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getInstances } from './common/api';
+import { getFilteredInstances } from './common/api';
 
 function AutomobileColumn(props) {
 
@@ -32,11 +32,11 @@ function MainPage() {
 
   const [automobileColumns, setColumns] = useState([[],[],[]]);
 
-  const [cards, setCards] = useState(<></>);
+  const [title, setTitle] = useState(<></>);
 
   useEffect(() => {
     const fetchAutomobiles = async () => {
-        const automobilesData = await getInstances(8100, 'automobiles');
+        const automobilesData = await getFilteredInstances(8100, 'automobiles', 'sold', false);
 
         let i = 0;
         let automobileCols = [[],[],[]]
@@ -52,39 +52,35 @@ function MainPage() {
 
         if (automobileColumns[0].length !== 0)
         {
-            setCards(
-                <>
-                    <h2 className="mb-3">Automobiles</h2>
-                    <div className="row">
-                        {automobileColumns.map((automobileList, index) => {
-                        return (
-                            <AutomobileColumn list={automobileList} key={index}  />
-                        );
-                        })}
-                    </div>
-                </>
-                );
+            setTitle(<h2 className="mb-3">Automobiles</h2>);
         }
     }
     fetchAutomobiles();
     }, []);
 
-  return (
+    return (
     <>
-      <div className="px-4 py-5 my-5 text-center">
+        <div className="px-4 py-5 my-5 text-center">
         <h1 className="display-5 fw-bold">AutoAuto</h1>
         <div className="col-lg-6 mx-auto">
-          <p className="lead mb-4">
-            The premiere solution for automobile dealership
-            management!
-          </p>
+            <p className="lead mb-4">
+                The premiere solution for automobile dealership
+                management!
+            </p>
         </div>
-      </div>
-      <div className="container">
-        {cards}
-      </div>
-      </>
-  );
+        </div>
+        <div className="container">
+            {title}
+            <div className="row">
+                {automobileColumns.map((automobileList, index) => {
+                return (
+                    <AutomobileColumn list={automobileList} key={index}  />
+                );
+                })}
+            </div>
+        </div>
+        </>
+    );
 }
 
 export default MainPage;

@@ -1,10 +1,11 @@
 import { createInstance, getInstances, getDeepInstances } from '../common/api';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { refreshPage } from '../common/window';
 
 
 export default function ServiceForm () {
+
+    const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState(
         {
@@ -18,6 +19,7 @@ export default function ServiceForm () {
         {
             automobiles: [],
             technicians: [],
+            customers: [],
         }
     );
 
@@ -31,6 +33,7 @@ export default function ServiceForm () {
 
                 let data = {};
 
+                data.customers = await getInstances(8120, 'customers');
                 data.automobiles = await getInstances(8100, 'automobiles');
                 data.technicians = await getDeepInstances(8110, 'employees/technicians');
 
@@ -70,7 +73,9 @@ export default function ServiceForm () {
             };
             setUserInput(cleared);
             setNoData(false);
-        // refreshPage();  // how to change the timing?
+
+            navigate('/services');
+
         } else {
             setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }
@@ -132,10 +137,18 @@ export default function ServiceForm () {
                                         })}
                                     </select>
                                 </div>
-                                <div className="form-floating mb-3">
-                                    <input onChange={handleChange} placeholder="Customer" value={userInput.customer} required type="text" id="customer" name="customer" className="form-control"/>
-                                    <label htmlFor="customer">Customer</label>
-                                </div>
+                                <div className="mb-3">
+                                <select onChange={handleChange} value={userInput.customer} required id="customer" name="customer" className="form-select">
+                                    <option value="">Choose a customer</option>
+                                    {loadData.customers.map(customer => {
+                                        return (
+                                            <option key={customer.phone_number} value={customer.phone_number}>
+                                                {customer.name} ({customer.phone_number})
+                                            </option>
+                                        )
+                                    })}
+                                </select>
+                            </div>
                                 <div className="form-floating mb-3">
                                     <input onChange={handleChange} placeholder="Appointment date" value={userInput.appointmentDate} required type="date" id="appointmentDate" name="appointmentDate" className="form-control"/>
                                     <label htmlFor="appointmentDate">Appointment date</label>

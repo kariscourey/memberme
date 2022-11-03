@@ -2,8 +2,6 @@ import { createInstance, getInstances, getFilteredInstances, updateInstance, get
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toSnake, camelToUserFriendly } from '../common/format';
-import { refreshPage } from '../common/window';
-
 
 
 export default function SaleForm () {
@@ -84,7 +82,7 @@ export default function SaleForm () {
 
                 navigate('/sales');
             }
-        // refreshPage();  // how to change the timing?
+
         } else {
             setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);
         }
