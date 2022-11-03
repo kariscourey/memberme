@@ -1,4 +1,4 @@
-import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
+import { createInstance, getInstances, getFilteredInstances, updateInstance, getDeepInstances } from '../common/api';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toSnake, camelToUserFriendly } from '../common/format';
@@ -35,18 +35,14 @@ export default function SaleForm () {
 
             try {
 
-                const urls = [
-                    'http://localhost:8090/api/sales_people',
-                    'http://localhost:8090/api/customers',
-                ];
-                const obj = await getInstancesFromManyRequests(urls);
+                let data = {};
 
-                const app = 'automobiles';
-                const data = await getFilteredInstances(8100, app, 'sold', false);
-                obj[app] = data;
+                data.customers = await getInstances(8120, 'customers');
+                data.automobiles = await getFilteredInstances(8100, 'automobiles', 'sold', false);
+                data.salesPeople = await getDeepInstances(8110, 'employees/sales_people');
 
-                setNoData(Object.keys(obj).filter(i => obj[i].length == 0));
-                setLoadData(obj);
+                setNoData(Object.keys(data).filter(i => data[i].length == 0));
+                setLoadData(data);
 
             } catch (e) {
                 console.error(e);

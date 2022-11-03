@@ -34,6 +34,7 @@ export default function EmployeeForm() {
                 let data = {};
                 data.positions = await getInstances(8110, 'positions');
 
+                setNoData(Object.keys(data).filter(i => data[i].length == 0));
                 setLoadData(data);
 
             } catch (e) {

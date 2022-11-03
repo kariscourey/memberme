@@ -5,6 +5,8 @@ from .views import (
     api_employees,
     api_position,
     api_positions,
+    api_technicians,
+    api_sales_people,
 )
 
 urlpatterns = [
@@ -27,5 +29,15 @@ urlpatterns = [
         "positions/<int:pk>/",
         api_position,
         name="api_position",
+    ),
+    path(
+        "employees/technicians/",
+        api_technicians,
+        name="api_technicians",
+    ),
+    path(
+        "employees/sales_people/",
+        api_sales_people,
+        name="api_sales_people",
     ),
 ]

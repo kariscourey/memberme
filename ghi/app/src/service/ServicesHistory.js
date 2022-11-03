@@ -24,7 +24,7 @@ function DataTable(props) {
                         return (
                             <tr key={service.id}>
                                 <td>{service.automobile.vin}</td>
-                                <td>{service.customer}</td>
+                                <td>{service.customer.name}</td>
                                 <td>{new Date(service.appointment_date).toLocaleDateString()}</td>
                                 <td>{service.technician.name}</td>
                                 <td>{service.reason}</td>

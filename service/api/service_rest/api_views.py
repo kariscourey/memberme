@@ -6,7 +6,7 @@ import json
 from .encoders import (
     ServiceEncoder,
 )
-from .models import Service, AutomobileVO, EmployeeVO
+from .models import Service, AutomobileVO, EmployeeVO, CustomerVO
 
 
 @require_http_methods(["GET", "POST"])
@@ -33,6 +33,7 @@ def api_services(request):
                 {"message": "Invalid automobile VIN"},
                 status=400,
             )
+
         try:
             technician_employee_number = content["technician"]
             technician = EmployeeVO.objects.get(employee_number=technician_employee_number)
@@ -40,6 +41,16 @@ def api_services(request):
         except EmployeeVO.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid technician employee number"},
+                status=400,
+            )
+
+        try:
+            customer_phone_number = content["customer"]
+            customer = CustomerVO.objects.get(phone_number=customer_phone_number)
+            content["customer"] = customer
+        except CustomerVO.DoesNotExist:
+            return JsonResponse(
+                {'message': 'Invalid customer phone number'},
                 status=400,
             )
 

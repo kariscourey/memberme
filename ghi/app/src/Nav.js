@@ -38,6 +38,10 @@ function AutoAutoNav() {
               <NavDropdown.Item href="/employees">See all employees</NavDropdown.Item>
               <NavDropdown.Item href="/employees/new">Create employee</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Customers">
+              <NavDropdown.Item href="/customers">See all customers</NavDropdown.Item>
+              <NavDropdown.Item href="/customers/new">Create customer</NavDropdown.Item>
+            </NavDropdown>
             </Nav>
           </Navbar.Collapse>
       </Container>

@@ -20,17 +20,6 @@ class EmployeeVO(models.Model):
     employee_number = models.PositiveIntegerField(unique=True)
 
 
-
-class Customer(models.Model):
-    name = models.CharField(max_length=50)
-    address = models.CharField(max_length=2000)
-    phone_number = models.PositiveBigIntegerField(unique=True)
-
-    def get_api_url(self):
-        return reverse("api_customer", kwargs={"pk": self.id})
-
-
-
 class Sale(models.Model):
     price = models.PositiveIntegerField()
     automobile = models.ForeignKey(
@@ -44,7 +33,7 @@ class Sale(models.Model):
         on_delete=models.PROTECT,
     )
     customer = models.ForeignKey(
-        Customer,
+        CustomerVO,
         related_name="sales",
         on_delete=models.PROTECT,
     )

@@ -1,13 +1,10 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from .encoders import (
-    CustomerEncoder,
     SaleEncoder,
 )
-from .models import AutomobileVO, Sale, Customer, EmployeeVO, CustomerVO
+from .models import AutomobileVO, Sale, EmployeeVO, CustomerVO
 import json
-
-# TODO finish implementation of CustomerVO HERE (and in service)
 
 
 @require_http_methods(["GET", "POST"])
@@ -20,6 +17,9 @@ def api_sales(request):
         )
     else:
         content = json.loads(request.body)
+
+        # TODO update to sold=True on backend
+        # TODO full CRUD
 
         try:
             automobile_vin = content["automobile"]
@@ -59,24 +59,3 @@ def api_sales(request):
             encoder=SaleEncoder,
             safe=False,
         )
-
-
-# @require_http_methods(["GET", "POST"])
-# def api_customer(request):
-
-#     if request.method == "GET":
-#         customers = Customer.objects.all()
-#         return JsonResponse(
-#             {'customers': customers},
-#             encoder=CustomerEncoder,
-#         )
-
-#     else:
-#         content = json.loads(request.body)
-#         customer = Customer.objects.create(**content)
-
-#         return JsonResponse(
-#             customer,
-#             encoder=CustomerEncoder,
-#             safe=False,
-#         )

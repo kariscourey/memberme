@@ -160,3 +160,24 @@ def api_position(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+
+@require_http_methods(["GET"])
+def api_technicians(request):
+    position = Position.objects.get(name="Technician")
+    position_id = position.id
+    employees = Employee.objects.filter(position=position_id)
+    return JsonResponse(
+        {"employees": employees},
+        encoder=EmployeeEncoder,
+    )
+
+@require_http_methods(["GET"])
+def api_sales_people(request):
+    position = Position.objects.get(name="Sales Person")
+    position_id = position.id
+    employees = Employee.objects.filter(position=position_id)
+    return JsonResponse(
+        {"employees": employees},
+        encoder=EmployeeEncoder,
+    )

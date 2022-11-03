@@ -7,6 +7,12 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
 
 
+class CustomerVO(models.Model):
+    import_href = models.CharField(max_length=200, unique=True, null=True)
+    name = models.CharField(max_length=50)
+    phone_number = models.PositiveBigIntegerField(unique=True)
+
+
 class EmployeeVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     name = models.CharField(max_length=50)
@@ -19,7 +25,11 @@ class Service(models.Model):
         related_name="services",
         on_delete=models.PROTECT,
     )
-    customer = models.CharField(max_length=100)
+    customer = models.ForeignKey(
+        CustomerVO,
+        related_name="services",
+        on_delete=models.PROTECT,
+    )
     appointment_date = models.DateTimeField(auto_now=False)
     technician = models.ForeignKey(
         EmployeeVO,

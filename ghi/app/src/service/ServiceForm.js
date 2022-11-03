@@ -1,4 +1,4 @@
-import { createInstance, getInstances } from '../common/api';
+import { createInstance, getInstances, getDeepInstances } from '../common/api';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { refreshPage } from '../common/window';
@@ -29,14 +29,13 @@ export default function ServiceForm () {
 
             try {
 
-                let obj = {};
+                let data = {};
 
-                obj.automobiles = await getInstances(8100, 'automobiles');
-                obj.technicians = await getInstances(8080, 'technicians');
+                data.automobiles = await getInstances(8100, 'automobiles');
+                data.technicians = await getDeepInstances(8110, 'employees/technicians');
 
-
-                setNoData(Object.keys(obj).filter(i => obj[i].length == 0));
-                setLoadData(obj);
+                setNoData(Object.keys(data).filter(i => data[i].length == 0));
+                setLoadData(data);
 
             } catch (e) {
                 console.error(e);

@@ -43,6 +43,18 @@ export async function getInstance(port, app, id) {
 
       }
 
+    export async function getDeepInstances(port, app) {
+        const response = await fetch(`http://localhost:${port}/api/${app}/`);
+
+        if (response.ok) {
+          const data = await response.json();
+          return data[app.split("/")[0]];
+        } else {
+          console.error(response);
+        }
+
+      }
+
   export async function getFilteredInstances(port, app, parameter, value) {
         const response = await fetch(`http://localhost:${port}/api/${app}/`);
 
@@ -55,6 +67,7 @@ export async function getInstance(port, app, id) {
         }
 
       }
+
 
 export async function createInstance(port, app, data) {
 

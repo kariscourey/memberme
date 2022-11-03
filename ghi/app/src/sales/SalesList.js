@@ -1,4 +1,4 @@
-import { getInstances } from '../common/api';
+import { getInstances, getDeepInstances } from '../common/api';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -58,9 +58,10 @@ export default function SalesList() {
             try {
 
                 let data = {};
+
                 data.sales = await getInstances(8090, 'sales');
                 data.salesFiltered = data.sales;
-                data.salesPeople = await getInstances(8090, 'sales_people');
+                data.salesPeople = await getDeepInstances(8110, 'employees/sales_people');
 
                 setLoadData(data);
 
