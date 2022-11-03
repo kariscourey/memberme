@@ -50,7 +50,7 @@ function MainPage() {
         }
         setColumns(automobileCols);
 
-        if (automobileColumns[0].length !== 0)
+        if (automobileCols[0].length !== 0)
         {
             setTitle(<h2 className="mb-3">Automobiles in inventory</h2>);
         }
