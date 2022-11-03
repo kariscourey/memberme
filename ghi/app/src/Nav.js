@@ -34,6 +34,10 @@ function AutoAutoNav() {
               <NavDropdown.Item href="/manufacturers">Manufacturers</NavDropdown.Item>
               <NavDropdown.Item href="/manufacturers/new">Create manufacturer</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Employees">
+              <NavDropdown.Item href="/employees">See all employees</NavDropdown.Item>
+              <NavDropdown.Item href="/employees/new">Create employee</NavDropdown.Item>
+            </NavDropdown>
             </Nav>
           </Navbar.Collapse>
       </Container>

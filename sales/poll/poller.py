@@ -9,7 +9,7 @@ sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sales_project.settings")
 django.setup()
 
-from sales_rest.models import AutomobileVO, EmployeeVO
+from sales_rest.models import AutomobileVO, EmployeeVO, CustomerVO
 
 def get_automobiles():
     res = requests.get('http://inventory-api:8000/api/automobiles/')
@@ -31,11 +31,27 @@ def get_employees():
 
 
     for employee in content["employees"]:
-        EmployeeVO.objects.update_or_create(
-            import_href=employee["href"],
+        if employee['position']['name'].lower() == 'sales person':
+            EmployeeVO.objects.update_or_create(
+                import_href=employee["href"],
+                defaults={
+                    'name': employee['name'],
+                    'employee_number': employee['employee_number'],
+                },
+        )
+
+
+def get_customers():
+    res = requests.get('http://customers-api:8000/api/customers/')
+    content = json.loads(res.content)
+
+
+    for customer in content["customers"]:
+        CustomerVO.objects.update_or_create(
+            import_href=customer["href"],
             defaults={
-                'name': employee['name'],
-                'employee_number': employee['employee_number'],
+                'name': customer['name'],
+                'phone_number': customer['phone_number'],
             },
         )
 
@@ -46,6 +62,7 @@ def poll():
             print('Sales poller polling for data')
             get_automobiles()
             get_employees()
+            get_customers()
         except Exception as e:
             print(e, file=sys.stderr)
             pass

@@ -1,6 +1,6 @@
 from common.json import ModelEncoder
 
-from .models import AutomobileVO, Sale, SalesPerson, Customer, EmployeeVO
+from .models import AutomobileVO, Sale, Customer, EmployeeVO, CustomerVO
 
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
@@ -10,17 +10,18 @@ class AutomobileVOEncoder(ModelEncoder):
         "sold",
     ]
 
+class CustomerVOEncoder(ModelEncoder):
+    model = CustomerVO
+    properties = [
+        "import_href",
+        "name",
+        "phone_number",
+    ]
+
 class EmployeeVOEncoder(ModelEncoder):
     model = EmployeeVO
     properties = [
         "import_href",
-        "name",
-        "employee_number",
-    ]
-
-class SalesPersonEncoder(ModelEncoder):
-    model = SalesPerson
-    properties = [
         "name",
         "employee_number",
     ]
@@ -46,6 +47,6 @@ class SaleEncoder(ModelEncoder):
 
     encoders = {
             "automobile": AutomobileVOEncoder(),
-            "sales_person": SalesPersonEncoder(),
-            "customer": CustomerEncoder(),
+            "sales_person": EmployeeVOEncoder(),
+            "customer": CustomerVOEncoder(),
         }

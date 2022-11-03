@@ -107,6 +107,20 @@ services:
     depends_on:
       - database
     environment:
-      DATABASE_URL: postgres://sales:password@database:5432/sales
+      DATABASE_URL: postgres://sales:password@database:5432/sales # TODO - set specific url
+      WAIT_HOSTS: database:5432
+      WAIT_TIMEOUT: 240
+  customers-api:
+    build:
+      context: ./customers/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8120:8000"
+    volumes:
+      - ./customers/api:/app
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://sales:password@database:5432/sales  # TODO - set specific url
       WAIT_HOSTS: database:5432
       WAIT_TIMEOUT: 240

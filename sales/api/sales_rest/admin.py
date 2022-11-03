@@ -1,11 +1,7 @@
 from django.contrib import admin
 
-from .models import SalesPerson, Customer, Sale, EmployeeVO
+from .models import Customer, Sale, EmployeeVO
 
-
-@admin.register(SalesPerson)
-class SalesPersonAdmin(admin.ModelAdmin):
-    pass
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):

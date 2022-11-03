@@ -31,12 +31,13 @@ def get_employees():
 
 
     for employee in content["employees"]:
-        EmployeeVO.objects.update_or_create(
-            import_href=employee["href"],
-            defaults={
-                'name': employee['name'],
-                'employee_number': employee['employee_number'],
-            },
+        if employee['position']['name'].lower() == 'technician':
+            EmployeeVO.objects.update_or_create(
+                import_href=employee["href"],
+                defaults={
+                    'name': employee['name'],
+                    'employee_number': employee['employee_number'],
+                },
         )
 
 def poll():

@@ -10,6 +10,9 @@ import ModelsList from './inventory/ModelsList';
 import ManufacturerForm from './inventory/ManufacturerForm';
 import ManufacturersList from './inventory/ManufacturersList';
 
+import EmployeeForm from './employees/EmployeeForm';
+import EmployeesList from './employees/EmployeesList';
+
 import SalesList from './sales/SalesList';
 import SaleForm from './sales/SaleForm';
 import CustomerForm from './sales/CustomerForm';
@@ -21,7 +24,7 @@ import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
 
 // TODO phone number
-// TODO Employee microservice
+// TODO datatable fix
 // TODO Customer microservice
 
 
@@ -42,6 +45,10 @@ function App() {
           </Route>
           <Route path="sales_people">
             <Route path="new" element={<SalesPersonForm />}></Route>
+          </Route>
+          <Route path="employees">
+            <Route path="" element={<EmployeesList />}></Route>
+            <Route path="new" element={<EmployeeForm />}></Route>
           </Route>
           <Route path="automobiles">
             <Route path="" element={<AutomobilesList />}></Route>

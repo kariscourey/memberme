@@ -6,6 +6,7 @@ from .models import Employee, Position
 class PositionEncoder(ModelEncoder):
     model = Position
     properties = [
+        "id",
         "name",
     ]
 

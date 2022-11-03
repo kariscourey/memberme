@@ -1,14 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from common.json import ModelEncoder
 import json
 
 from .encoders import (
     ServiceEncoder,
-    TechnicianEncoder,
 )
-from .models import Service, Technician, AutomobileVO
+from .models import Service, AutomobileVO, EmployeeVO
 
 
 @require_http_methods(["GET", "POST"])
@@ -32,16 +30,16 @@ def api_services(request):
             content["automobile"] = automobile
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
-                {"message": "Invalid Automobile bro"},
+                {"message": "Invalid automobile VIN"},
                 status=400,
             )
         try:
             technician_employee_number = content["technician"]
-            technician = Technician.objects.get(employee_number=technician_employee_number)
+            technician = EmployeeVO.objects.get(employee_number=technician_employee_number)
             content["technician"] = technician
-        except Technician.DoesNotExist:
+        except EmployeeVO.DoesNotExist:
             return JsonResponse(
-                {"message": "Invalid technician no such thing"},
+                {"message": "Invalid technician employee number"},
                 status=400,
             )
 
@@ -52,25 +50,6 @@ def api_services(request):
             safe=False,
         )
 
-@require_http_methods(["GET", "POST"])
-def api_technicians(request):
-
-    if request.method == "GET":
-        technicians = Technician.objects.all()
-        return JsonResponse(
-            {"technicians": technicians},
-            encoder=TechnicianEncoder,
-            safe=False
-        )
-    else:
-        content = json.loads(request.body)
-
-        technician = Technician.objects.create(**content)
-        return JsonResponse(
-            technician,
-            encoder=TechnicianEncoder,
-            safe=False,
-        )
 
 @require_http_methods(["PUT"])
 def api_service(request, pk):

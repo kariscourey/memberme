@@ -7,6 +7,7 @@ export function DataTable(props) {
     const remove = ['sold', 'id', 'href']
     headers = headers.filter(function(e) { return !remove.includes(e) })
     const rows = Object.values(data);
+    console.log(headers);
 
     return (
         <div>
@@ -20,6 +21,12 @@ export function DataTable(props) {
                                         {toTitleCase(header.replace('_url',''))}
                                     </th>
                                 )
+                            } else if (header.includes('_')) {
+                                return (
+                                    <th key={index}>
+                                        {toTitleCase(header.replace('_',' '))}
+                                    </th>
+                                )
                             }
                             return (
                                 <th key={index}>
@@ -30,11 +37,14 @@ export function DataTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.map((row) => {
+                    {rows.map((row, r_index) => {
                         return (
-                            <tr key={row.id}>
+                            <tr key={r_index}>
                                 {headers.map((header, index) => {
-                                    if (row[header].name) {
+                                    console.log(header);
+                                    console.log(row[header]);
+                                    console.log(row[header].hasOwnProperty('name'));
+                                    if (row[header].hasOwnProperty('name')) {
                                         return (
                                             <td key={index}>{row[header].name}</td>
                                         )

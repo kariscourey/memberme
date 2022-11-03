@@ -1,12 +1,13 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from .encoders import (
-    SalesPersonEncoder,
     CustomerEncoder,
     SaleEncoder,
 )
-from .models import AutomobileVO, Sale, SalesPerson, Customer
+from .models import AutomobileVO, Sale, Customer, EmployeeVO, CustomerVO
 import json
+
+# TODO finish implementation of CustomerVO HERE (and in service)
 
 
 @require_http_methods(["GET", "POST"])
@@ -27,15 +28,15 @@ def api_sales(request):
             content["automobile"] = automobile
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
-                {'message': 'Invalid automobile vin'},
+                {'message': 'Invalid automobile VIN'},
                 status=400,
             )
 
         try:
             sales_person_employee_number = content["sales_person"]
-            sales_person = SalesPerson.objects.get(employee_number=sales_person_employee_number)
+            sales_person = EmployeeVO.objects.get(employee_number=sales_person_employee_number)
             content["sales_person"] = sales_person
-        except SalesPerson.DoesNotExist:
+        except EmployeeVO.DoesNotExist:
             return JsonResponse(
                 {'message': 'Invalid sales person employee number'},
                 status=400,
@@ -43,9 +44,9 @@ def api_sales(request):
 
         try:
             customer_phone_number = content["customer"]
-            customer = Customer.objects.get(phone_number=customer_phone_number)
+            customer = CustomerVO.objects.get(phone_number=customer_phone_number)
             content["customer"] = customer
-        except Customer.DoesNotExist:
+        except CustomerVO.DoesNotExist:
             return JsonResponse(
                 {'message': 'Invalid customer phone number'},
                 status=400,
@@ -59,42 +60,23 @@ def api_sales(request):
             safe=False,
         )
 
-@require_http_methods(["GET", "POST"])
-def api_sales_person(request):
 
-    if request.method == "GET":
-        sales_people = SalesPerson.objects.all()
-        return JsonResponse(
-            {'sales_people': sales_people},
-            encoder=SalesPersonEncoder,
-        )
+# @require_http_methods(["GET", "POST"])
+# def api_customer(request):
 
-    else:
-        content = json.loads(request.body)
-        sales_person = SalesPerson.objects.create(**content)
+#     if request.method == "GET":
+#         customers = Customer.objects.all()
+#         return JsonResponse(
+#             {'customers': customers},
+#             encoder=CustomerEncoder,
+#         )
 
-        return JsonResponse(
-            sales_person,
-            encoder=SalesPersonEncoder,
-            safe=False,
-        )
+#     else:
+#         content = json.loads(request.body)
+#         customer = Customer.objects.create(**content)
 
-@require_http_methods(["GET", "POST"])
-def api_customer(request):
-
-    if request.method == "GET":
-        customers = Customer.objects.all()
-        return JsonResponse(
-            {'customers': customers},
-            encoder=CustomerEncoder,
-        )
-
-    else:
-        content = json.loads(request.body)
-        customer = Customer.objects.create(**content)
-
-        return JsonResponse(
-            customer,
-            encoder=CustomerEncoder,
-            safe=False,
-        )
+#         return JsonResponse(
+#             customer,
+#             encoder=CustomerEncoder,
+#             safe=False,
+#         )
