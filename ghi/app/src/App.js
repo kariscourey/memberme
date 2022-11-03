@@ -24,7 +24,6 @@ import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
 
 // TODO phone number
-// TODO fix simplelist
 
 
 

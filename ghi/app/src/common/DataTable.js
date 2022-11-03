@@ -7,7 +7,6 @@ export function DataTable(props) {
     const remove = ['sold', 'id', 'href']
     headers = headers.filter(function(e) { return !remove.includes(e) })
     const rows = Object.values(data);
-    console.log(headers);
 
     return (
         <div>
@@ -41,22 +40,20 @@ export function DataTable(props) {
                         return (
                             <tr key={r_index}>
                                 {headers.map((header, index) => {
-                                    console.log(header);
-                                    console.log(row[header]);
-                                    console.log(row[header].hasOwnProperty('name'));
+
                                     if (row[header].hasOwnProperty('name')) {
                                         return (
                                             <td key={index}>{row[header].name}</td>
                                         )
-                                    } else if (row[header].includes('http')) {
+                                    } else if (typeof row[header] == 'string' && row[header].includes('http')) {
                                         return (
                                             <td key={index}><img style={{ width: 100 }} src={row[header]} /></td>
                                         )
+                                    } else {
+                                        return (
+                                            <td key={index}>{row[header]}</td>
+                                        )
                                     }
-                                    return (
-                                        <td key={index}>{row[header]}</td>
-                                    )
-
                                 })}
                             </tr>
                         )

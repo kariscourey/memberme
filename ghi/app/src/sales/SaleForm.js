@@ -67,10 +67,6 @@ export default function SaleForm () {
 
         if (response.ok) {
 
-            const vin = data.automobile;
-            response = await updateInstance(8100, 'automobiles', vin, {sold: true});
-
-            if (response.ok) {
                 const cleared = {
                     price: '',
                     automobile: '',
@@ -81,7 +77,6 @@ export default function SaleForm () {
                 setNoData(false);
 
                 navigate('/sales');
-            }
 
         } else {
             setAlert(<><div className="alert alert-primary mt-3" role="alert"><div>Invalid input!</div></div></>);

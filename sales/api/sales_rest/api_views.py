@@ -3,7 +3,9 @@ from django.views.decorators.http import require_http_methods
 from .encoders import (
     SaleEncoder,
 )
+from .acls import update_automobile
 from .models import AutomobileVO, Sale, EmployeeVO, CustomerVO
+
 import json
 
 
@@ -49,22 +51,19 @@ def api_sales(request):
                 status=400,
             )
 
-        sale = Sale.objects.create(**content)
+        try:
+            sale = Sale.objects.create(**content)
 
-        # TODO figure out update sold to True
-        # try:
-        #     automobile_vin = content["automobile"]["vin"]
-        #     # set body where sold = True
-        #     # make POST request
-        #     # api_automobile(request, vin)
+            automobile_vin = content["automobile"].vin
+            update_automobile(automobile_vin)
+            AutomobileVO.objects.filter(vin=automobile_vin).update(sold=True)
+            sale.automobile.sold = True
 
-        #     # something like this?
-        #     # Automobile.objects.filter(vin=automobile_vin).update(sold=True)
-        # except AutomobileVO.DoesNotExist:
-        #     return JsonResponse(
-        #         {'message': 'Invalid automobile VIN'},
-        #         status=400,
-        #     )
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse(
+                {"message': 'Couldn't complete sale"},
+                status=400,
+            )
 
         return JsonResponse(
             sale,

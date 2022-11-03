@@ -164,20 +164,33 @@ def api_position(request, pk):
 
 @require_http_methods(["GET"])
 def api_technicians(request):
-    position = Position.objects.get(name="Technician")
-    position_id = position.id
-    employees = Employee.objects.filter(position=position_id)
-    return JsonResponse(
-        {"employees": employees},
-        encoder=EmployeeEncoder,
-    )
+    try:
+        position = Position.objects.get(name="Technician")
+        position_id = position.id
+        employees = Employee.objects.filter(position=position_id)
+        return JsonResponse(
+            {"employees": employees},
+            encoder=EmployeeEncoder,
+        )
+    except Position.DoesNotExist:
+        response = JsonResponse({"message": "Technician position does not exist"})
+        response.status_code = 404
+        return response
+
+
 
 @require_http_methods(["GET"])
 def api_sales_people(request):
-    position = Position.objects.get(name="Sales Person")
-    position_id = position.id
-    employees = Employee.objects.filter(position=position_id)
-    return JsonResponse(
-        {"employees": employees},
-        encoder=EmployeeEncoder,
-    )
+
+    try:
+        position = Position.objects.get(name="Sales Person")
+        position_id = position.id
+        employees = Employee.objects.filter(position=position_id)
+        return JsonResponse(
+            {"employees": employees},
+            encoder=EmployeeEncoder,
+        )
+    except Position.DoesNotExist:
+        response = JsonResponse({"message": "Sales Person position does not exist"})
+        response.status_code = 404
+        return response
