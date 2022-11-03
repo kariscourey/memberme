@@ -1,8 +1,5 @@
 import json
 import requests
-# from requests.adapters import HTTPAdapter
-# from urllib3.util.retry import Retry
-
 
 def update_automobile(vin):
     headers = {"Content-Type": "application/json"}
