@@ -108,8 +108,8 @@ export default function ServicesHistory() {
                         <div className="shadow p-4 mt-4">
                             <h1>Uh oh...</h1>
                             <p>
-                                No data to show. Care to create a{' '}
-                                <Link to={`/services/new`}>service</Link>?
+                                No data to show. Care to create{' '}
+                                <Link to={`/services/new`}>services</Link>?
                             </p>
                         </div>
                     </div>

@@ -104,8 +104,8 @@ export default function SalesList() {
                         <div className="shadow p-4 mt-4">
                             <h1>Uh oh...</h1>
                             <p>
-                                No data to show. Care to create a{' '}
-                                <Link to={`/sales/new`}>sale</Link>?
+                                No data to show. Care to create{' '}
+                                <Link to={`/sales/new`}>sales</Link>?
                             </p>
                         </div>
                     </div>

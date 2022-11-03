@@ -30,7 +30,9 @@ function AutomobileColumn(props) {
 
 function MainPage() {
 
-  const [automobileColumns, setColumns] = useState([[],[],[]])
+  const [automobileColumns, setColumns] = useState([[],[],[]]);
+
+  const [cards, setCards] = useState(<></>);
 
   useEffect(() => {
     const fetchAutomobiles = async () => {
@@ -47,6 +49,22 @@ function MainPage() {
             }
         }
         setColumns(automobileCols);
+
+        if (automobileColumns[0].length !== 0)
+        {
+            setCards(
+                <>
+                    <h2 className="mb-3">Automobiles</h2>
+                    <div className="row">
+                        {automobileColumns.map((automobileList, index) => {
+                        return (
+                            <AutomobileColumn list={automobileList} key={index}  />
+                        );
+                        })}
+                    </div>
+                </>
+                );
+        }
     }
     fetchAutomobiles();
     }, []);
@@ -63,14 +81,7 @@ function MainPage() {
         </div>
       </div>
       <div className="container">
-        <h2 className="mb-3">Automobiles</h2>
-        <div className="row">
-          {automobileColumns.map((automobileList, index) => {
-            return (
-                <AutomobileColumn list={automobileList} key={index}  />
-            );
-          })}
-        </div>
+        {cards}
       </div>
       </>
   );

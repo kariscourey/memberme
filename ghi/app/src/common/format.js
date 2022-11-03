@@ -16,3 +16,35 @@ export const toTitleCase = (str) => {
     }
   );
 }
+
+// derived from https://www.geeksforgeeks.org/python-program-to-convert-camel-case-string-to-snake-case/
+export const toSnake = (str) => {
+
+  let res = [str[0].toLowerCase()];
+
+  for (let c of str.slice(1)) {
+    if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(c)) {
+      res.push('_');
+      res.push(c.toLowerCase());
+    } else {
+      res.push(c);
+    }
+  }
+  return res.join('');
+}
+
+
+export const camelToUserFriendly = (str) => {
+
+  let res = [str[0].toLowerCase()];
+
+  for (let c of str.slice(1)) {
+    if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(c)) {
+      res.push(' ');
+      res.push(c.toLowerCase());
+    } else {
+      res.push(c);
+    }
+  }
+  return res.join('');
+}

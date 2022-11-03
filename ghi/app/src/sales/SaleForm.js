@@ -1,6 +1,7 @@
 import { createInstance, getInstancesFromManyRequests, getFilteredInstances, updateInstance } from '../common/api';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toSnake, camelToUserFriendly } from '../common/format';
 import { refreshPage } from '../common/window';
 
 
@@ -104,8 +105,8 @@ export default function SaleForm () {
                                 You're missing{' '}
                                 {noData.map(i => {
                                     return (
-                                    <Link key={i} to={`/${i}/new`}>{i}</Link>
-                                    )
+                                        <Link key={toSnake(i)} to={`/${toSnake(i)}/new`}>{camelToUserFriendly(i)}</Link>
+                                        )
                                 }
                                 )}
                                 {' '}data!
