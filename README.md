@@ -3,7 +3,8 @@ Automobile-dealership-management solution designed for managing automobile inven
 
 
 ## Design
-- [Design](docs/design.md)
+- [Design summary](docs/design-summary.md)
+- [API design](docs/api-design.md)
 - [Data model](docs/data-model.md)
 
 ## Methods
