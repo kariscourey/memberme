@@ -18,6 +18,5 @@ class Employee(models.Model):
         on_delete=models.PROTECT,
     )
 
-
     def get_api_url(self):
         return reverse("api_employee", kwargs={"pk": self.id})

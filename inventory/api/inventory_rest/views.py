@@ -1,11 +1,12 @@
+import json
+
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-import json
 
 from .encoders import (
     AutomobileEncoder,
     ManufacturerEncoder,
-    VehicleModelEncoder,
+    VehicleModelEncoder
 )
 from .models import Automobile, Manufacturer, VehicleModel
 
@@ -30,7 +31,7 @@ def api_automobiles(request):
                 encoder=AutomobileEncoder,
                 safe=False,
             )
-        except:
+        except:  # noqa: E722
             response = JsonResponse(
                 {"message": "Could not create the automobile"}
             )
@@ -44,9 +45,7 @@ def api_automobile(request, vin):
         try:
             automobile = Automobile.objects.get(vin=vin)
             return JsonResponse(
-                automobile,
-                encoder=AutomobileEncoder,
-                safe=False
+                automobile, encoder=AutomobileEncoder, safe=False
             )
         except Automobile.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
@@ -63,7 +62,7 @@ def api_automobile(request, vin):
             )
         except Automobile.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:  # PUT
         try:
             content = json.loads(request.body)
             automobile = Automobile.objects.get(vin=vin)
@@ -101,7 +100,7 @@ def api_manufacturers(request):
                 encoder=ManufacturerEncoder,
                 safe=False,
             )
-        except:
+        except:  # noqa: E722
             response = JsonResponse(
                 {"message": "Could not create the manufacturer"}
             )
@@ -115,9 +114,7 @@ def api_manufacturer(request, pk):
         try:
             manufacturer = Manufacturer.objects.get(id=pk)
             return JsonResponse(
-                manufacturer,
-                encoder=ManufacturerEncoder,
-                safe=False
+                manufacturer, encoder=ManufacturerEncoder, safe=False
             )
         except Manufacturer.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
@@ -134,7 +131,7 @@ def api_manufacturer(request, pk):
             )
         except Manufacturer.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:  # PUT
         try:
             content = json.loads(request.body)
             manufacturer = Manufacturer.objects.get(id=pk)
@@ -159,10 +156,7 @@ def api_manufacturer(request, pk):
 def api_vehicle_models(request):
     if request.method == "GET":
         models = VehicleModel.objects.all()
-        return JsonResponse(
-            {"models": models},
-            encoder=VehicleModelEncoder
-        )
+        return JsonResponse({"models": models}, encoder=VehicleModelEncoder)
     else:
         try:
             content = json.loads(request.body)
@@ -175,7 +169,7 @@ def api_vehicle_models(request):
                 encoder=VehicleModelEncoder,
                 safe=False,
             )
-        except:
+        except:  # noqa: E722
             response = JsonResponse(
                 {"message": "Could not create the vehicle model"}
             )
@@ -188,11 +182,7 @@ def api_vehicle_model(request, pk):
     if request.method == "GET":
         try:
             model = VehicleModel.objects.get(id=pk)
-            return JsonResponse(
-                model,
-                encoder=VehicleModelEncoder,
-                safe=False
-            )
+            return JsonResponse(model, encoder=VehicleModelEncoder, safe=False)
         except VehicleModel.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
@@ -208,7 +198,7 @@ def api_vehicle_model(request, pk):
             )
         except VehicleModel.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:  # PUT
         try:
             content = json.loads(request.body)
             model = VehicleModel.objects.get(id=pk)

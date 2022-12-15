@@ -1,9 +1,6 @@
 from django.urls import path
 
-from .api_views import (
-    api_service,
-    api_services,
-)
+from .api_views import api_service, api_services
 
 urlpatterns = [
     path("services/", api_services, name="api_services"),

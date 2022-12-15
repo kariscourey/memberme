@@ -1,7 +1,7 @@
-import { createInstance, getInstances } from '../common/api';
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { toSnake, camelToUserFriendly } from '../common/format';
+import { createInstance, getInstances } from '../common/api';
+import { camelToUserFriendly, toSnake } from '../common/format';
 
 
 export default function EmployeeForm() {
@@ -47,13 +47,13 @@ export default function EmployeeForm() {
         const value = event.target.value;
         const name = event.target.name;
         setUserInput({
-            ...userInput, [name]:value
+            ...userInput, [name]: value
         });
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = {...userInput};
+        const data = { ...userInput };
         data.employee_number = data.employeeNumber;
         delete data.employeeNumber;
 
@@ -88,7 +88,7 @@ export default function EmployeeForm() {
                                 {noData.map(i => {
                                     return (
                                         <Link key={toSnake(i)} to={`/${toSnake(i)}/new`}>{camelToUserFriendly(i)}</Link>
-                                        )
+                                    )
                                 }
                                 )}
                                 {' '}data!
@@ -107,27 +107,27 @@ export default function EmployeeForm() {
                         <div className="shadow p-4 mt-4">
                             <h1>Create an employee</h1>
                             <form onSubmit={handleSubmit}>
-                            <div className="form-floating mb-3">
-                                <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
-                                <label htmlFor="name">Name</label>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input onChange={handleChange} placeholder="Employee number" value={userInput.employeeNumber} required type="number" id="employeeNumber" name="employeeNumber" className="form-control"/>
-                                <label htmlFor="employeeNumber">Employee number</label>
-                            </div>
-                            <div className="mb-3">
-                                <select onChange={handleChange} value={userInput.position} required id="position" name="position" className="form-select">
-                                    <option value="">Choose a position</option>
-                                    {loadData.positions.map(position => {
-                                        return (
-                                            <option key={position.id} value={position.id}>
-                                                {position.name}
-                                            </option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-                            <button className="btn btn-primary">Create</button>
+                                <div className="form-floating mb-3">
+                                    <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control" />
+                                    <label htmlFor="name">Name</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input onChange={handleChange} placeholder="Employee number" value={userInput.employeeNumber} required type="number" id="employeeNumber" name="employeeNumber" className="form-control" />
+                                    <label htmlFor="employeeNumber">Employee number</label>
+                                </div>
+                                <div className="mb-3">
+                                    <select onChange={handleChange} value={userInput.position} required id="position" name="position" className="form-select">
+                                        <option value="">Choose a position</option>
+                                        {loadData.positions.map(position => {
+                                            return (
+                                                <option key={position.id} value={position.id}>
+                                                    {position.name}
+                                                </option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                <button className="btn btn-primary">Create</button>
                             </form>
                         </div>
                     </div>

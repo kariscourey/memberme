@@ -5,7 +5,7 @@ export function DataTable(props) {
     let data = props.data;
     let headers = Object.keys(data[0]);
     const remove = ['id', 'href']
-    headers = headers.filter(function(e) { return !remove.includes(e) })
+    headers = headers.filter(function (e) { return !remove.includes(e) })
     const rows = Object.values(data);
 
     return (
@@ -17,13 +17,13 @@ export function DataTable(props) {
                             if (header.includes('_url')) {
                                 return (
                                     <th key={index}>
-                                        {toTitleCase(header.replace('_url',''))}
+                                        {toTitleCase(header.replace('_url', ''))}
                                     </th>
                                 )
                             } else if (header.includes('_')) {
                                 return (
                                     <th key={index}>
-                                        {toTitleCase(header.replace('_',' '))}
+                                        {toTitleCase(header.replace('_', ' '))}
                                     </th>
                                 )
                             }
@@ -70,4 +70,4 @@ export function DataTable(props) {
             </table>
         </div>
     );
-  }
+}

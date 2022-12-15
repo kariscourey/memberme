@@ -1,6 +1,6 @@
-import { getInstances, getDeepInstances } from '../common/api';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { getDeepInstances, getInstances } from '../common/api';
 
 
 function DataTable(props) {
@@ -33,7 +33,7 @@ function DataTable(props) {
             </table>
         </div>
     );
-  }
+}
 
 
 export default function SalesList() {
@@ -77,7 +77,7 @@ export default function SalesList() {
         const value = event.target.value;
         const name = event.target.name;
         setUserInput({
-            ...userInput, [name]:value
+            ...userInput, [name]: value
         });
     }
 
@@ -92,7 +92,7 @@ export default function SalesList() {
         }
 
         setLoadData({
-            ...loadData, salesFiltered:data
+            ...loadData, salesFiltered: data
         });
 
     }
@@ -112,7 +112,7 @@ export default function SalesList() {
                     </div>
                 </div>
             </div>
-            )
+        )
     } else {
         return (
             <>

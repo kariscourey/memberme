@@ -1,12 +1,10 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
 import json
 
-from .encoders import (
-    ServiceEncoder,
-)
-from .models import Service, AutomobileVO, EmployeeVO, CustomerVO
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+
+from .encoders import ServiceEncoder
+from .models import AutomobileVO, CustomerVO, EmployeeVO, Service
 
 
 @require_http_methods(["GET", "POST"])
@@ -36,7 +34,9 @@ def api_services(request):
 
         try:
             technician_employee_number = content["technician"]
-            technician = EmployeeVO.objects.get(employee_number=technician_employee_number)
+            technician = EmployeeVO.objects.get(
+                employee_number=technician_employee_number
+            )
             content["technician"] = technician
         except EmployeeVO.DoesNotExist:
             return JsonResponse(
@@ -46,11 +46,13 @@ def api_services(request):
 
         try:
             customer_phone_number = content["customer"]
-            customer = CustomerVO.objects.get(phone_number=customer_phone_number)
+            customer = CustomerVO.objects.get(
+                phone_number=customer_phone_number
+            )
             content["customer"] = customer
         except CustomerVO.DoesNotExist:
             return JsonResponse(
-                {'message': 'Invalid customer phone number'},
+                {"message": "Invalid customer phone number"},
                 status=400,
             )
 
@@ -67,11 +69,7 @@ def api_service(request, pk):
     if request.method == "GET":
         try:
             service = Service.objects.get(id=pk)
-            return JsonResponse(
-                service,
-                encoder=ServiceEncoder,
-                safe=False
-            )
+            return JsonResponse(service, encoder=ServiceEncoder, safe=False)
         except Service.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
@@ -94,7 +92,9 @@ def api_service(request, pk):
             if "technician" in content:
                 try:
                     technician_employee_number = content["technician"]
-                    technician = EmployeeVO.objects.get(employee_number=technician_employee_number)
+                    technician = EmployeeVO.objects.get(
+                        employee_number=technician_employee_number
+                    )
                     content["technician"] = technician
                 except EmployeeVO.DoesNotExist:
                     return JsonResponse(
@@ -104,17 +104,25 @@ def api_service(request, pk):
             if "customer" in content:
                 try:
                     customer_phone_number = content["customer"]
-                    customer = CustomerVO.objects.get(phone_number=customer_phone_number)
+                    customer = CustomerVO.objects.get(
+                        phone_number=customer_phone_number
+                    )
                     content["customer"] = customer
                 except CustomerVO.DoesNotExist:
                     return JsonResponse(
-                        {'message': 'Invalid customer phone number'},
+                        {"message": "Invalid customer phone number"},
                         status=400,
                     )
 
             service = Service.objects.get(id=pk)
 
-            props = ["status", "customer", "appointment_date", "technician", "reason"]
+            props = [
+                "status",
+                "customer",
+                "appointment_date",
+                "technician",
+                "reason"
+            ]
             for prop in props:
                 if prop in content:
                     setattr(service, prop, content[prop])

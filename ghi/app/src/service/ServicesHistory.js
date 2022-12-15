@@ -1,6 +1,6 @@
-import { getInstances, updateInstance } from '../common/api';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { getInstances } from '../common/api';
 
 
 function DataTable(props) {
@@ -35,7 +35,7 @@ function DataTable(props) {
             </table>
         </div>
     );
-  }
+}
 
 
 export default function ServicesHistory() {
@@ -79,7 +79,7 @@ export default function ServicesHistory() {
         const value = event.target.value;
         const name = event.target.name;
         setUserInput({
-            ...userInput, [name]:value
+            ...userInput, [name]: value
         });
     }
 
@@ -94,7 +94,7 @@ export default function ServicesHistory() {
         }
 
         setLoadData({
-            ...loadData, servicesFiltered:data
+            ...loadData, servicesFiltered: data
         });
 
     }
@@ -115,7 +115,7 @@ export default function ServicesHistory() {
                     </div>
                 </div>
             </div>
-            )
+        )
     } else {
         return (
             <>
@@ -123,7 +123,7 @@ export default function ServicesHistory() {
                     <h1 className="mt-3">Services</h1>
                 </div>
                 <div className="input-group mb-3">
-                        <select onChange={handleChange} value={userInput.automobile} required id="automobile" name="automobile" className="form-select">
+                    <select onChange={handleChange} value={userInput.automobile} required id="automobile" name="automobile" className="form-select">
                         <option value="">Choose an automobile</option>
                         <option value="all">All</option>
                         {loadData.automobiles.map(automobile => {

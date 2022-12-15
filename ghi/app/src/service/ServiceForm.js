@@ -1,9 +1,9 @@
-import { createInstance, getInstances, getDeepInstances } from '../common/api';
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { createInstance, getDeepInstances, getInstances } from '../common/api';
 
 
-export default function ServiceForm () {
+export default function ServiceForm() {
 
     const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ export default function ServiceForm () {
         {
             customer: '',
             appointmentDate: '',
-            reason:'',
+            reason: '',
         }
     );
 
@@ -51,13 +51,13 @@ export default function ServiceForm () {
         const value = event.target.value;
         const name = event.target.name;
         setUserInput({
-            ...userInput, [name]:value
+            ...userInput, [name]: value
         });
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = {...userInput};
+        const data = { ...userInput };
         data.customer_name = data.customerName;
         delete data.customerName;
         data.appointment_date = data.appointmentDate;
@@ -69,7 +69,7 @@ export default function ServiceForm () {
             const cleared = {
                 customer: '',
                 appointmentDate: '',
-                reason:'',
+                reason: '',
             };
             setUserInput(cleared);
             setNoData(false);
@@ -92,7 +92,7 @@ export default function ServiceForm () {
                                 You're missing{' '}
                                 {noData.map(i => {
                                     return (
-                                    <Link key={i} to={`/${i}/new`}>{i}</Link>
+                                        <Link key={i} to={`/${i}/new`}>{i}</Link>
                                     )
                                 }
                                 )}
@@ -116,11 +116,11 @@ export default function ServiceForm () {
                                     <select onChange={handleChange} value={userInput.automobile} required id="automobile" name="automobile" className="form-select">
                                         <option value="">Choose an automobile</option>
                                         {loadData.automobiles.map(automobile => {
-                                        return (
-                                            <option key={automobile.vin} value={automobile.vin}>
-                                                {automobile.model.manufacturer.name} {automobile.model.name} ({automobile.vin})
-                                            </option>
-                                        )
+                                            return (
+                                                <option key={automobile.vin} value={automobile.vin}>
+                                                    {automobile.model.manufacturer.name} {automobile.model.name} ({automobile.vin})
+                                                </option>
+                                            )
                                         })}
                                     </select>
                                 </div>
@@ -130,7 +130,7 @@ export default function ServiceForm () {
                                         {loadData.technicians.map(technician => {
                                             return (
                                                 <option key={technician.employee_number} value={technician.employee_number}>
-                                                {technician.name} ({technician.employee_number})
+                                                    {technician.name} ({technician.employee_number})
 
                                                 </option>
                                             )
@@ -138,23 +138,23 @@ export default function ServiceForm () {
                                     </select>
                                 </div>
                                 <div className="mb-3">
-                                <select onChange={handleChange} value={userInput.customer} required id="customer" name="customer" className="form-select">
-                                    <option value="">Choose a customer</option>
-                                    {loadData.customers.map(customer => {
-                                        return (
-                                            <option key={customer.phone_number} value={customer.phone_number}>
-                                                {customer.name} ({customer.phone_number})
-                                            </option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
+                                    <select onChange={handleChange} value={userInput.customer} required id="customer" name="customer" className="form-select">
+                                        <option value="">Choose a customer</option>
+                                        {loadData.customers.map(customer => {
+                                            return (
+                                                <option key={customer.phone_number} value={customer.phone_number}>
+                                                    {customer.name} ({customer.phone_number})
+                                                </option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
                                 <div className="form-floating mb-3">
-                                    <input onChange={handleChange} placeholder="Appointment date" value={userInput.appointmentDate} required type="date" id="appointmentDate" name="appointmentDate" className="form-control"/>
+                                    <input onChange={handleChange} placeholder="Appointment date" value={userInput.appointmentDate} required type="date" id="appointmentDate" name="appointmentDate" className="form-control" />
                                     <label htmlFor="appointmentDate">Appointment date</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input onChange={handleChange} placeholder="reason" value={userInput.reason} required type="text" id="reason" name="reason" className="form-control"/>
+                                    <input onChange={handleChange} placeholder="reason" value={userInput.reason} required type="text" id="reason" name="reason" className="form-control" />
                                     <label htmlFor="reason">Reason for visit</label>
                                 </div>
                                 <button className="btn btn-primary">Create</button>

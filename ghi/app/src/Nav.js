@@ -7,7 +7,7 @@ function AutoAutoNav() {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
-      <Navbar.Brand href="/">AutoAuto</Navbar.Brand>
+        <Navbar.Brand href="/">AutoAuto</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -39,8 +39,8 @@ function AutoAutoNav() {
               <NavDropdown.Item href="/customers">See all customers</NavDropdown.Item>
               <NavDropdown.Item href="/customers/new">Create customer</NavDropdown.Item>
             </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   )

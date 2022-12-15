@@ -10,6 +10,7 @@ class PositionEncoder(ModelEncoder):
         "name",
     ]
 
+
 class EmployeeEncoder(ModelEncoder):
     model = Employee
     properties = [

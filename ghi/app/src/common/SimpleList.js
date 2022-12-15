@@ -1,8 +1,8 @@
-import { getInstances } from './api';
-import { toTitleCase } from './format';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { getInstances } from './api';
 import { DataTable } from './DataTable';
+import { toTitleCase } from './format';
 
 export function SimpleList(props) {
 
@@ -23,7 +23,7 @@ export function SimpleList(props) {
                 const data = await getInstances(port, app);
 
                 setLoadData({
-                    ...loadData, list_data:data
+                    ...loadData, list_data: data
                 });
 
             } catch (e) {

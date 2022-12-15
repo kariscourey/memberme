@@ -1,13 +1,7 @@
 from django.urls import path
 
-from .views import (
-    api_employee,
-    api_employees,
-    api_position,
-    api_positions,
-    api_technicians,
-    api_sales_people,
-)
+from .views import (api_employee, api_employees, api_position, api_positions,
+                    api_sales_people, api_technicians)
 
 urlpatterns = [
     path(

@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import MainPage from './MainPage';
 import AutoAutoNav from './Nav';
 
 import AutomobileForm from './inventory/AutomobileForm';
 import AutomobilesList from './inventory/AutomobilesList';
-import ModelForm from './inventory/ModelForm';
-import ModelsList from './inventory/ModelsList';
 import ManufacturerForm from './inventory/ManufacturerForm';
 import ManufacturersList from './inventory/ManufacturersList';
+import ModelForm from './inventory/ModelForm';
+import ModelsList from './inventory/ModelsList';
 
 import EmployeeForm from './employees/EmployeeForm';
 import EmployeesList from './employees/EmployeesList';
@@ -16,12 +15,12 @@ import EmployeesList from './employees/EmployeesList';
 import CustomerForm from './customers/CustomerForm';
 import CustomersList from './customers/CustomersList';
 
-import SalesList from './sales/SalesList';
 import SaleForm from './sales/SaleForm';
+import SalesList from './sales/SalesList';
 
 import ServiceForm from './service/ServiceForm';
-import ServicesList from './service/ServicesList';
 import ServicesHistory from './service/ServicesHistory';
+import ServicesList from './service/ServicesList';
 
 
 function App() {
@@ -58,27 +57,27 @@ function App() {
           <Route path="services">
             <Route path="" element={<ServicesList />}></Route>
             <Route path="new" element={<ServiceForm />}></Route>
-            <Route path="history" element={<ServicesHistory/>}></Route>
+            <Route path="history" element={<ServicesHistory />}></Route>
           </Route>
           <Route
-                path="*"
-                element={
-                  <div className="container">
-                  <div className="row">
-                    <div id="alert">
-                      <div></div>
-                    </div>
-                    <div className="offset-3 col-6">
-                      <div className="shadow p-4 mt-4">
-                        <h1>Uh oh...</h1>
-                        <p>This page doesn't exist.</p>
-                        <p>Why don't you return <Link to={`/`}>home</Link>, friend?</p>
-                      </div>
+            path="*"
+            element={
+              <div className="container">
+                <div className="row">
+                  <div id="alert">
+                    <div></div>
+                  </div>
+                  <div className="offset-3 col-6">
+                    <div className="shadow p-4 mt-4">
+                      <h1>Uh oh...</h1>
+                      <p>This page doesn't exist.</p>
+                      <p>Why don't you return <Link to={`/`}>home</Link>, friend?</p>
                     </div>
                   </div>
                 </div>
-                }
-              />
+              </div>
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>

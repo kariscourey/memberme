@@ -1,10 +1,9 @@
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
 import json
 
-from .encoders import (
-    CustomerEncoder,
-)
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+
+from .encoders import CustomerEncoder
 from .models import Customer
 
 
@@ -27,10 +26,8 @@ def api_customers(request):
                 encoder=CustomerEncoder,
                 safe=False,
             )
-        except:
-            response = JsonResponse(
-                {"message": "Could not create customer"}
-            )
+        except:  # noqa: E722
+            response = JsonResponse({"message": "Could not create customer"})
             response.status_code = 400
             return response
 
@@ -40,11 +37,7 @@ def api_customer(request, pk):
     if request.method == "GET":
         try:
             customer = Customer.objects.get(id=pk)
-            return JsonResponse(
-                customer,
-                encoder=CustomerEncoder,
-                safe=False
-            )
+            return JsonResponse(customer, encoder=CustomerEncoder, safe=False)
         except Customer.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404

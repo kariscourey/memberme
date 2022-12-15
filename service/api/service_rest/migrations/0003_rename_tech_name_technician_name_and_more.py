@@ -6,25 +6,25 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('service_rest', '0002_alter_technician_employee_number'),
+        ("service_rest", "0002_alter_technician_employee_number"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='technician',
-            old_name='tech_name',
-            new_name='name',
+            model_name="technician",
+            old_name="tech_name",
+            new_name="name",
         ),
         migrations.RemoveField(
-            model_name='automobilevo',
-            name='color',
+            model_name="automobilevo",
+            name="color",
         ),
         migrations.RemoveField(
-            model_name='automobilevo',
-            name='model_id',
+            model_name="automobilevo",
+            name="model_id",
         ),
         migrations.RemoveField(
-            model_name='automobilevo',
-            name='year',
+            model_name="automobilevo",
+            name="year",
         ),
     ]

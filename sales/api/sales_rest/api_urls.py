@@ -1,9 +1,6 @@
 from django.urls import path
 
-from .api_views import (
-    api_sales,
-    api_sale,
-)
+from .api_views import api_sale, api_sales
 
 urlpatterns = [
     path("sales/", api_sales, name="api_sales"),

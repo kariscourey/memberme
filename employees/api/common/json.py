@@ -1,7 +1,8 @@
-from json import JSONEncoder
-from django.urls import NoReverseMatch
-from django.db.models import QuerySet
 from datetime import datetime
+from json import JSONEncoder
+
+from django.db.models import QuerySet
+from django.urls import NoReverseMatch
 
 
 class DateEncoder(JSONEncoder):

@@ -1,57 +1,57 @@
-import django
+import json
 import os
 import sys
 import time
-import json
+
+import django
 import requests
 
 sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sales_project.settings")
 django.setup()
 
-from sales_rest.models import AutomobileVO, EmployeeVO, CustomerVO
+from sales_rest.models import AutomobileVO, CustomerVO, EmployeeVO  # noqa E402
+
 
 def get_automobiles():
-    res = requests.get('http://inventory-api:8000/api/automobiles/')
+    res = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(res.content)
-
 
     for automobile in content["automobiles"]:
         AutomobileVO.objects.update_or_create(
             import_href=automobile["href"],
             defaults={
-                'vin': automobile['vin'],
-                'sold': automobile['sold'],
+                "vin": automobile["vin"],
+                "sold": automobile["sold"],
             },
         )
 
+
 def get_employees():
-    res = requests.get('http://employees-api:8000/api/employees/')
+    res = requests.get("http://employees-api:8000/api/employees/")
     content = json.loads(res.content)
 
-
     for employee in content["employees"]:
-        if employee['position']['name'].lower() == 'sales person':
+        if employee["position"]["name"].lower() == "sales person":
             EmployeeVO.objects.update_or_create(
                 import_href=employee["href"],
                 defaults={
-                    'name': employee['name'],
-                    'employee_number': employee['employee_number'],
+                    "name": employee["name"],
+                    "employee_number": employee["employee_number"],
                 },
-        )
+            )
 
 
 def get_customers():
-    res = requests.get('http://customers-api:8000/api/customers/')
+    res = requests.get("http://customers-api:8000/api/customers/")
     content = json.loads(res.content)
-
 
     for customer in content["customers"]:
         CustomerVO.objects.update_or_create(
             import_href=customer["href"],
             defaults={
-                'name': customer['name'],
-                'phone_number': customer['phone_number'],
+                "name": customer["name"],
+                "phone_number": customer["phone_number"],
             },
         )
 
@@ -59,7 +59,7 @@ def get_customers():
 def poll():
     while True:
         try:
-            print('Sales poller polling for data')
+            print("Sales poller polling for data")
             get_automobiles()
             get_employees()
             get_customers()

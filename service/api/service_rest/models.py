@@ -37,7 +37,7 @@ class Service(models.Model):
         on_delete=models.PROTECT,
     )
     reason = models.CharField(max_length=300)
-    status = models.CharField(max_length=25,default="scheduled")
+    status = models.CharField(max_length=25, default="scheduled")
 
     def get_api_url(self):
         return reverse("api_service", kwargs={"pk": self.id})

@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getInstances, updateInstance } from '../common/api';
 import { refreshPage } from '../common/window';
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 
 function DataTable(props) {
@@ -44,7 +44,7 @@ function DataTable(props) {
             </table>
         </div>
     );
-  }
+}
 
 
 export default function ServicesList() {
@@ -78,14 +78,14 @@ export default function ServicesList() {
         event.preventDefault();
         const statusInput = event.target.value;
         const serviceId = event.target.name;
-        const data = {status:statusInput};
+        const data = { status: statusInput };
 
-        const response = await updateInstance(8080,'services',serviceId, data);
+        const response = await updateInstance(8080, 'services', serviceId, data);
 
         if (response.ok) {
             refreshPage();
         }
-  }
+    }
 
     if (loadData.services.length === 0) {
         return (
@@ -102,7 +102,7 @@ export default function ServicesList() {
                     </div>
                 </div>
             </div>
-            )
+        )
     } else {
         return (
             <>

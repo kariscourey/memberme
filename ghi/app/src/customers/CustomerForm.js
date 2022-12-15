@@ -1,11 +1,6 @@
-import { createInstance } from '../common/api';
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-// TODO phone number
-// import 'react-phone-number-input/style.css'
-// import PhoneInput from 'react-phone-number-input'
-
+import { useNavigate } from "react-router-dom";
+import { createInstance } from '../common/api';
 
 export default function CustomerForm() {
 
@@ -25,13 +20,13 @@ export default function CustomerForm() {
         const value = event.target.value;
         const name = event.target.name;
         setUserInput({
-            ...userInput, [name]:value
+            ...userInput, [name]: value
         });
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = {...userInput};
+        const data = { ...userInput };
         data.phone_number = data.phoneNumber;
         delete data.phoneNumber;
 
@@ -61,20 +56,20 @@ export default function CustomerForm() {
                     <div className="shadow p-4 mt-4">
                         <h1>Create a customer</h1>
                         <form onSubmit={handleSubmit}>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control"/>
-                            <label htmlFor="name">Name</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleChange} placeholder="Address" value={userInput.address} required type="text" id="address" name="address" className="form-control"/>
-                            <label htmlFor="address">Address</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required type="number" id="phoneNumber" name="phoneNumber" className="form-control"/>
-                            <label htmlFor="phoneNumber">Phone number</label>
-                        </div>
-                        {/* <PhoneInput onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required id="phoneNumber" name="phoneNumber"/> */}
-                        <button className="btn btn-primary">Create</button>
+                            <div className="form-floating mb-3">
+                                <input onChange={handleChange} placeholder="Name" value={userInput.name} required type="text" id="name" name="name" className="form-control" />
+                                <label htmlFor="name">Name</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input onChange={handleChange} placeholder="Address" value={userInput.address} required type="text" id="address" name="address" className="form-control" />
+                                <label htmlFor="address">Address</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required type="number" id="phoneNumber" name="phoneNumber" className="form-control" />
+                                <label htmlFor="phoneNumber">Phone number</label>
+                            </div>
+                            {/* <PhoneInput onChange={handleChange} placeholder="Phone number" value={userInput.phoneNumber} required id="phoneNumber" name="phoneNumber"/> */}
+                            <button className="btn btn-primary">Create</button>
                         </form>
                     </div>
                 </div>

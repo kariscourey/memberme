@@ -1,5 +1,5 @@
-import json
 import requests
+
 
 def update_automobile(vin):
     headers = {"Content-Type": "application/json"}

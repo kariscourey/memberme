@@ -1,12 +1,11 @@
+import json
+
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .encoders import (
-    SaleEncoder,
-)
-from .acls import update_automobile
-from .models import AutomobileVO, Sale, EmployeeVO, CustomerVO
 
-import json
+from .acls import update_automobile
+from .encoders import SaleEncoder
+from .models import AutomobileVO, CustomerVO, EmployeeVO, Sale
 
 
 @require_http_methods(["GET", "POST"])
@@ -14,7 +13,7 @@ def api_sales(request):
     if request.method == "GET":
         sales = Sale.objects.all()
         return JsonResponse(
-            {'sales': sales},
+            {"sales": sales},
             encoder=SaleEncoder,
         )
     else:
@@ -27,27 +26,31 @@ def api_sales(request):
             content["automobile"] = automobile
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
-                {'message': 'Invalid automobile VIN'},
+                {"message": "Invalid automobile VIN"},
                 status=400,
             )
 
         try:
             sales_person_employee_number = content["sales_person"]
-            sales_person = EmployeeVO.objects.get(employee_number=sales_person_employee_number)
+            sales_person = EmployeeVO.objects.get(
+                employee_number=sales_person_employee_number
+            )
             content["sales_person"] = sales_person
         except EmployeeVO.DoesNotExist:
             return JsonResponse(
-                {'message': 'Invalid sales person employee number'},
+                {"message": "Invalid sales person employee number"},
                 status=400,
             )
 
         try:
             customer_phone_number = content["customer"]
-            customer = CustomerVO.objects.get(phone_number=customer_phone_number)
+            customer = CustomerVO.objects.get(
+                phone_number=customer_phone_number
+            )
             content["customer"] = customer
         except CustomerVO.DoesNotExist:
             return JsonResponse(
-                {'message': 'Invalid customer phone number'},
+                {"message": "Invalid customer phone number"},
                 status=400,
             )
 
@@ -77,11 +80,7 @@ def api_sale(request, pk):
     if request.method == "GET":
         try:
             sale = Sale.objects.get(id=pk)
-            return JsonResponse(
-                sale,
-                encoder=SaleEncoder,
-                safe=False
-            )
+            return JsonResponse(sale, encoder=SaleEncoder, safe=False)
         except Sale.DoesNotExist:
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
@@ -104,21 +103,25 @@ def api_sale(request, pk):
             if "sales_person" in content:
                 try:
                     sales_person_employee_number = content["sales_person"]
-                    sales_person = EmployeeVO.objects.get(employee_number=sales_person_employee_number)
+                    sales_person = EmployeeVO.objects.get(
+                        employee_number=sales_person_employee_number
+                    )
                     content["sales_person"] = sales_person
                 except EmployeeVO.DoesNotExist:
                     return JsonResponse(
-                        {'message': 'Invalid sales person employee number'},
+                        {"message": "Invalid sales person employee number"},
                         status=400,
                     )
             if "customer" in content:
                 try:
                     customer_phone_number = content["customer"]
-                    customer = CustomerVO.objects.get(phone_number=customer_phone_number)
+                    customer = CustomerVO.objects.get(
+                        phone_number=customer_phone_number
+                    )
                     content["customer"] = customer
                 except CustomerVO.DoesNotExist:
                     return JsonResponse(
-                        {'message': 'Invalid customer phone number'},
+                        {"message": "Invalid customer phone number"},
                         status=400,
                     )
 
