@@ -1,5 +1,5 @@
 # AutoAuto
-Automobile-dealership-management solution designed for managing automobile inventory, sales, services, employees, and customers. Supports automobile, sale, service, employee, and customer creation and management. Features data interactions with RESTful APIs.
+Automobile-dealership-management solution designed for managing automobile inventory, sales, services, employees, and customers. Supports automobile, sale, service, employee, and customer creation and management. Features Django, React, domain-driven design, microservices, and data interactions with RESTful APIs.
 
 
 ## Design
