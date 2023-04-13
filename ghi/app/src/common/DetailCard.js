@@ -27,7 +27,7 @@ export function DetailCard(props) {
                         </Typography><br />
 
                         <Typography variant="h6">
-                            Address:<br />
+                            Address<br />
                             <Typography variant="body1">
                                 {card.location.street.number} {card.location.street.name}<br />
                                 {card.location.city}, {card.location.state} {card.location.postcode}<br /><br />
@@ -35,14 +35,14 @@ export function DetailCard(props) {
                         </Typography>
 
                         <Typography variant="h6">
-                            DOB:<br />
+                            DOB<br />
                             <Typography variant="body1">
                                 {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(card.dob.date))}<br /><br />
                             </Typography>
                         </Typography>
 
                         <Typography variant="h6">
-                            Phone:<br />
+                            Phone<br />
                             <Typography variant="body1">
                                 {card.phone}
                             </Typography>
