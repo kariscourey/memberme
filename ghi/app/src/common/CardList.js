@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { CustomCard } from './CustomCard';
+import { ListCard } from './ListCard';
 
 
 export function CardList(props) {
@@ -15,7 +15,7 @@ export function CardList(props) {
             <Row spacing={4}>
                 {cards.map((card, index) => (
                     <Col item key={index} xs={12} sm={6} md={4}>
-                        <CustomCard card={card} />
+                        <ListCard card={card} />
                     </Col>
                 ))}
             </Row>

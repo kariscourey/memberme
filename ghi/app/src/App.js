@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import MainPage from './MainPage';
+import Member from './components/Member';
 import MemberMeNav from './Nav';
 
 
@@ -12,10 +13,9 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          {/* <Route path="sales">
-            <Route path="" element={<SalesList />}></Route>
-            <Route path="new" element={<SaleForm />}></Route>
-          </Route> */}
+          <Route path="members">
+            <Route path=":memberId" element={<Member />}></Route>
+          </Route>
           <Route
             path="*"
             element={

@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 
-export function CustomCard(props) {
+export function ListCard(props) {
 
     const card = props.card;
 
@@ -43,7 +43,7 @@ export function CustomCard(props) {
             <Card className="card mb-4 shadow">
                 <Card.Img src={card.picture.thumbnail} className="card-img-top" />
                 <Card.Body>
-                    <Card.Link href="#"><Card.Title>{card.name.first} {card.name.last}</Card.Title></Card.Link>
+                    <Card.Link href={`/members/${card.login.uuid}`}><Card.Title>{card.name.first} {card.name.last}</Card.Title></Card.Link>
                     <Card.Text className="card-subtitle mb-2 text-muted">
                         {card.dob.age}
                     </Card.Text>
