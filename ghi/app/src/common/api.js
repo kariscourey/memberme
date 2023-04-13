@@ -43,6 +43,18 @@ export async function getInstances(port, app) {
 
 }
 
+export async function getMembers() {
+  const response = await fetch(`https://randomuser.me/api/?results=15`);
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    console.error(response);
+  }
+
+}
+
 export async function getDeepInstances(port, app) {
   const response = await fetch(`http://localhost:${port}/api/${app}/`);
 

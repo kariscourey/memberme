@@ -1,6 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import MainPage from './MainPage';
-import AutoAutoNav from './Nav';
+import MemberMeNav from './Nav';
 
 import AutomobileForm from './inventory/AutomobileForm';
 import AutomobilesList from './inventory/AutomobilesList';
@@ -26,7 +26,7 @@ import ServicesList from './service/ServicesList';
 function App() {
   return (
     <BrowserRouter>
-      <AutoAutoNav />
+      <MemberMeNav />
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />

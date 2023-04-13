@@ -3,11 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function AutoAutoNav() {
+function MemberMeNav() {
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">AutoAuto</Navbar.Brand>
+        <Navbar.Brand href="/">MemberMe</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -46,4 +46,4 @@ function AutoAutoNav() {
   )
 }
 
-export default AutoAutoNav;
+export default MemberMeNav;

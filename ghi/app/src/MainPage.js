@@ -1,27 +1,33 @@
 import { useEffect, useState } from "react";
-import { getFilteredInstances } from './common/api';
+import { getMembers } from './common/api';
+import CustomCard from './common/CustomCard';
 
-function AutomobileColumn(props) {
+function MembersColumn(props) {
 
     return (
         <div className="col">
-            {props.list.map(automobile => {
+            {props.list.map(member => {
 
                 return (
-                    <div key={automobile.vin} className="card mb-4 shadow">
-                        <img src={automobile.model.picture_url} className="card-img-top" />
-                        <div className="card-body">
-                            <h5 className="card-title">{automobile.name}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">
-                                {automobile.model.manufacturer.name} {automobile.model.name}
-                            </h6>
-                            <p className="card-text">
-                                Made in {automobile.year}, this {automobile.color.toLowerCase()} {' '}
-                                {automobile.model.manufacturer.name} {automobile.model.name} {' '}
-                                is one of our best in stock!
-                            </p>
-                        </div>
+                    // <div key={member.cell} className="card mb-4 shadow">
+                    //     <img src={member.picture.thumbnail} className="card-img-top" />
+                    //     <div className="card-body">
+                    //         <h5 className="card-title">{member.name.first} {member.name.last}</h5>
+                    //         <h6 className="card-subtitle mb-2 text-muted">
+                    //             {member.dob.age}
+                    //         </h6>
+                    //         {/* <p className="card-text">
+                    //             Made in {member.year}, this {member.color.toLowerCase()} {' '}
+                    //             {member.model.manufacturer.name} {member.model.name} {' '}
+                    //             is one of our best in stock!
+                    //         </p> */}
+                    //     </div>
+                    // </div>
+
+                    <div key={member.cell}>
+                        <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age}/>
                     </div>
+
                 );
             })}
         </div>
@@ -30,50 +36,51 @@ function AutomobileColumn(props) {
 
 function MainPage() {
 
-    const [automobileColumns, setColumns] = useState([[], [], []]);
+    const [membersColumns, setColumns] = useState([[], [], []]);
 
     const [title, setTitle] = useState(<></>);
 
     useEffect(() => {
-        const fetchAutomobiles = async () => {
-            const automobilesData = await getFilteredInstances(8100, 'automobiles', 'sold', false);
+        const fetchMembers = async () => {
+            const membersData = await getMembers();
 
             let i = 0;
-            let automobileCols = [[], [], []]
+            let membersCols = [[], [], []]
 
-            for (let auto of automobilesData) {
-                automobileCols[i].push(auto);
+            console.log(membersData.results);
+
+            for (let memberData of membersData.results) {
+                membersCols[i].push(memberData);
                 i++;
                 if (i > 2) {
                     i = 0;
                 }
             }
-            setColumns(automobileCols);
+            setColumns(membersCols);
 
-            if (automobileCols[0].length !== 0) {
-                setTitle(<h2 className="mb-3">Automobiles in inventory</h2>);
+            if (membersCols[0].length !== 0) {
+                setTitle(<h2 className="mb-3">Members</h2>);
             }
         }
-        fetchAutomobiles();
+        fetchMembers();
     }, []);
 
     return (
         <>
             <div className="px-4 py-5 my-5 text-center">
-                <h1 className="display-5 fw-bold">AutoAuto</h1>
+                <h1 className="display-5 fw-bold">MemberMe</h1>
                 <div className="col-lg-6 mx-auto">
                     <p className="lead mb-4">
-                        The premiere solution for automobile dealership
-                        management!
+                        For all your membership needs.
                     </p>
                 </div>
             </div>
             <div className="container">
                 {title}
                 <div className="row">
-                    {automobileColumns.map((automobileList, index) => {
+                    {membersColumns.map((membersList, index) => {
                         return (
-                            <AutomobileColumn list={automobileList} key={index} />
+                            <MembersColumn list={membersList} key={index} />
                         );
                     })}
                 </div>
