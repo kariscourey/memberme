@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import MainPage from './MainPage';
 import Member from './components/Member';
 import MemberMeNav from './Nav';
+import { UhOh } from './common/UhOh';
 
 
 function App() {
@@ -19,20 +20,7 @@ function App() {
           <Route
             path="*"
             element={
-              <Container>
-                <Row>
-                  <div id="alert">
-                    <div></div>
-                  </div>
-                  <div className="offset-3 col-6">
-                    <div className="shadow p-4 mt-4">
-                      <h1>Uh oh...</h1>
-                      <p>This page doesn't exist.</p>
-                      <p>Why don't you return <Link to={`/`}>home</Link>, friend?</p>
-                    </div>
-                  </div>
-                </Row>
-              </Container>
+              <UhOh />
             }
           />
         </Routes>

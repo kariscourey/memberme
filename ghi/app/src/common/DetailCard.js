@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import { UhOh } from './UhOh';
 
 export function DetailCard(props) {
 
@@ -6,10 +7,11 @@ export function DetailCard(props) {
 
     console.log(card);
 
-
     return (
+        card?.picture?.large ?
+        <>
         <Card className="mb-3 shadow">
-            <Card.Img src={card.picture.large} className="card-img-top" />
+            <Card.Img src={card.picture.large} />
             <Card.Body>
                 <Card.Title>{card.name.first} {card.name.last}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
@@ -23,5 +25,7 @@ export function DetailCard(props) {
                 </Card.Text>
             </Card.Body>
         </Card>
+        </> :
+        <UhOh />
     );
 }
