@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { getMembers } from './common/api';
 import { CustomCard } from './common/CustomCard';
-import { CustomFilter } from './common/CustomFilter';
+import { CardList } from './common/CardList';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-function MembersColumn(props) {
+// function MembersColumn(props) {
 
-    let membersFiltered = props.membersFiltered;
+//     let filteredMembers = props.filteredMembers;
 
-    return (
-        <Col>
-            {membersFiltered.map(member => {
+//     return (
+//         <Col>
+//             {filteredMembers.map(member => {
 
-                return (
-                    <div key={member.cell}>
-                        <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age} />
-                    </div>
-                );
-            })}
-        </Col>
-    );
-}
+//                 return (
+//                     <div key={member.cell}>
+//                         <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age} />
+//                     </div>
+//                 );
+//             })}
+//         </Col>
+//     );
+// }
 
 function MainPage() {
-
-    const [membersColumns, setColumns] = useState([[], [], []]);
 
     const [title, setTitle] = useState(<></>);
 
@@ -38,37 +38,47 @@ function MainPage() {
 
     const [loadData, setLoadData] = useState(
         {
-            membersColumns: [[], [], []],
-            filteredMembersColumns: [[], [], []],
+            members: {},
+            filteredMembers: {},
         }
     );
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        const name = e.target.name;
+        setUserInput({
+            ...userInput, [name]: value
+        });
+    }
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        if (userInput.filterInput && userInput.filterInput != "") {
+
+            let data = [...loadData.members];
+
+            data = data.filter(
+                i => i.name.first.toLowerCase().includes(userInput.filterInput.toLowerCase()) ||
+                    i.name.last.toLowerCase().includes(userInput.filterInput.toLowerCase())
+            );
+
+            setLoadData({
+                ...loadData, filteredMembers: data
+            });
+        }
+    }
+
     useEffect(() => {
         const fetchMembers = async () => {
-            const membersData = await getMembers();
 
-            let i = 0;
-            let membersCols = [[], [], []];
             let data = {};
-
-            console.log(membersData.results);
-
-            for (let memberData of membersData.results) {
-                membersCols[i].push(memberData);
-                i++;
-                if (i > 2) {
-                    i = 0;
-                }
-            }
-
-            data.membersColumns = membersCols;
-            data.filteredMembersColumns = membersCols;
+            data.members = (await getMembers()).results;
+            data.filteredMembers = data.members;
 
             setLoadData(data);
 
-            if (membersCols[0].length !== 0) {
-                setTitle(<h2 className="mb-3">Members</h2>);
-            }
         }
         fetchMembers();
     }, []);
@@ -83,19 +93,27 @@ function MainPage() {
                     </Container>
                 </Col>
             </Container>
-            <Container>
-                <CustomFilter />
-            </Container>
-            <Container>
-                {title}
-                <Row>
-                    {loadData.membersColumns.map((membersList, index) => {
-                        return (
-                            <MembersColumn membersFiltered={membersList} key={index} />
-                        );
-                    })}
-                </Row>
-            </Container>
+            {
+                (Object.keys(loadData.filteredMembers).length != 0) ?
+                    <>
+                        <Container>
+                            {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
+                            <Form className="flex-form" onSubmit={handleSubmit}>
+                                <Form.Group onChange={handleChange} className="mb-3" controlId="filterInput" name="filterInput" value={userInput.filterInput}>
+                                    <Form.Control type="string" placeholder="Enter first or last name" />
+                                </Form.Group>
+                                <Button className="custom-button" variant="primary" type="submit">
+                                    Filter
+                                </Button>
+                            </Form>
+                        </Container>
+                        <Container>
+                            {title}
+                            <CardList cards={loadData?.filteredMembers} />
+                        </Container>
+                    </> :
+                    <></>
+            }
         </>
     );
 }

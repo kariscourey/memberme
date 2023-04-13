@@ -20,6 +20,7 @@
 
 .flex-form {
     display: flex;
+    margin-left: 1%;
 }
 
 .custom-button {

@@ -1,6 +1,9 @@
 import Card from 'react-bootstrap/Card';
 
 export function CustomCard(props) {
+
+    const card = props.card;
+
     return (
         <>
             <style type="text/css">
@@ -38,11 +41,11 @@ export function CustomCard(props) {
             </style>
 
             <Card className="card mb-4 shadow">
-                <Card.Img src={props.thumbnail} className="card-img-top" />
+                <Card.Img src={card.picture.thumbnail} className="card-img-top" />
                 <Card.Body>
-                    <Card.Link href="#"><Card.Title>{props.first} {props.last}</Card.Title></Card.Link>
+                    <Card.Link href="#"><Card.Title>{card.name.first} {card.name.last}</Card.Title></Card.Link>
                     <Card.Text className="card-subtitle mb-2 text-muted">
-                        {props.age}
+                        {card.dob.age}
                     </Card.Text>
                 </Card.Body>
             </Card >
