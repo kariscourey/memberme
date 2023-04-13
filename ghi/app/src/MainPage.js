@@ -8,25 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-// function MembersColumn(props) {
-
-//     let filteredMembers = props.filteredMembers;
-
-//     return (
-//         <Col>
-//             {filteredMembers.map(member => {
-
-//                 return (
-//                     <div key={member.cell}>
-//                         <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age} />
-//                     </div>
-//                 );
-//             })}
-//         </Col>
-//     );
-// }
-
-function MainPage() {
+export default function MainPage() {
 
     const [title, setTitle] = useState(<></>);
 
@@ -39,7 +21,7 @@ function MainPage() {
         }
     );
 
-    const handleSubmit = async (e) => {
+    const handleFilter = async (e) => {
 
         e.preventDefault();
 
@@ -54,6 +36,12 @@ function MainPage() {
 
             setLoadData({
                 ...loadData, filteredMembers: data
+            });
+        }
+
+        else {
+            setLoadData({
+                ...loadData, filteredMembers: loadData.members
             });
         }
     }
@@ -86,7 +74,7 @@ function MainPage() {
                     <>
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
-                            <Form className="flex-form" onSubmit={handleSubmit}>
+                            <Form className="flex-form" onSubmit={handleFilter}>
                                 <Form.Group onChange={e => setFilterInput(e.target.value)} className="mb-3" controlId="filterInput" value={filterInput}>
                                     <Form.Control type="string" placeholder="Enter first or last name" />
                                 </Form.Group>
@@ -105,5 +93,3 @@ function MainPage() {
         </>
     );
 }
-
-export default MainPage;
