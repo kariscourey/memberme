@@ -26,51 +26,17 @@ export function ListCard(props) {
 
     return (
         <>
-            <style type="text/css">
-                {`
-                /* https://codingyaar.com/bootstrap-4-card-image-left-responsive/ */
-
-                .card {
-                    flex-direction: row;
-                    align-items: center;
-                }
-
-                .card-title {
-                    font-weight: bold;
-                }
-
-                .card img {
-                    width: 48px;
-                    margin-left: 2%;
-                }
-
-                @media only screen and (max-width: 768px) {
-                    a {
-                        display: none;
-                    }
-
-                    .card-body {
-                        padding: 0.5em 1.2em;
-                    }
-
-                    .card-body .card-text {
-                        margin: 0;
-                    }
-                }
-                `}
-            </style>
-
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     component="img"
-                    // height="140"
+                    // height="48"
                     image={card.picture.thumbnail}
                     alt="card-img"
                 />
                 <CardContent>
-                    <Button onClick={handleClick} value={card.login.uuid} variant="link">{card.name.first} {card.name.last}</Button>
-                    <Typography className="card-subtitle mb-2 text-muted">
-                        {card.dob.age}
+                    <Button onClick={handleClick} value={card.login.uuid}>{card.name.first} {card.name.last}</Button>
+                    <Typography>
+                        Age: {card.dob.age}
                     </Typography>
                 </CardContent>
             </Card >

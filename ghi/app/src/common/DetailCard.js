@@ -21,18 +21,34 @@ export function DetailCard(props) {
                         alt="card-img"
                     />
                     <CardContent>
-                        <Typography>{card.name.first} {card.name.last}</Typography>
+                        <Typography variant="h5">{card.name.first} {card.name.last}</Typography>
                         <Typography className="mb-2 text-muted">
                             {card.email}
+                        </Typography><br />
+
+                        <Typography variant="h6">
+                            Address:<br />
+                            <Typography variant="body1">
+                                {card.location.street.number} {card.location.street.name}<br />
+                                {card.location.city}, {card.location.state} {card.location.postcode}<br /><br />
+                            </Typography>
                         </Typography>
-                        <Typography>
-                            {card.location.street.number} {card.location.street.name}<br />
-                            {card.location.city}, {card.location.state} {card.location.postcode}<br />
-                            {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(card.dob.date))}<br />
-                            {card.phone}
+
+                        <Typography variant="h6">
+                            DOB:<br />
+                            <Typography variant="body1">
+                                {new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(card.dob.date))}<br /><br />
+                            </Typography>
                         </Typography>
-                    </CardContent>
-                </Card>
+
+                        <Typography variant="h6">
+                            Phone:<br />
+                            <Typography variant="body1">
+                                {card.phone}
+                            </Typography>
+                        </Typography>
+                    </CardContent >
+                </Card >
             </> :
             <UhOh />
     );
