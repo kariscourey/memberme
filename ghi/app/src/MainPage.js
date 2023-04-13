@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { getMembers } from './common/api';
-import { CustomCard } from './common/CustomCard';
+import { getMembers } from './common/util';
 import { CardList } from './common/CardList';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -68,7 +66,7 @@ export default function MainPage() {
                 </Col>
             </Container>
             {
-                (Object.keys(loadData.filteredMembers).length != 0) ?
+                (Object.keys(loadData.members).length != 0) ?
                     <>
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
