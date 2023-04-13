@@ -14,16 +14,18 @@
     margin-left: 2%;
 }
 
-.card-link {
+.btn-link {
+    overflow-wrap: break-word;
     text-decoration: none;
-}
+    text-align: left;
+ }
 
 .flex-form {
     display: flex;
     margin-left: 1%;
 }
 
-.custom-button {
+.action-button {
     height: 97%;
     margin-left: 0.7%;
 }

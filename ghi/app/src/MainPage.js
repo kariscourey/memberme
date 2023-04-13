@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+
 export default function MainPage() {
 
     const [filterInput, setFilterInput] = useState("");
@@ -74,7 +75,7 @@ export default function MainPage() {
                                 <Form.Group onChange={e => setFilterInput(e.target.value)} className="mb-3" controlId="filterInput" value={filterInput}>
                                     <Form.Control type="string" placeholder="Enter first or last name" />
                                 </Form.Group>
-                                <Button className="custom-button" variant="primary" type="submit">
+                                <Button className="action-button" variant="primary" type="submit">
                                     Filter
                                 </Button>
                             </Form>

@@ -8,7 +8,7 @@ export function CustomFilter() {
         <Form.Control type="string" placeholder="Enter first or last name" />
       </Form.Group>
 
-      <Button className="custom-button" variant="primary" type="submit">
+      <Button className="action-button" variant="primary" type="submit">
         Filter
       </Button>
     </Form>
