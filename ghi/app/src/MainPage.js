@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { getMembers } from './common/api';
 import CustomCard from './common/CustomCard';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function MembersColumn(props) {
 
@@ -9,25 +12,9 @@ function MembersColumn(props) {
             {props.list.map(member => {
 
                 return (
-                    // <div key={member.cell} className="card mb-4 shadow">
-                    //     <img src={member.picture.thumbnail} className="card-img-top" />
-                    //     <div className="card-body">
-                    //         <h5 className="card-title">{member.name.first} {member.name.last}</h5>
-                    //         <h6 className="card-subtitle mb-2 text-muted">
-                    //             {member.dob.age}
-                    //         </h6>
-                    //         {/* <p className="card-text">
-                    //             Made in {member.year}, this {member.color.toLowerCase()} {' '}
-                    //             {member.model.manufacturer.name} {member.model.name} {' '}
-                    //             is one of our best in stock!
-                    //         </p> */}
-                    //     </div>
-                    // </div>
-
                     <div key={member.cell}>
-                        <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age}/>
+                        <CustomCard thumbnail={member.picture.thumbnail} first={member.name.first} last={member.name.last} age={member.dob.age} />
                     </div>
-
                 );
             })}
         </div>
@@ -67,24 +54,24 @@ function MainPage() {
 
     return (
         <>
-            <div className="px-4 py-5 my-5 text-center">
-                <h1 className="display-5 fw-bold">MemberMe</h1>
-                <div className="col-lg-6 mx-auto">
-                    <p className="lead mb-4">
+            <Container className="px-4 py-5 my-5 text-center">
+                <Container className="display-5 fw-bold">MemberMe</Container>
+                <Col className="col-lg-6 mx-auto">
+                    <Container className="lead mb-4">
                         For all your membership needs.
-                    </p>
-                </div>
-            </div>
-            <div className="container">
+                    </Container>
+                </Col>
+            </Container>
+            <Container>
                 {title}
-                <div className="row">
+                <Row>
                     {membersColumns.map((membersList, index) => {
                         return (
                             <MembersColumn list={membersList} key={index} />
                         );
                     })}
-                </div>
-            </div>
+                </Row>
+            </Container>
         </>
     );
 }
