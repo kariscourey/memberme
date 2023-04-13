@@ -16,7 +16,6 @@ export function ListCard(props) {
     }
 
     const handleClick = async (e) => {
-        console.log('made it');
         dispatch(setMember(card));
         routeChange(e.target.value);
     }
@@ -57,8 +56,8 @@ export function ListCard(props) {
                 `}
             </style>
 
-            <Card className="card mb-4 shadow">
-                <Card.Img src={card.picture.thumbnail} className="card-img-top" />
+            <Card className="mb-4 shadow">
+                <Card.Img src={card.picture.thumbnail} className="card-img-top small" />
                 <Card.Body>
                     <Button onClick={handleClick} value={card.login.uuid} variant="link"><Card.Title>{card.name.first} {card.name.last}</Card.Title></Button>
                     <Card.Text className="card-subtitle mb-2 text-muted">

@@ -9,15 +9,9 @@
     font-weight: bold;
 }
 
-.card img {
-    width: 48px;
-    margin-left: 2%;
-}
-
 .btn-link {
     overflow-wrap: break-word;
     text-decoration: none;
-    text-align: left;
  }
 
 .flex-form {
