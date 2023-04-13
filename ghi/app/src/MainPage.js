@@ -10,8 +10,6 @@ import Form from 'react-bootstrap/Form';
 
 export default function MainPage() {
 
-    const [title, setTitle] = useState(<></>);
-
     const [filterInput, setFilterInput] = useState("");
 
     const [loadData, setLoadData] = useState(
@@ -29,9 +27,9 @@ export default function MainPage() {
 
             let data = [...loadData.members];
 
-            data = data.filter(
-                i => i.name.first.toLowerCase().includes(filterInput.toLowerCase()) ||
-                    i.name.last.toLowerCase().includes(filterInput.toLowerCase())
+            data = data?.filter(
+                i => i.name?.first.toLowerCase().includes(filterInput.toLowerCase()) ||
+                    i.name?.last.toLowerCase().includes(filterInput.toLowerCase())
             );
 
             setLoadData({
@@ -84,7 +82,6 @@ export default function MainPage() {
                             </Form>
                         </Container>
                         <Container>
-                            {title}
                             <CardList cards={loadData?.filteredMembers} />
                         </Container>
                     </> :
