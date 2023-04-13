@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { getMembers } from './common/api';
-import CustomCard from './common/CustomCard';
+import { CustomCard } from './common/CustomCard';
+import { CustomFilter } from './common/CustomFilter';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function MembersColumn(props) {
 
+    let membersFiltered = props.membersFiltered;
+
     return (
-        <div className="col">
-            {props.list.map(member => {
+        <Col>
+            {membersFiltered.map(member => {
 
                 return (
                     <div key={member.cell}>
@@ -17,7 +20,7 @@ function MembersColumn(props) {
                     </div>
                 );
             })}
-        </div>
+        </Col>
     );
 }
 
@@ -27,12 +30,26 @@ function MainPage() {
 
     const [title, setTitle] = useState(<></>);
 
+    const [userInput, setUserInput] = useState(
+        {
+            filterInput: "",
+        }
+    );
+
+    const [loadData, setLoadData] = useState(
+        {
+            membersColumns: [[], [], []],
+            filteredMembersColumns: [[], [], []],
+        }
+    );
+
     useEffect(() => {
         const fetchMembers = async () => {
             const membersData = await getMembers();
 
             let i = 0;
-            let membersCols = [[], [], []]
+            let membersCols = [[], [], []];
+            let data = {};
 
             console.log(membersData.results);
 
@@ -43,7 +60,11 @@ function MainPage() {
                     i = 0;
                 }
             }
-            setColumns(membersCols);
+
+            data.membersColumns = membersCols;
+            data.filteredMembersColumns = membersCols;
+
+            setLoadData(data);
 
             if (membersCols[0].length !== 0) {
                 setTitle(<h2 className="mb-3">Members</h2>);
@@ -63,11 +84,14 @@ function MainPage() {
                 </Col>
             </Container>
             <Container>
+                <CustomFilter />
+            </Container>
+            <Container>
                 {title}
                 <Row>
-                    {membersColumns.map((membersList, index) => {
+                    {loadData.membersColumns.map((membersList, index) => {
                         return (
-                            <MembersColumn list={membersList} key={index} />
+                            <MembersColumn membersFiltered={membersList} key={index} />
                         );
                     })}
                 </Row>

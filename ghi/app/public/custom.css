@@ -3,7 +3,6 @@
 .card {
     flex-direction: row;
     align-items: center;
-    /* width: 40%; */
 }
 
 .card-title {
@@ -13,6 +12,19 @@
 .card img {
     width: 48px;
     margin-left: 2%;
+}
+
+.card-link {
+    text-decoration: none;
+}
+
+.flex-form {
+    display: flex;
+}
+
+.custom-button {
+    height: 97%;
+    margin-left: 0.5%;
 }
 
 @media only screen and (max-width: 768px) {

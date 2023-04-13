@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 
-function CustomCard(props) {
+export function CustomCard(props) {
     return (
         <>
             <style type="text/css">
@@ -40,7 +40,7 @@ function CustomCard(props) {
             <Card className="card mb-4 shadow">
                 <Card.Img src={props.thumbnail} className="card-img-top" />
                 <Card.Body>
-                    <Card.Title>{props.first} {props.last}</Card.Title>
+                    <Card.Link href="#"><Card.Title>{props.first} {props.last}</Card.Title></Card.Link>
                     <Card.Text className="card-subtitle mb-2 text-muted">
                         {props.age}
                     </Card.Text>
@@ -49,5 +49,3 @@ function CustomCard(props) {
         </>
     );
 }
-
-export default CustomCard;
