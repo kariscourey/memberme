@@ -30,11 +30,7 @@ function MainPage() {
 
     const [title, setTitle] = useState(<></>);
 
-    const [userInput, setUserInput] = useState(
-        {
-            filterInput: "",
-        }
-    );
+    const [filterInput, setFilterInput] = useState("");
 
     const [loadData, setLoadData] = useState(
         {
@@ -43,25 +39,17 @@ function MainPage() {
         }
     );
 
-    const handleChange = (e) => {
-        const value = e.target.value;
-        const name = e.target.name;
-        setUserInput({
-            ...userInput, [name]: value
-        });
-    }
-
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        if (userInput.filterInput && userInput.filterInput != "") {
+        if (filterInput && filterInput != "") {
 
             let data = [...loadData.members];
 
             data = data.filter(
-                i => i.name.first.toLowerCase().includes(userInput.filterInput.toLowerCase()) ||
-                    i.name.last.toLowerCase().includes(userInput.filterInput.toLowerCase())
+                i => i.name.first.toLowerCase().includes(filterInput.toLowerCase()) ||
+                    i.name.last.toLowerCase().includes(filterInput.toLowerCase())
             );
 
             setLoadData({
@@ -99,7 +87,7 @@ function MainPage() {
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
                             <Form className="flex-form" onSubmit={handleSubmit}>
-                                <Form.Group onChange={handleChange} className="mb-3" controlId="filterInput" name="filterInput" value={userInput.filterInput}>
+                                <Form.Group onChange={e => setFilterInput(e.target.value)} className="mb-3" controlId="filterInput" value={filterInput}>
                                     <Form.Control type="string" placeholder="Enter first or last name" />
                                 </Form.Group>
                                 <Button className="custom-button" variant="primary" type="submit">
