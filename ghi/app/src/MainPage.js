@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getMembers } from './common/util';
 import { CardList } from './common/CardList';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+
 
 
 export default function MainPage() {
@@ -60,25 +62,30 @@ export default function MainPage() {
         <>
             <Container className="px-4 py-5 my-5 text-center">
                 <Container className="display-5 fw-bold">MemberMe</Container>
-                <Col className="col-lg-6 mx-auto">
+                <Grid className="col-lg-6 mx-auto">
                     <Container className="lead mb-4">
                         For all your membership needs.
                     </Container>
-                </Col>
+                </Grid>
             </Container>
             {
                 (Object.keys(loadData.members).length != 0) ?
                     <>
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
-                            <Form className="flex-form" onSubmit={handleFilter}>
-                                <Form.Group onChange={e => setFilterInput(e.target.value)} className="mb-3" controlId="filterInput" value={filterInput}>
-                                    <Form.Control type="string" placeholder="Enter first or last name" />
-                                </Form.Group>
+                            <FormControl className="flex-form" onSubmit={handleFilter}>
+                                <TextField
+                                    id="standard-filter"
+                                    label="Enter first or last name"
+                                    type="search"
+                                    variant="standard"
+                                    onChange={e => setFilterInput(e.target.value)}
+                                    value={filterInput}
+                                />
                                 <Button className="action-button" variant="primary" type="submit">
                                     Filter
                                 </Button>
-                            </Form>
+                            </FormControl>
                         </Container>
                         <Container>
                             <CardList cards={loadData?.filteredMembers} />

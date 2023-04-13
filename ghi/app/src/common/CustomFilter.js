@@ -1,16 +1,21 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
 
 export function CustomFilter() {
-  return (
-    <Form className="flex-form">
-      <Form.Group className="mb-3" controlId="formCustomFilter">
-        <Form.Control type="string" placeholder="Enter first or last name" />
-      </Form.Group>
+    return (
+        <FormControl className="flex-form">
 
-      <Button className="action-button" variant="primary" type="submit">
-        Filter
-      </Button>
-    </Form>
-  );
+            <TextField
+                id="standard-filter"
+                label="Enter first or last name"
+                type="search"
+                variant="standard"
+            />
+
+            <Button className="action-button" variant="primary" type="submit">
+                Filter
+            </Button>
+        </FormControl>
+    );
 }

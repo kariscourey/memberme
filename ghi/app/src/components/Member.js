@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { DetailCard } from "../common/DetailCard";
 import { useSelector } from 'react-redux';
-import Container from 'react-bootstrap/Container';
+import Container from '@mui/material/Container';
 
 
 export default function Member() {

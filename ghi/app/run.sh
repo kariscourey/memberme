@@ -1,5 +1,6 @@
 npm install
-npm install react-bootstrap bootstrap
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
 npm install @reduxjs/toolkit
 npm install @reduxjs/toolkit react-redux
 npm start

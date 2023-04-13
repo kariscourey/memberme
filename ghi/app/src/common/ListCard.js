@@ -1,8 +1,12 @@
-import Card from 'react-bootstrap/Card';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMember } from '../rtk-files/memberSlice';
+import Card from '@mui/material/Card';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
+import { setMember } from '../rtk-files/memberSlice';
+import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+
 
 export function ListCard(props) {
 
@@ -56,14 +60,19 @@ export function ListCard(props) {
                 `}
             </style>
 
-            <Card className="mb-4 shadow">
-                <Card.Img src={card.picture.thumbnail} className="card-img-top small" />
-                <Card.Body>
-                    <Button onClick={handleClick} value={card.login.uuid} variant="link"><Card.Title>{card.name.first} {card.name.last}</Card.Title></Button>
-                    <Card.Text className="card-subtitle mb-2 text-muted">
+            <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                    component="img"
+                    // height="140"
+                    image={card.picture.thumbnail}
+                    alt="card-img"
+                />
+                <CardContent>
+                    <Button onClick={handleClick} value={card.login.uuid} variant="link">{card.name.first} {card.name.last}</Button>
+                    <Typography className="card-subtitle mb-2 text-muted">
                         {card.dob.age}
-                    </Card.Text>
-                </Card.Body>
+                    </Typography>
+                </CardContent>
             </Card >
         </>
     );
