@@ -44,7 +44,9 @@ export function ListCard(props) {
                 </CardMedia>
                 <CardContent>
                     <ListCardButton onClick={handleClick} value={card.login.uuid}>
-                        {card.name.first} {card.name.last}
+                        <Typography variant="h6">
+                            {card.name.first} {card.name.last}
+                        </Typography>
                     </ListCardButton>
                     <br />
                     <Typography variant="overline">
