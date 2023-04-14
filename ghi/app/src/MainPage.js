@@ -48,10 +48,8 @@ export default function MainPage() {
 
         e.preventDefault();
 
-        let data = [...loadData.members];
-
         setLoadData({
-            ...loadData, filteredMembers: data
+            ...loadData, filteredMembers: loadData.members
         });
 
         setFilterInput("");
@@ -79,7 +77,7 @@ export default function MainPage() {
                     <>
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
-                            <FormControl className="flex-form" onSubmit={handleFilter}>
+                            <FormControl className="flex-form">
                                 <Box component="form"
                                     method="post"
                                     onSubmit={handleFilter}
@@ -102,7 +100,7 @@ export default function MainPage() {
                                     </Button>
                                 </Box>
                             </FormControl>
-                            <FormControl className="flex-form" onSubmit={handleFilter}>
+                            <FormControl className="flex-form">
                                 <Box component="form"
                                     method="post"
                                     onSubmit={handleClear}
