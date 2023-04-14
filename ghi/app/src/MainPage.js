@@ -114,7 +114,10 @@ export default function MainPage() {
                 </FormControl>
             </Container>
             <Container>
-                <CardList cards={loadData?.filteredMembers} />
+                {
+                    (Object.keys(loadData.filteredMembers).length != 0) ?
+                        <CardList cards={loadData?.filteredMembers} /> :
+                        <></>}
             </Container>
 
         </>

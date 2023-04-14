@@ -5,11 +5,10 @@ import Typography from '@mui/material/Typography';
 import { UhOh } from './UhOh';
 import { Grid } from '@mui/material';
 
+
 export function DetailCard(props) {
 
     const card = props.card;
-
-    console.log(card);
 
     return (
         card?.picture?.large ?
@@ -33,7 +32,6 @@ export function DetailCard(props) {
                         <Typography className="mb-2 text-muted">
                             {card.email}
                         </Typography><br />
-
                         <Typography variant="h6">
                             Address<br />
                             <Typography variant="body1">

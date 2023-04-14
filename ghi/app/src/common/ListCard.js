@@ -2,7 +2,6 @@ import Card from '@mui/material/Card';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setMember } from '../rtk-files/memberSlice';
-import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -38,7 +37,7 @@ export function ListCard(props) {
                         sx={{ flexGrow: 1, marginTop: 3, marginBottom: 1 }}
                     >
                         <Grid item xs={12}>
-                            <img src={card.picture.thumbnail} />
+                            <img src={card?.picture?.thumbnail} />
                         </Grid>
                     </Grid>
                 </CardMedia>

@@ -14,3 +14,35 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    environment:
+      REACT_APP_SERVICE: ${REACT_APP_SERVICE}
+      ALPHAVANTAGE_SERVICE: ${ALPHAVANTAGE_SERVICE}
+      FMP_SERVICE: ${FMP_SERVICE}
+      ALPHAVANTAGE_API_KEY: ${ALPHAVANTAGE_API_KEY}
+      FMP_API_KEY: ${FMP_API_KEY}
+      DATABASE_URL: ${DATABASE_URL}
+      WAIT_HOSTS: db:5432
+      PORT: 8000
+      SIGNING_KEY: ${SIGNING_KEY}
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+  db:
+    build:
+      context: relational-data
+      dockerfile: Dockerfile.dev
+    volumes:
+      - memberme:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: memberme
+      POSTGRES_USER: memberme
+      POSTGRES_DB: memberme
+    ports:
+      - "15432:5432"
