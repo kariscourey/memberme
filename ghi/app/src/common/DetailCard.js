@@ -3,6 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { UhOh } from './UhOh';
+import { Grid } from '@mui/material';
 
 export function DetailCard(props) {
 
@@ -14,12 +15,19 @@ export function DetailCard(props) {
         card?.picture?.large ?
             <>
                 <Card sx={{ maxWidth: 345 }}>
-                    <CardMedia
-                        component="img"
-                        // height="140"
-                        image={card.picture.large}
-                        alt="card-img"
-                    />
+                    <CardMedia>
+                        <Grid
+                            container
+                            spacing={0}
+                            direction="column"
+                            alignItems="center"
+                            sx={{ flexGrow: 1, marginTop: 3, marginBottom: 1 }}
+                        >
+                            <Grid item xs={12}>
+                                <img src={card.picture.large} />
+                            </Grid>
+                        </Grid>
+                    </CardMedia>
                     <CardContent>
                         <Typography variant="h5">{card.name.first} {card.name.last}</Typography>
                         <Typography className="mb-2 text-muted">

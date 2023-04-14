@@ -1,26 +1,30 @@
-import * as React from 'react';
+import AdbIcon from '@mui/icons-material/Adb';
+import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 
 const pages = ['Home'];
 
 export default function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
+    let navigate = useNavigate();
+    const routeChange = () => {
+        let path = `/`;
+        navigate(path);
+    }
 
     const handleCloseNavMenu = () => {
+        routeChange();
         setAnchorElNav(null);
     };
 
@@ -79,7 +83,7 @@ export default function ResponsiveAppBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -91,7 +95,7 @@ export default function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        MEMBERME
+                        MemberMe
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
