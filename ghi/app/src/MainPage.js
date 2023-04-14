@@ -56,6 +56,7 @@ export default function MainPage() {
 
         setFilterInput("");
 
+
     }
 
     useEffect(() => {
@@ -78,39 +79,43 @@ export default function MainPage() {
                     <>
                         <Container>
                             {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
-                            <Box component="form"
-                                method="post"
-                                onSubmit={handleFilter}
-                                noValidate sx={{ mt: 1 }}>
-                                <TextField
-                                    id="standard-filter"
-                                    label="Enter first or last name"
-                                    type="search"
-                                    variant="standard"
-                                    onChange={e => setFilterInput(e.target.value)}
-                                    value={filterInput}
-                                    sx={{ mt: 1.8, ml: 2.5 }}
-                                />
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    size="large"
-                                    sx={{ mt: 2.5, ml: 3 }}>
-                                    Filter
-                                </Button>
-                            </Box>
-                            <Box component="form"
-                                method="post"
-                                onSubmit={handleClear}
-                                noValidate sx={{ mt: 1 }}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    size="large"
-                                    sx={{ mt: 2.5, ml: 1 }}>
-                                    Clear
-                                </Button>
-                            </Box>
+                            <FormControl className="flex-form" onSubmit={handleFilter}>
+                                <Box component="form"
+                                    method="post"
+                                    onSubmit={handleFilter}
+                                    noValidate sx={{ mt: 1 }}>
+                                    <TextField
+                                        id="standard-filter"
+                                        label="Enter first or last name"
+                                        type="search"
+                                        variant="standard"
+                                        onChange={e => setFilterInput(e.target.value)}
+                                        value={filterInput}
+                                        sx={{ mt: 1.8, ml: 2.5 }}
+                                    />
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        size="large"
+                                        sx={{ mt: 2.5, ml: 3 }}>
+                                        Filter
+                                    </Button>
+                                </Box>
+                            </FormControl>
+                            <FormControl className="flex-form" onSubmit={handleFilter}>
+                                <Box component="form"
+                                    method="post"
+                                    onSubmit={handleClear}
+                                    noValidate sx={{ mt: 1 }}>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        size="large"
+                                        sx={{ mt: 2.5, ml: 1 }}>
+                                        Clear
+                                    </Button>
+                                </Box>
+                            </FormControl>
                         </Container>
                         <Container>
                             <CardList cards={loadData?.filteredMembers} />

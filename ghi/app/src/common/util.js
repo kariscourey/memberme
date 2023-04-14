@@ -44,7 +44,7 @@ export async function getInstances(port, app) {
 }
 
 export async function getMembers() {
-  const response = await fetch(`https://randomuser.me/api/?results=15`);
+  const response = await fetch(`https://randomuser.me/api/?results=12`);
 
   if (response.ok) {
     const data = await response.json();
