@@ -7,13 +7,11 @@ export function CardList(props) {
 
     const cards = props.cards;
 
-    console.log(cards);
-
     return (
         <Container sx={{ py: 8 }}>
             <Grid container spacing={4}>
                 {cards.map((card, index) => (
-                    <Grid item key={index} xs={12} sm={6} md={4}>
+                    <Grid item key={index} xs={12} sm={4} md={3}>
                         <ListCard card={card} />
                     </Grid>
                 ))}

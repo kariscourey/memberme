@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material';
+import { ListCardButton } from './ListCardButton';
 
 
 export function ListCard(props) {
@@ -26,16 +28,26 @@ export function ListCard(props) {
 
     return (
         <>
-            <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                    component="img"
-                    // height="48"
-                    image={card.picture.thumbnail}
-                    alt="card-img"
-                />
+            <Card>
+                <CardMedia>
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        sx={{ flexGrow: 1, marginTop: 3, marginBottom: 1 }}
+                    >
+                        <Grid item xs={12}>
+                            <img src={card.picture.thumbnail} />
+                        </Grid>
+                    </Grid>
+                </CardMedia>
                 <CardContent>
-                    <Button onClick={handleClick} value={card.login.uuid}>{card.name.first} {card.name.last}</Button>
-                    <Typography>
+                    <ListCardButton onClick={handleClick} value={card.login.uuid}>
+                        {card.name.first} {card.name.last}
+                    </ListCardButton>
+                    <br />
+                    <Typography variant="overline">
                         Age: {card.dob.age}
                     </Typography>
                 </CardContent>

@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import { getMembers } from './common/util';
-import { CardList } from './common/CardList';
-import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-
-
+import { useEffect, useState } from "react";
+import { CardList } from './common/CardList';
+import { getMembers } from './common/util';
 
 
 export default function MainPage() {
@@ -81,13 +77,13 @@ export default function MainPage() {
                                         onChange={e => setFilterInput(e.target.value)}
                                         value={filterInput}
                                         sx={{ mt: 1.8, ml: 2.5 }}
-                                        />
+                                    />
                                     <Button
                                         type="submit"
                                         variant="contained"
                                         size="large"
                                         sx={{ mt: 2.5, ml: 3 }}>
-                                            Filter
+                                        Filter
                                     </Button>
                                 </Box>
                             </FormControl>
