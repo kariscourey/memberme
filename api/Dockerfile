@@ -6,7 +6,6 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY main.py main.py
 
-# All of the directories that contain application code
 COPY queries queries
 COPY routers routers
 COPY tests tests
