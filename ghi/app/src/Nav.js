@@ -10,21 +10,28 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Home'];
+const pages = ['home', 'saved'];
 
 export default function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     let navigate = useNavigate();
-    const routeChange = () => {
+
+    const routeChange = (value) => {
+
         let path = `/`;
+
+        if (value != "home") {
+            path = `/${value}`;
+        }
+
         navigate(path);
     }
 
-    const handleCloseNavMenu = () => {
-        routeChange();
+    const handleNavClick = async (e) => {
+        routeChange(e.target.value);
         setAnchorElNav(null);
-    };
+    }
 
     return (
         <AppBar position="static">
@@ -64,13 +71,13 @@ export default function ResponsiveAppBar() {
                                 horizontal: 'left',
                             }}
                             open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                            onClose={handleNavClick}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page} onClick={handleNavClick} value={page}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -99,7 +106,8 @@ export default function ResponsiveAppBar() {
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                onClick={handleNavClick}
+                                value={page}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
