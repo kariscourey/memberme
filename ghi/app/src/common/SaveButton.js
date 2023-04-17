@@ -12,13 +12,17 @@ export default function SaveButton(props) {
 
     return (
         <IconButton size="small" onClick={preventDefault(createOrUpdateSavedMember, () => ({
-            first_name: card.name.first,
-            last_name: card.name.last,
-            age: card.dob.age,
+            name_first: card.name.first,
+            name_last: card.name.last,
+            dob_date: card.dob.date,
+            dob_age: card.dob.age,
             email: card.email,
-            postal_address: card.location.city,
+            street_number: card.location.street.number,
+            street_name: card.location.street.name,
+            city: card.location.city,
+            state: card.location.state,
+            postcode: card.location.postcode,
             thumbnail: card.picture.thumbnail,
-            dob: card.dob.date,
             phone: card.phone,
             uuid: card.login.uuid
         }))}>

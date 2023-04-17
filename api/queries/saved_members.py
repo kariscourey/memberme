@@ -42,13 +42,17 @@ class SavedMemberQueries:
                 cur.execute(
                     """
                     SELECT id,
-                        first_name,
-                        last_name,
-                        age,
+                        name_first,
+                        name_last,
+                        dob_age,
                         email,
-                        postal_address,
+                        street_number,
+                        street_name,
+                        city,
+                        state,
+                        postcode,
                         thumbnail,
-                        dob,
+                        dob_date,
                         phone,
                         uuid
                     FROM saved_members
@@ -70,13 +74,17 @@ class SavedMemberQueries:
                 cur.execute(
                     """
                     SELECT id,
-                        first_name,
-                        last_name,
-                        age,
+                        name_first,
+                        name_last,
+                        dob_age,
                         email,
-                        postal_address,
+                        street_number,
+                        street_name,
+                        city,
+                        state,
+                        postcode,
                         thumbnail,
-                        dob,
+                        dob_date,
                         phone,
                         uuid
                     FROM saved_members
@@ -107,27 +115,35 @@ class SavedMemberQueries:
                 cur.execute(
                     """
                     INSERT INTO saved_members (
-                        first_name,
-                        last_name,
-                        age,
+                        name_first,
+                        name_last,
+                        dob_age,
                         email,
-                        postal_address,
+                        street_number,
+                        street_name,
+                        city,
+                        state,
+                        postcode,
                         thumbnail,
-                        dob,
+                        dob_date,
                         phone,
                         uuid
                     )
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (uuid, email) DO UPDATE
-                      SET postal_address=(EXCLUDED.postal_address)
+                      SET thumbnail=(EXCLUDED.thumbnail)
                     RETURNING id,
-                        first_name,
-                        last_name,
-                        age,
+                        name_first,
+                        name_last,
+                        dob_age,
                         email,
-                        postal_address,
+                        street_number,
+                        street_name,
+                        city,
+                        state,
+                        postcode,
                         thumbnail,
-                        dob,
+                        dob_date,
                         phone,
                         uuid
                     """,

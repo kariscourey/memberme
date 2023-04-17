@@ -104,7 +104,40 @@ export function CustomTable(props) {
 
     const handleClick = async (e) => {
 
-        triggerSavedMember({ uuid: e.target.value });
+        triggerSavedMember(e.target.value);
+
+        const savedMember = savedMemberData?.saved_member[0];
+
+        const card = {
+            name: {
+                first: savedMember.name_first,
+                last: savedMember.name_last,
+            },
+            location: {
+                street: {
+                    number: savedMember.street_number,
+                    name: savedMember.street_name,
+                },
+                city: savedMember.city,
+                state: savedMember.state,
+                postcode: savedMember.postcode,
+            },
+            email: savedMember.email,
+            login: {
+                uuid: savedMember.uuid,
+            },
+            dob: {
+                date: savedMember.dob_date,
+                age: savedMember.dob_age,
+            },
+            phone: savedMember.phone,
+            picture: {
+                thumbnail: savedMember.thumbnail
+            },
+        }
+
+        dispatch(setMember(card));
+        routeChange(e.target.value);
 
     }
 

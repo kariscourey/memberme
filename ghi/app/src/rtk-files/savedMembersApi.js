@@ -27,7 +27,7 @@ export const savedMembersApi = createApi({
             invalidatesTags: ['SavedMembers'],
         }),
         getSavedMember: builder.query({
-            query: (uuid) => `/api/saved_members/${uuid}`,
+            query: (uuid) => `/api/saved_members/${uuid}/`,
             providesTags: ['SavedMember'],
         }),
     }),
