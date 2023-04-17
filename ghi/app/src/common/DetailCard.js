@@ -56,6 +56,6 @@ export function DetailCard(props) {
                     </CardContent >
                 </Card >
             </> :
-            <UhOh />
+            <UhOh uhOhType="returnHome" />
     );
 }

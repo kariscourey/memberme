@@ -1,11 +1,14 @@
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { useEffect, useState } from "react";
 
 
-export function UhOh() {
+export function UhOh(props) {
+
+    const uhOhType = props.uhOhType;
 
     return (
         <Container component="main" maxWidth="sm">
@@ -16,13 +19,10 @@ export function UhOh() {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                <Typography variant="h2">
-                    Uh oh...
-                </Typography>
-                <Typography variant="body1">
-                    <p>This page doesn't exist.</p>
-                    <p>Why don't you return <Link href="/">home</Link>, friend?</p>
-                </Typography>
+                {uhOhType == "noData" ?
+                    <><Typography variant="h2">Uh oh...</Typography><Typography variant="body1">No data to show.</Typography></> :
+                    <Typography variant="body1">This page doesn't exist.<br />Why don't you return <Link href="/">home</Link>, friend?</Typography>
+                }
             </Box>
         </Container>
     );

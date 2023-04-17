@@ -19,7 +19,7 @@ function App() {
                     <Route
                         path="*"
                         element={
-                            <UhOh />
+                            <UhOh uhOhType="returnHome" />
                         }
                     />
                 </Routes>

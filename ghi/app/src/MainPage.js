@@ -8,11 +8,15 @@ import { CardList } from './common/CardList';
 import { getMembers } from './common/util';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ClearIcon from '@mui/icons-material/Clear';
+import { UhOh } from './common/UhOh';
+import { Loading } from './common/Loading';
 
 
 export default function MainPage() {
 
     const [filterInput, setFilterInput] = useState("");
+
+    const [filterClick, setFilterClick] = useState(false);
 
     const [loadData, setLoadData] = useState(
         {
@@ -37,13 +41,19 @@ export default function MainPage() {
             setLoadData({
                 ...loadData, filteredMembers: data
             });
+
+            setFilterClick(true);
         }
 
         else {
             setLoadData({
                 ...loadData, filteredMembers: loadData.members
             });
+
+            setFilterClick(false);
         }
+
+
     }
 
     const handleClear = async (e) => {
@@ -56,6 +66,7 @@ export default function MainPage() {
 
         setFilterInput("");
 
+        setFilterClick(false);
 
     }
 
@@ -115,9 +126,12 @@ export default function MainPage() {
             </Container>
             <Container>
                 {
-                    (Object.keys(loadData.filteredMembers).length != 0) ?
-                        <CardList cards={loadData?.filteredMembers} /> :
-                        <></>}
+                    (Object.keys(loadData.filteredMembers).length == 0) ?
+                        filterClick == true ?
+                        <UhOh uhOhType="noData"/> :
+                        <Loading /> :
+                        <CardList cards={loadData?.filteredMembers} />
+                }
             </Container>
 
         </>
