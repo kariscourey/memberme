@@ -4,26 +4,34 @@ from queries.pool import pool
 
 
 class SavedMemberIn(BaseModel):
-    first_name: str
-    last_name: str
-    age: int
+    name_first: str
+    name_last: str
+    dob_age: int
     email: str
-    postal_address: str
+    street_number: int
+    street_name: str
+    city: str
+    state: str
+    postcode: str
     thumbnail: str
-    dob: str
+    dob_date: str
     phone: str
     uuid: str
 
 
 class SavedMemberOut(BaseModel):
     id: int
-    first_name: str
-    last_name: str
-    age: int
+    name_first: str
+    name_last: str
+    dob_age: int
     email: str
-    postal_address: str
+    street_number: int
+    street_name: str
+    city: str
+    state: str
+    postcode: str
     thumbnail: str
-    dob: str
+    dob_date: str
     phone: str
     uuid: str
 
@@ -102,13 +110,17 @@ class SavedMemberQueries:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
-                    data.first_name,
-                    data.last_name,
-                    data.age,
+                    data.name_first,
+                    data.name_last,
+                    data.dob_age,
                     data.email,
-                    data.postal_address,
+                    data.street_number,
+                    data.street_name,
+                    data.city,
+                    data.state,
+                    data.postcode,
                     data.thumbnail,
-                    data.dob,
+                    data.dob_date,
                     data.phone,
                     data.uuid,
                 ]
