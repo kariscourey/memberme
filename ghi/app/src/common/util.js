@@ -32,7 +32,7 @@ export async function getInstance(port, app, id) {
 
 
 export async function getInstances(port, app) {
-  const response = await fetch(`http://localhost:${port}/api/${app}/`);
+  const response = await fetch(`http://localhost:${port}/api/${app}`);
 
   if (response.ok) {
     const data = await response.json();

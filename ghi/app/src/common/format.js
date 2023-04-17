@@ -9,12 +9,23 @@ export const toCamel = (s) => {
 
 // derived from https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 export const toTitleCase = (str) => {
-  return str.replace(
+
+  const adj_str = str.replace('_', ' ');
+
+  return adj_str.replace(
     /\w\S*/g,
     function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     }
   );
+}
+
+export const toUpper = (str) => {
+
+  const adj_str = str.replace('_', ' ');
+
+  return adj_str.toUpperCase();
+
 }
 
 // derived from https://www.geeksforgeeks.org/python-program-to-convert-camel-case-string-to-snake-case/

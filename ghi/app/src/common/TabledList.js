@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Table } from './Table';
+import { CustomTable } from './CustomTable';
 import { getInstances } from './util';
-import { toTitleCase } from './format';
+import { toUpper } from './format';
 import { UhOh } from "./UhOh";
 import { Grid } from '@mui/material';
 import Typography from "@mui/material/Typography";
@@ -45,9 +45,9 @@ export function TabledList(props) {
     } else {
         return (
             <>
-                <Typography variant="h1">{toTitleCase(app)}</Typography>
+                <Typography variant="h1">{toUpper(app)}</Typography>
                 <Grid>
-                    <Table data={Object.values(loadData)[0]} />
+                    <CustomTable data={Object.values(loadData)[0]} />
                 </Grid>
             </>
         )
