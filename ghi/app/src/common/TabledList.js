@@ -6,6 +6,7 @@ import { toUpper } from './format';
 import { UhOh } from "./UhOh";
 import { Grid } from '@mui/material';
 import Typography from "@mui/material/Typography";
+import Container from '@mui/material/Container';
 
 
 export function TabledList(props) {
@@ -44,12 +45,11 @@ export function TabledList(props) {
         )
     } else {
         return (
-            <>
-                <Typography variant="h1">{toUpper(app)}</Typography>
-                <Grid>
-                    <CustomTable data={Object.values(loadData)[0]} />
+            <Container sx={{ py: 8 }}>
+                <Grid container spacing={4}>
+                    <CustomTable rows={Object.values(loadData)[0]} />
                 </Grid>
-            </>
+            </Container>
         )
     }
 }

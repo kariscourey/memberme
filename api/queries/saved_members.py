@@ -9,6 +9,7 @@ class SavedMemberIn(BaseModel):
     age: int
     email: str
     postal_address: str
+    thumbnail: str
     dob: str
     phone: str
     uuid: str
@@ -21,6 +22,7 @@ class SavedMemberOut(BaseModel):
     age: int
     email: str
     postal_address: str
+    thumbnail: str
     dob: str
     phone: str
     uuid: str
@@ -42,6 +44,7 @@ class SavedMemberQueries:
                         age,
                         email,
                         postal_address,
+                        thumbnail,
                         dob,
                         phone,
                         uuid
@@ -67,6 +70,7 @@ class SavedMemberQueries:
                     data.age,
                     data.email,
                     data.postal_address,
+                    data.thumbnail,
                     data.dob,
                     data.phone,
                     data.uuid,
@@ -79,11 +83,12 @@ class SavedMemberQueries:
                         age,
                         email,
                         postal_address,
+                        thumbnail,
                         dob,
                         phone,
                         uuid
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (uuid, email) DO UPDATE
                       SET postal_address=(EXCLUDED.postal_address)
                     RETURNING id,
@@ -92,6 +97,7 @@ class SavedMemberQueries:
                         age,
                         email,
                         postal_address,
+                        thumbnail,
                         dob,
                         phone,
                         uuid

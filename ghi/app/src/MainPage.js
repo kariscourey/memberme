@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from "react";
 import { CardList } from './common/CardList';
-import { getMembers } from './common/util';
+import { getRandomUsers } from './common/util';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ClearIcon from '@mui/icons-material/Clear';
 import { UhOh } from './common/UhOh';
@@ -74,7 +74,7 @@ export default function MainPage() {
         const fetchMembers = async () => {
 
             let data = {};
-            data.members = (await getMembers()).results;
+            data.members = (await getRandomUsers()).results;
             data.filteredMembers = data.members;
 
             setLoadData(data);

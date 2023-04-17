@@ -43,7 +43,7 @@ export async function getInstances(port, app) {
 
 }
 
-export async function getMembers() {
+export async function getRandomUsers() {
   const response = await fetch(`https://randomuser.me/api/?results=12`);
 
   if (response.ok) {
@@ -92,6 +92,21 @@ export async function createInstance(port, app, data) {
     headers: {
       'Content-Type': 'application/json',
     },
+  };
+
+  const response = await fetch(url, fetchConfig);
+
+  return response;
+
+}
+
+
+export async function deleteInstance(port, app, data) {
+
+
+  const url = `http://localhost:${port}/api/${app}/${data}`;
+  const fetchConfig = {
+    method: 'delete',
   };
 
   const response = await fetch(url, fetchConfig);
