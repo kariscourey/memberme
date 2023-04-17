@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DataTable } from './DataTable';
-import { getInstances } from './api';
+import { Table } from './Table';
+import { getInstances } from './util';
 import { toTitleCase } from './format';
 import { UhOh } from "./UhOh";
 import { Grid } from '@mui/material';
@@ -47,7 +47,7 @@ export function TabledList(props) {
             <>
                 <Typography variant="h1">{toTitleCase(app)}</Typography>
                 <Grid>
-                    <DataTable data={Object.values(loadData)[0]} />
+                    <Table data={Object.values(loadData)[0]} />
                 </Grid>
             </>
         )

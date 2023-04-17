@@ -25,7 +25,8 @@ Ensure <b>Docker</b> is installed and follow these steps:
 4. Run `docker volume create memberme`
 5. Run `docker compose build`
 6. Run `docker compose up`
-7. Navigate to `localhost:3000` in your browser
+7. Navigate to `localhost:3000` in your browser to view front-end UI
+8. Navigate to `localhost:8000/docs` in your browser to view back-end UI
 
 
 ## Project Deactivation

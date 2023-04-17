@@ -4,6 +4,7 @@ import MainPage from './MainPage';
 import Member from './components/Member';
 import MemberMeNav from './Nav';
 import { UhOh } from './common/UhOh';
+import SavedMembersList from './components/SavedMembersList';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                     <Route path="members">
                         <Route path=":memberId" element={<Member />}></Route>
                     </Route>
+                    <Route path="saved" element={<SavedMembersList />} />
                     <Route
                         path="*"
                         element={

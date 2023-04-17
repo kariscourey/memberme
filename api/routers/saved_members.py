@@ -29,7 +29,7 @@ def create_or_update_saved_member(
 
 @router.delete("/api/saved_members/{saved_member_uuid}", response_model=bool)
 def delete_saved_member(
-    saved_member_uuid: int,
+    saved_member_uuid: str,
     queries: SavedMemberQueries = Depends(),
 ):
     queries.delete_saved_member(saved_member_uuid)

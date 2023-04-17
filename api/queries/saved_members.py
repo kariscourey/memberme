@@ -84,7 +84,7 @@ class SavedMemberQueries:
                         uuid
                     )
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (uuid) DO UPDATE
+                    ON CONFLICT (uuid, email) DO UPDATE
                       SET postal_address=(EXCLUDED.postal_address)
                     RETURNING id,
                         first_name,
