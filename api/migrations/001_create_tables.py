@@ -10,7 +10,7 @@ steps = [
             email VARCHAR(200) NOT NULL,
             postal_address VARCHAR(200) NOT NULL,
             dob VARCHAR(50) NOT NULL,
-            phone VARCHAR(50) NOT NULL,
+            phone VARCHAR(50) NOT NULL
         );
         """,
         # Drop table
