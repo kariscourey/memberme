@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS saved_members (
     email VARCHAR(200) NOT NULL,
     postal_address VARCHAR(200) NOT NULL,
     dob VARCHAR(50) NOT NULL,
-    phone VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL
 );

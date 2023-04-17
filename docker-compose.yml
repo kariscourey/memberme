@@ -1,5 +1,5 @@
 volumes:
-  beta-data:
+  memberme:
     external: true
 services:
   react:
@@ -12,6 +12,7 @@ services:
       - "3000:3000"
     environment:
       HOST_OS: ${OS}
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
       NODE_ENV: development
       HOST: "0.0.0.0"
   api:
