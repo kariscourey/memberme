@@ -26,7 +26,7 @@ export function DetailCard(props) {
                             sx={{ flexGrow: 1, marginTop: 3, marginBottom: 1 }}
                         >
                             <Grid item xs={12}>
-                                <img src={card.picture.large} />
+                                <img src={card.picture.large} alt="large" />
                             </Grid>
                         </Grid>
                     </CardMedia>

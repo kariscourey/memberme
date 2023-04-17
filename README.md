@@ -14,6 +14,10 @@ Individuals and teams seeking to view and manage members.
 - View members
 - CRUD saved members
 
+## Testing
+Testing was completed using the FastAPI interface. </br>
+Sample test may be found in `api/tests`.
+
 
 ## Project Initialization
 

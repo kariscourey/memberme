@@ -6,10 +6,12 @@ import { UhOh } from './common/UhOh';
 import Member from './components/Member';
 import SavedMembersList from './components/SavedMembersList';
 
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, '');
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
             <MemberMeNav />
             <Container>
                 <Routes>

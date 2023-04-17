@@ -1,4 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';

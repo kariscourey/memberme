@@ -9,22 +9,22 @@ class SavedMemberQueriesMock:
     def get_all_saved_members(self):
         return {}
 
-    def create_or_update_saved_member(self,):
-        return {}
-
-    def delete_saved_member(self, saved_member_id, account_id):
-        return {}
-
 
 def mockAccount():
     return {
         "id": "1",
-        "first_name": "first",
-        "last_name": "last",
-        "age": "1",
+        "name_first": "first",
+        "name_last": "last",
+        "dob_age": "1",
+        "dob_date": "1/1/2020",
         "email": "email@email.com",
-        "postal_address": "111 Postal Address Way",
-        "dob": "11/11/1111",
+        "street_number": "111",
+        "street_name": "Postal Address Way",
+        "city": "Post",
+        "state": "Post State",
+        "postcode": "11111",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+        "large": "https://randomuser.me/api/portraits/men/75.jpg",
         "phone": "111-111-1111",
         "uuid": "ASLK1232A12",
     }
@@ -44,12 +44,5 @@ def test_get_all_saved_members():
     # assert
     assert response.status_code == 200
 
-
-def test_create_or_update_saved_member():
-    # arrange
-
-    # act
-    response = client.get("api/saved_members")
-
-    # assert
-    assert response.status_code == 200
+    # clean up
+    app.dependency_overrides = {}

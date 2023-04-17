@@ -19,7 +19,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setMember } from '../rtk-files/memberSlice';
-import { useDeleteSavedMemberMutation, useLazyGetSavedMemberQuery } from '../rtk-files/savedMembersApi';
+import { useDeleteSavedMemberMutation } from '../rtk-files/savedMembersApi';
 import { ListCardButton } from './ListCardButton';
 import { preventDefault } from './util';
 
@@ -163,7 +163,7 @@ export function CustomTable(props) {
                     ).map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row" align="center">
-                                <img src={row.thumbnail} />
+                                <img src={row.thumbnail} alt="thumbnail" />
                             </TableCell>
                             <TableCell>
                                 <ListCardButton value={row.uuid} onClick={handleClick} >
