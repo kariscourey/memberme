@@ -26,6 +26,10 @@ export const savedMembersApi = createApi({
             }),
             invalidatesTags: ['SavedMembers'],
         }),
+        getSavedMember: builder.query({
+            query: (uuid) => `/api/saved_members/${uuid}`,
+            providesTags: ['SavedMember'],
+        }),
     }),
 });
 
@@ -33,4 +37,5 @@ export const {
     useGetSavedMembersQuery,
     useCreateOrUpdateSavedMemberMutation,
     useDeleteSavedMemberMutation,
+    useLazyGetSavedMemberQuery,
 } = savedMembersApi;

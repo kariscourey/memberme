@@ -9,11 +9,20 @@ from queries.saved_members import (
 router = APIRouter()
 
 
+@router.get("/api/saved_members/{saved_member_uuid}/")  # noqa 52
+def get_saved_member(
+    saved_member_uuid: str,
+    queries: SavedMemberQueries = Depends(),
+):
+    return {
+        "saved_member": queries.get_saved_member(saved_member_uuid),
+    }
+
+
 @router.get("/api/saved_members")
 def get_all_saved_members(
     queries: SavedMemberQueries = Depends(),
 ):
-
     return {
         "saved_members": queries.get_all_saved_members(),
     }

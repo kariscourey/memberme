@@ -46,10 +46,8 @@ export function ListCard(props) {
                     </Grid>
                 </CardMedia>
                 <CardContent>
-                    <ListCardButton onClick={handleClick} value={card.login.uuid}>
-                        <Typography variant="h6">
-                            {card.name.first} {card.name.last}
-                        </Typography>
+                    <ListCardButton value={card.login.uuid} onClick={handleClick} >
+                        {card.name.first} {card.name.last}
                     </ListCardButton>
                     <br />
                     <Typography variant="overline">

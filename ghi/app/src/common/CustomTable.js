@@ -16,7 +16,11 @@ import TableRow from '@mui/material/TableRow';
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useDeleteSavedMemberMutation } from '../rtk-files/savedMembersApi';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { setMember } from '../rtk-files/memberSlice';
+import { useLazyGetSavedMemberQuery, useDeleteSavedMemberMutation } from '../rtk-files/savedMembersApi';
+import { ListCardButton } from './ListCardButton';
 import { preventDefault } from './util';
 
 function TablePaginationActions(props) {
@@ -87,10 +91,22 @@ export function CustomTable(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const rows = props.rows;
 
-    console.log(rows);
-    console.log(rows[0].uuid);
-
     const [deleteSavedMember] = useDeleteSavedMemberMutation();
+    const [triggerSavedMember, { data: savedMemberData }] = useLazyGetSavedMemberQuery();
+
+    const dispatch = useDispatch();
+
+    let navigate = useNavigate();
+    const routeChange = (value) => {
+        let path = `/members/${value}`;
+        navigate(path);
+    }
+
+    const handleClick = async (e) => {
+
+        triggerSavedMember({ uuid: e.target.value });
+
+    }
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -118,7 +134,9 @@ export function CustomTable(props) {
                                 <img src={row.thumbnail} />
                             </TableCell>
                             <TableCell>
-                                {row.first_name} {row.last_name}
+                                <ListCardButton value={row.uuid} onClick={handleClick} >
+                                    {row.first_name} {row.last_name}
+                                </ListCardButton>
                             </TableCell>
                             <TableCell>
                                 {row.age}
@@ -133,7 +151,7 @@ export function CustomTable(props) {
                                 {row.phone}
                             </TableCell>
                             <TableCell>
-                                <Button variant="outlined" color="error" value={row.uuid} onClick={preventDefault(deleteSavedMember, () => (row.uuid))}>
+                                <Button variant="outlined" color="error" value={row} onClick={preventDefault(deleteSavedMember, () => (row.uuid))}>
                                     DELETE
                                 </Button>
                             </TableCell>

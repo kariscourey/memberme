@@ -33,6 +33,37 @@ class SavedMembersOut(BaseModel):
 
 
 class SavedMemberQueries:
+    def get_saved_member(self, saved_member_uuid: int) -> SavedMemberOut:
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    saved_member_uuid,
+                ]
+                cur.execute(
+                    """
+                    SELECT id,
+                        first_name,
+                        last_name,
+                        age,
+                        email,
+                        postal_address,
+                        thumbnail,
+                        dob,
+                        phone,
+                        uuid
+                    FROM saved_members
+                    WHERE uuid= %s
+                    """,
+                    params,
+                )
+                results = []
+                for row in cur.fetchall():
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                    results.append(record)
+                return results
+
     def get_all_saved_members(self) -> SavedMembersOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -59,9 +90,7 @@ class SavedMemberQueries:
                     results.append(record)
                 return results
 
-    def create_or_update_saved_member(
-            self, data: SavedMemberIn
-    ) -> SavedMemberOut:
+    def create_or_update_saved_member(self, data: SavedMemberIn) -> SavedMemberOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [

@@ -1,55 +1,24 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { CustomTable } from './CustomTable';
-import { getInstances } from './util';
-import { toUpper } from './format';
-import { UhOh } from "./UhOh";
 import { Grid } from '@mui/material';
-import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
+import { useGetSavedMembersQuery } from '../rtk-files/savedMembersApi';
+import { CustomTable } from './CustomTable';
+import { Loading } from './Loading'
 
 
-export function TabledList(props) {
+export function TabledList() {
 
-    let app = props.app;
-    let port = props.port;
+    const { data: savedMembersData, isLoading: savedMembersLoading } = useGetSavedMembersQuery();
 
-    const [loadData, setLoadData] = useState(
-        {
-            listData: [],
-        }
-    );
-
-    useEffect(() => {
-        const fetchInstances = async () => {
-
-            try {
-
-                const data = await getInstances(port, app);
-
-                setLoadData({
-                    ...loadData, listData: data
-                });
-
-            } catch (e) {
-                console.error(e);
-            }
-        }
-        fetchInstances();
-    }, []);
-
-
-    if (loadData.listData.length === 0) {
-        return (
-            <UhOh uhOhType="noData" />
-        )
-    } else {
-        return (
-            <Container sx={{ py: 8 }}>
-                <Grid container spacing={4}>
-                    <CustomTable rows={Object.values(loadData)[0]} />
-                </Grid>
-            </Container>
-        )
-    }
+    return (
+        <Container sx={{ py: 8 }}>
+            <Grid container spacing={4}>
+                {savedMembersLoading ?
+                    <Loading /> :
+                    savedMembersData ?
+                        <CustomTable rows={savedMembersData.saved_members} /> :
+                        <></>
+                }
+            </Grid>
+        </Container>
+    )
 }
