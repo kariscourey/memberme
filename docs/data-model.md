@@ -10,6 +10,9 @@
 | first_name        | string            | no     | no       |
 | last_name         | string            | no     | no       |
 | age               | int               | no     | no       |
+| email             | string            | yes    | no       |
 | postal_addres     | string            | no     | no       |
 | phone             | string            | no     | no       |
 | uuid              | string            | yes    | no       |
+
+Unique constraint on email, uuid.
