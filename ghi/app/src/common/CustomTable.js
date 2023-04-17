@@ -1,7 +1,11 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,14 +13,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import Button from '@mui/material/Button';
-import { deleteInstance } from './util';
+import { useTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useDeleteSavedMemberMutation } from '../rtk-files/savedMembersApi';
+import { preventDefault } from './util';
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -87,15 +88,13 @@ export function CustomTable(props) {
     const rows = props.rows;
 
     console.log(rows);
+    console.log(rows[0].uuid);
+
+    const [deleteSavedMember] = useDeleteSavedMemberMutation();
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-    const handleDelete = async (e) => {
-        console.log('delete');
-        await deleteInstance("8000", "saved_members", e.target.value);
-    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -119,9 +118,6 @@ export function CustomTable(props) {
                                 <img src={row.thumbnail} />
                             </TableCell>
                             <TableCell>
-                                {row.uuid}
-                            </TableCell>
-                            <TableCell>
                                 {row.first_name} {row.last_name}
                             </TableCell>
                             <TableCell>
@@ -137,7 +133,7 @@ export function CustomTable(props) {
                                 {row.phone}
                             </TableCell>
                             <TableCell>
-                                <Button variant="outlined" color="error" onClick={handleDelete} value={row.uuid}>
+                                <Button variant="outlined" color="error" value={row.uuid} onClick={preventDefault(deleteSavedMember, () => (row.uuid))}>
                                     DELETE
                                 </Button>
                             </TableCell>

@@ -1,17 +1,21 @@
+import { Grid } from '@mui/material';
 import Card from '@mui/material/Card';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-import { setMember } from '../rtk-files/memberSlice';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { setMember } from '../rtk-files/memberSlice';
 import { ListCardButton } from './ListCardButton';
+import SaveButton from './SaveButton';
+
 
 
 export function ListCard(props) {
 
     const card = props.card;
+
     const dispatch = useDispatch();
 
     let navigate = useNavigate();
@@ -52,6 +56,9 @@ export function ListCard(props) {
                         Age: {card.dob.age}
                     </Typography>
                 </CardContent>
+                <CardActions>
+                    <SaveButton card={card} />
+                </CardActions>
             </Card >
         </>
     );

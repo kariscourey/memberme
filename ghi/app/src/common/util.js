@@ -137,3 +137,11 @@ export async function getInstancesFromManyRequests(urls) {
   return obj;
 
 }
+
+export function preventDefault(callback, selector) {
+  selector = selector || (x => x);
+  return event => {
+      event.preventDefault();
+      callback(selector(event));
+  };
+}

@@ -4,6 +4,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { UhOh } from './UhOh';
 import { Grid } from '@mui/material';
+import SaveButton from './SaveButton';
+import CardActions from '@mui/material/CardActions';
+
 
 
 export function DetailCard(props) {
@@ -54,6 +57,9 @@ export function DetailCard(props) {
                             </Typography>
                         </Typography>
                     </CardContent >
+                    <CardActions>
+                        <SaveButton card={card} />
+                    </CardActions>
                 </Card >
             </> :
             <UhOh uhOhType="returnHome" />
