@@ -14,6 +14,7 @@ class SavedMemberIn(BaseModel):
     state: str
     postcode: str
     thumbnail: str
+    large: str
     dob_date: str
     phone: str
     uuid: str
@@ -31,6 +32,7 @@ class SavedMemberOut(BaseModel):
     state: str
     postcode: str
     thumbnail: str
+    large: str
     dob_date: str
     phone: str
     uuid: str
@@ -60,6 +62,7 @@ class SavedMemberQueries:
                         state,
                         postcode,
                         thumbnail,
+                        large,
                         dob_date,
                         phone,
                         uuid
@@ -92,6 +95,7 @@ class SavedMemberQueries:
                         state,
                         postcode,
                         thumbnail,
+                        large,
                         dob_date,
                         phone,
                         uuid
@@ -106,7 +110,7 @@ class SavedMemberQueries:
                     results.append(record)
                 return results
 
-    def create_or_update_saved_member(self, data: SavedMemberIn) -> SavedMemberOut:
+    def create_or_update_saved_member(self, data: SavedMemberIn) -> SavedMemberOut:  # noqa 52
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
@@ -120,6 +124,7 @@ class SavedMemberQueries:
                     data.state,
                     data.postcode,
                     data.thumbnail,
+                    data.large,
                     data.dob_date,
                     data.phone,
                     data.uuid,
@@ -137,11 +142,12 @@ class SavedMemberQueries:
                         state,
                         postcode,
                         thumbnail,
+                        large,
                         dob_date,
                         phone,
                         uuid
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (uuid, email) DO UPDATE
                       SET thumbnail=(EXCLUDED.thumbnail)
                     RETURNING id,
@@ -155,6 +161,7 @@ class SavedMemberQueries:
                         state,
                         postcode,
                         thumbnail,
+                        large,
                         dob_date,
                         phone,
                         uuid

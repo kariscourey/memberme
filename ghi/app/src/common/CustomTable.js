@@ -16,10 +16,10 @@ import TableRow from '@mui/material/TableRow';
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setMember } from '../rtk-files/memberSlice';
-import { useLazyGetSavedMemberQuery, useDeleteSavedMemberMutation } from '../rtk-files/savedMembersApi';
+import { useDeleteSavedMemberMutation, useLazyGetSavedMemberQuery } from '../rtk-files/savedMembersApi';
 import { ListCardButton } from './ListCardButton';
 import { preventDefault } from './util';
 
@@ -92,11 +92,11 @@ export function CustomTable(props) {
     const rows = props.rows;
 
     const [deleteSavedMember] = useDeleteSavedMemberMutation();
-    const [triggerSavedMember, { data: savedMemberData }] = useLazyGetSavedMemberQuery();
+    const { queries: savedMembersQueries } = useSelector(state => state.savedMembers);
 
     const dispatch = useDispatch();
-
     let navigate = useNavigate();
+
     const routeChange = (value) => {
         let path = `/members/${value}`;
         navigate(path);
@@ -104,35 +104,34 @@ export function CustomTable(props) {
 
     const handleClick = async (e) => {
 
-        triggerSavedMember(e.target.value);
-
-        const savedMember = savedMemberData?.saved_member[0];
+        const savedMember = savedMembersQueries[`getSavedMembers(undefined)`]?.data?.saved_members.find(element => element.uuid === e.target.value);
 
         const card = {
             name: {
-                first: savedMember.name_first,
-                last: savedMember.name_last,
+                first: savedMember?.name_first,
+                last: savedMember?.name_last,
             },
             location: {
                 street: {
-                    number: savedMember.street_number,
-                    name: savedMember.street_name,
+                    number: savedMember?.street_number,
+                    name: savedMember?.street_name,
                 },
-                city: savedMember.city,
-                state: savedMember.state,
-                postcode: savedMember.postcode,
+                city: savedMember?.city,
+                state: savedMember?.state,
+                postcode: savedMember?.postcode,
             },
-            email: savedMember.email,
+            email: savedMember?.email,
             login: {
-                uuid: savedMember.uuid,
+                uuid: savedMember?.uuid,
             },
             dob: {
-                date: savedMember.dob_date,
-                age: savedMember.dob_age,
+                date: savedMember?.dob_date,
+                age: savedMember?.dob_age,
             },
-            phone: savedMember.phone,
+            phone: savedMember?.phone,
             picture: {
-                thumbnail: savedMember.thumbnail
+                thumbnail: savedMember?.thumbnail,
+                large: savedMember?.large
             },
         }
 
@@ -168,17 +167,18 @@ export function CustomTable(props) {
                             </TableCell>
                             <TableCell>
                                 <ListCardButton value={row.uuid} onClick={handleClick} >
-                                    {row.first_name} {row.last_name}
+                                    {row.name_first} {row.name_last}
                                 </ListCardButton>
                             </TableCell>
                             <TableCell>
-                                {row.age}
+                                {row.dob_age}
                             </TableCell>
                             <TableCell>
                                 {row.email}
                             </TableCell>
                             <TableCell>
-                                {row.postal_address}
+                                {row.street_number} {row.street_name}<br />
+                                {row.city}, {row.state} {row.postcode}
                             </TableCell>
                             <TableCell>
                                 {row.phone}

@@ -13,6 +13,8 @@ export function DetailCard(props) {
 
     const card = props.card;
 
+    console.log(card);
+
     return (
         card?.picture?.large ?
             <>

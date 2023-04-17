@@ -15,6 +15,7 @@ steps = [
             state VARCHAR(50) NOT NULL,
             postcode VARCHAR(50) NOT NULL,
             thumbnail VARCHAR(200) NOT NULL,
+            large VARCHAR(200) NOT NULL,
             phone VARCHAR(50) NOT NULL,
             uuid VARCHAR(50) UNIQUE NOT NULL,
             CONSTRAINT check_email_uuid UNIQUE (email, uuid)

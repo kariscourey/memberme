@@ -17,8 +17,8 @@ export function ListCard(props) {
     const card = props.card;
 
     const dispatch = useDispatch();
-
     let navigate = useNavigate();
+
     const routeChange = (value) => {
         let path = `/members/${value}`;
         navigate(path);
