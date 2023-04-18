@@ -90,7 +90,7 @@ export default function MainPage() {
                         noValidate sx={{ mt: 1 }}>
                         <TextField
                             id="standard-filter"
-                            label="Enter first or last name"
+                            label="Filter by name"
                             variant="standard"
                             onChange={e => setFilterInput(e.target.value)}
                             value={filterInput}
