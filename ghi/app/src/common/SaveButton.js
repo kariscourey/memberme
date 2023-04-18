@@ -1,20 +1,27 @@
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
-import * as React from 'react';
+import { forwardRef, useState } from 'react';
 import { useCreateOrUpdateSavedMemberMutation } from '../rtk-files/savedMembersApi';
 import MuiAlert from '@mui/material/Alert';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
+// define Alert per MuiAlert
+const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function SaveButton(props) {
-    const [open, setOpen] = React.useState(false);
 
+    // initialize state
+    const [open, setOpen] = useState(false);
+
+    // initialize card per props
     const card = props.card;
+
+    // initialize rtk mutation
     const [createOrUpdateSavedMember] = useCreateOrUpdateSavedMemberMutation();
 
+    // click handler (API call)
     const handleClick = (e) => {
         e.preventDefault();
         createOrUpdateSavedMember(
@@ -38,14 +45,15 @@ export default function SaveButton(props) {
         setOpen(true);
     };
 
+    // close handler
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpen(false);
     };
 
+    // render SaveButton
     return (
         <>
             <IconButton size="small" onClick={handleClick}>

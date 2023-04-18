@@ -1,12 +1,14 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { ListCard } from './ListCard';
+import ListCard from './ListCard';
 
 
 export function CardList(props) {
 
+    // initialize cards
     const cards = props.cards;
 
+    // render CardList
     return (
         <Container sx={{ py: 8 }}>
             <Grid container spacing={4}>

@@ -1,18 +1,19 @@
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { UhOh } from './UhOh';
-import { Grid } from '@mui/material';
 import SaveButton from './SaveButton';
-import CardActions from '@mui/material/CardActions';
-
+import UhOh from './UhOh';
 
 
 export function DetailCard(props) {
 
+    // initialize card from props
     const card = props.card;
 
+    // render DetailCard
     return (
         card?.picture?.large ?
             <>

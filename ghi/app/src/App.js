@@ -2,14 +2,16 @@ import Container from '@mui/material/Container';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './MainPage';
 import MemberMeNav from './Nav';
-import { UhOh } from './common/UhOh';
+import UhOh from './common/UhOh';
 import Member from './components/Member';
 import SavedMembersList from './components/SavedMembersList';
 
+// define domain, basename for deployment
 const domain = /https:\/\/[^/]+/;
 const basename = process.env.PUBLIC_URL.replace(domain, '');
 
-function App() {
+export default function App() {
+    // render BrowserRouter
     return (
         <BrowserRouter basename={basename}>
             <MemberMeNav />
@@ -31,5 +33,3 @@ function App() {
         </BrowserRouter>
     );
 }
-
-export default App;

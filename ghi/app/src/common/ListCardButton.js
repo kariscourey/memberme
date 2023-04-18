@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
+// stylize ListCardButton
 export const ListCardButton = styled(Button)({
     boxShadow: 'none',
     textTransform: 'none',

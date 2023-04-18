@@ -6,9 +6,11 @@ from queries.saved_members import (
 )
 
 
+# initialize router
 router = APIRouter()
 
 
+# get saved member router (one item)
 @router.get("/api/saved_members/{saved_member_uuid}/")  # noqa 52
 def get_saved_member(
     saved_member_uuid: str,
@@ -19,6 +21,7 @@ def get_saved_member(
     }
 
 
+# get saved members router (list)
 @router.get("/api/saved_members")
 def get_all_saved_members(
     queries: SavedMemberQueries = Depends(),
@@ -28,6 +31,7 @@ def get_all_saved_members(
     }
 
 
+# create or update saved member router
 @router.post("/api/saved_members/", response_model=SavedMemberOut)
 def create_or_update_saved_member(
     member_in: SavedMemberIn,
@@ -36,6 +40,7 @@ def create_or_update_saved_member(
     return queries.create_or_update_saved_member(member_in)
 
 
+# delete saved member router
 @router.delete("/api/saved_members/{saved_member_uuid}", response_model=bool)
 def delete_saved_member(
     saved_member_uuid: str,

@@ -6,8 +6,10 @@ import Box from '@mui/material/Box';
 
 export default function Member() {
 
+    // initialize card with state from memberSlice
     const { card } = useSelector(state => state.memberSlice);
 
+    // render Member (profile/card)
     return (
         <>
             {

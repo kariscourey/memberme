@@ -1,38 +1,63 @@
 import Face2Icon from '@mui/icons-material/Face2';
+import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const pages = ['home', 'saved'];
+// initialize pages
+const pages = ['Home', 'Saved'];
 
 export default function ResponsiveAppBar() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
 
+    // define route mechanism
     let navigate = useNavigate();
 
     const routeChange = (value) => {
 
         let path = `/`;
 
-        if (value != "home") {
-            path = `/${value}`;
+        if (value.toLowerCase() !== "home") {
+            path = `/${value.toLowerCase()}`;
         }
 
         navigate(path);
     }
 
+
+    // navigate to path based on navbar interface
     const handleNavClick = async (e) => {
-        routeChange(e.target.value);
-        setAnchorElNav(null);
+
+        if (e.target.value) {
+            routeChange(e.target.value);
+            setAnchorElNav(null);
+        }
+        else {
+            const { myValue } = e.currentTarget.dataset;
+            routeChange(myValue);
+            setAnchorElNav(null);
+        }
     }
 
+    // handle open nav menu
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+
+    // handle close nav menu
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    // render ResponsiveAppBar
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -57,7 +82,15 @@ export default function ResponsiveAppBar() {
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-
+                        <IconButton
+                            size="large"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -71,13 +104,13 @@ export default function ResponsiveAppBar() {
                                 horizontal: 'left',
                             }}
                             open={Boolean(anchorElNav)}
-                            onClose={handleNavClick}
+                            onClose={handleCloseNavMenu}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleNavClick} value={page}>
+                                <MenuItem key={page} onClick={handleNavClick} data-my-value={page}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -88,7 +121,7 @@ export default function ResponsiveAppBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="/"
+                        href=""
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -104,19 +137,13 @@ export default function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleNavClick}
-                                value={page}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
+                            <Button key={page} onClick={handleNavClick} value={page} sx={{ my: 2, color: 'white', display: 'block' }}>
                                 {page}
                             </Button>
                         ))}
                     </Box>
-
                 </Toolbar>
             </Container>
         </AppBar>
     );
-};
+}

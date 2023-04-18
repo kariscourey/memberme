@@ -1,23 +1,24 @@
+import ClearIcon from '@mui/icons-material/Clear';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from "react";
 import { CardList } from './common/CardList';
-import { getRandomUsers } from './common/util';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import ClearIcon from '@mui/icons-material/Clear';
-import { UhOh } from './common/UhOh';
 import { Loading } from './common/Loading';
+import UhOh from './common/UhOh';
+import { getRandomUsers } from './common/util';
 
 
 export default function MainPage() {
 
+    // initialize filter consts
     const [filterInput, setFilterInput] = useState("");
-
     const [filterClick, setFilterClick] = useState(false);
 
+    // initialize data
     const [loadData, setLoadData] = useState(
         {
             members: {},
@@ -25,11 +26,12 @@ export default function MainPage() {
         }
     );
 
+    // handle filter based on user input
     const handleFilter = async (e) => {
 
         e.preventDefault();
 
-        if (filterInput && filterInput != "") {
+        if (filterInput && filterInput !== "") {
 
             let data = [...loadData.members];
 
@@ -41,7 +43,6 @@ export default function MainPage() {
             setLoadData({
                 ...loadData, filteredMembers: data
             });
-
             setFilterClick(true);
         }
 
@@ -49,13 +50,11 @@ export default function MainPage() {
             setLoadData({
                 ...loadData, filteredMembers: loadData.members
             });
-
             setFilterClick(false);
         }
-
-
     }
 
+    // handle clear filter based on user input
     const handleClear = async (e) => {
 
         e.preventDefault();
@@ -65,28 +64,25 @@ export default function MainPage() {
         });
 
         setFilterInput("");
-
         setFilterClick(false);
-
     }
 
+    // initialize component with random user instances
     useEffect(() => {
         const fetchMembers = async () => {
 
             let data = {};
             data.members = (await getRandomUsers()).results;
             data.filteredMembers = data.members;
-
             setLoadData(data);
-
         }
         fetchMembers();
     }, []);
 
+    // render MainPage (filter, cards)
     return (
         <>
             <Container>
-                {/* optimization: turn into a component, utilize React Redux for cross-component state compatability  */}
                 <FormControl className="flex-form">
                     <Box component="form"
                         method="post"
@@ -100,13 +96,13 @@ export default function MainPage() {
                             value={filterInput}
                             sx={{ mt: 1.8, ml: 2.5 }}
                         />
-                        <Button
+                        <IconButton
                             type="submit"
                             variant="contained"
                             size="small"
                             sx={{ mt: 3.5, ml: 2 }}>
                             <FilterAltIcon />
-                        </Button>
+                        </IconButton>
                     </Box>
                 </FormControl>
                 <FormControl className="flex-form">
@@ -114,22 +110,22 @@ export default function MainPage() {
                         method="post"
                         onSubmit={handleClear}
                         noValidate sx={{ mt: 1 }}>
-                        <Button
+                        <IconButton
                             type="submit"
                             variant="contained"
                             size="small"
                             sx={{ mt: 3.5, ml: 1 }}>
                             <ClearIcon />
-                        </Button>
+                        </IconButton>
                     </Box>
                 </FormControl>
             </Container>
             <Container>
                 {
-                    (Object.keys(loadData.filteredMembers).length == 0) ?
-                        filterClick == true ?
-                        <UhOh uhOhType="noData"/> :
-                        <Loading /> :
+                    (Object.keys(loadData.filteredMembers).length === 0) ?
+                        filterClick === true ?
+                            <UhOh uhOhType="noData" /> :
+                            <Loading /> :
                         <CardList cards={loadData?.filteredMembers} />
                 }
             </Container>

@@ -4,10 +4,12 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 
-export function UhOh(props) {
+export default function UhOh(props) {
 
+    // initialize uhOhType per props
     const uhOhType = props.uhOhType;
 
+    // render UhOh (error message)
     return (
         <Container component="main" maxWidth="sm">
             <Box
@@ -17,7 +19,7 @@ export function UhOh(props) {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                {uhOhType == "noData" ?
+                {uhOhType === "noData" ?
                     <><Typography variant="h2">Uh oh...</Typography><br /><Typography variant="body1">No data to show.</Typography></> :
                     <><Typography variant="h2">Uh oh...</Typography><br /><Typography variant="body1">This page doesn't exist.<br />Why don't you return <Link href="/">home</Link>, friend?</Typography></>
                 }

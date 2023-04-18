@@ -15,7 +15,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setMember } from '../rtk-files/memberSlice';
@@ -27,22 +27,27 @@ function TablePaginationActions(props) {
     const theme = useTheme();
     const { count, page, rowsPerPage, onPageChange } = props;
 
+    // first page click handler
     const handleFirstPageButtonClick = (event) => {
         onPageChange(event, 0);
     };
 
+    // back button click handler
     const handleBackButtonClick = (event) => {
         onPageChange(event, page - 1);
     };
 
+    // first next button click handler
     const handleNextButtonClick = (event) => {
         onPageChange(event, page + 1);
     };
 
+    // last page button click handler
     const handleLastPageButtonClick = (event) => {
         onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
     };
 
+    // render TablePaginationActions
     return (
         <Box sx={{ flexShrink: 0, ml: 2.5 }}>
             <IconButton
@@ -77,6 +82,7 @@ function TablePaginationActions(props) {
     );
 }
 
+// define pagination actions
 TablePaginationActions.propTypes = {
     count: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
@@ -87,13 +93,17 @@ TablePaginationActions.propTypes = {
 
 
 export function CustomTable(props) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    // initialize state, rows
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
     const rows = props.rows;
 
+    // configure rtk consts
     const [deleteSavedMember] = useDeleteSavedMemberMutation();
     const { queries: savedMembersQueries } = useSelector(state => state.savedMembers);
 
+    // navigate to path based on input value
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
@@ -102,10 +112,13 @@ export function CustomTable(props) {
         navigate(path);
     }
 
+    // click handler
     const handleClick = async (e) => {
 
+        // get savedMember from queries (rtk)
         const savedMember = savedMembersQueries[`getSavedMembers(undefined)`]?.data?.saved_members.find(element => element.uuid === e.target.value);
 
+        // build card
         const card = {
             name: {
                 first: savedMember?.name_first,
@@ -135,24 +148,30 @@ export function CustomTable(props) {
             },
         }
 
+        // dispatch card to store (memberSlice)
         dispatch(setMember(card));
+
+        // change route (pseudoroute)
         routeChange(e.target.value);
 
     }
 
-    // Avoid a layout jump when reaching the last page with empty rows.
+    // avoid layout jump when reaching the last page with empty rows
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+    // change page handler
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
+    // rows per page handler
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
+    // render CustomTable
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
