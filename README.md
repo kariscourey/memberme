@@ -2,7 +2,7 @@
 Membership-management solution. Features FastAPI, React (stylized with [Material UI](https://mui.com/material-ui/)), and data interactions via RESTful APIs.
 
 [Front-end](https://kariscourey.gitlab.io/memberme/) deployed via GitLab pages. <br/>
-[Back-end](https://memberme.onrender.com/docs) deployed via Render.
+[Back-end](https://memberme-api.onrender.com/docs) deployed via Render.
 
 
 ## Design
