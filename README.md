@@ -21,7 +21,7 @@ Individuals and teams seeking to view and manage members.
 
 ## Testing
 Testing was completed using the FastAPI interface. </br>
-Sample test may be found in `api/tests`.
+Sample tests may be found in `api/tests`.
 
 
 ## Project Initialization
@@ -34,7 +34,7 @@ Ensure <b>Docker</b> is installed and follow these steps:
 4. Run `docker volume create memberme`
 5. Run `docker compose build`
 6. Run `docker compose up`
-    - `.env` file is included in project repository for quick setup. It is not typically suggested to include this file to the repository.
+    - `.env` file is included in project repository for quick set up. It is not typically suggested to include this file to the repository.
 7. Navigate to `localhost:3000` in your browser to view front-end UI
 8. Navigate to `localhost:8000/docs` in your browser to view back-end UI
 
